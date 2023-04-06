@@ -20,7 +20,7 @@ class SliderHeader extends StatelessWidget {
                 child: Image(
                     fit: BoxFit.cover,
                     height: 200,
-                    image: AssetImage('assets/$image')));
+                    image: AssetImage('assets/images/$image')));
           },
         );
       }).toList(),
