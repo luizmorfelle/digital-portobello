@@ -23,7 +23,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
                     IconButton(
                       iconSize: 50,
                       hoverColor: Colors.white,
-                      splashColor: Colors.red,
+                      tooltip: 'Home',
                       icon: const Icon(Icons.house),
                       onPressed: () {},
                     )
@@ -38,7 +38,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
           const Image(
               fit: BoxFit.contain,
               height: 200,
-              image: AssetImage('assets/PORTOBELLO_LOGO_PRETO.png')),
+              image: AssetImage('assets/images/PORTOBELLO_LOGO_PRETO.png')),
           const Icon(Icons.favorite)
         ],
       ),
