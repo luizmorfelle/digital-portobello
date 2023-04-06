@@ -4,9 +4,14 @@ import 'package:flutter/material.dart';
 
 import '../widgets/slider_header.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     List<String> images = List.of([
@@ -18,57 +23,65 @@ class HomePage extends StatelessWidget {
 
     return MaterialApp(
       title: 'Flutter layout demo',
-      theme: ThemeData(primarySwatch: Colors.grey, fontFamily: 'Helvetica'),
+      theme: ThemeData(
+        brightness: Brightness.light,
+        primaryColor: Colors.white,
+        fontFamily: 'Helvetica',
+      ),
       home: Scaffold(
           appBar: const Header(),
           body: Column(
             children: [
               SliderHeader(images: images),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  children: [
-                    const Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          suffixIcon: Icon(Icons.search),
-                          hintText: 'Buscar',
+              SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      const Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                        child: TextField(
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            suffixIcon: Icon(Icons.search),
+                            hintText: 'Buscar',
+                          ),
                         ),
                       ),
-                    ),
-                    CarouselSlider(
-                      options: CarouselOptions(
-                          height: 200.0,
-                          animateToClosest: false,
-                          viewportFraction: 0.2,
-                          enableInfiniteScroll: false),
-                      items: images.map((image) {
-                        return Builder(
-                          builder: (BuildContext context) {
-                            return Card(
-                              child: Wrap(
-                                children: [
-                                  Container(
-                                      margin: const EdgeInsets.symmetric(
-                                          horizontal: 5.0),
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey,
-                                      ),
-                                      child: Image(
-                                          fit: BoxFit.cover,
-                                          image: AssetImage('assets/$image'))),
-                                  Text("Ambiente")
-                                ],
-                              ),
-                            );
-                          },
-                        );
-                      }).toList(),
-                    )
-                  ],
+                      Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text('ESCOLHA OU SIMULE SEU AMBIENTE'),
+                              DropdownButton<String>(
+                                value: dropdownValue,
+                                elevation: 10,
+                                underline: Container(
+                                  height: 2,
+                                  color: Colors.deepPurpleAccent,
+                                ),
+                                onChanged: (String? value) {
+                                  // This is called when the user selects an item.
+                                  setState(() {
+                                    dropdownValue = value!;
+                                  });
+                                },
+                                items: list.map<DropdownMenuItem<String>>(
+                                    (String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                              )
+                            ],
+                          ),
+                          Row()
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               )
             ],
