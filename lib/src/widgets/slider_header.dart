@@ -8,8 +8,12 @@ class SliderHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
-      options:
-          CarouselOptions(height: 400.0, initialPage: 1, viewportFraction: 0.9),
+      options: CarouselOptions(
+          height: 300.0,
+          initialPage: 1,
+          viewportFraction: 1,
+          autoPlay: true,
+          enlargeCenterPage: true),
       items: images.map((image) {
         return Builder(
           builder: (BuildContext context) {

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:digital_portobello/src/pages/enviroment_page.dart';
 import 'package:digital_portobello/src/pages/home_page.dart';
 import 'package:digital_portobello/src/config/firebase_options.dart';
 import 'package:flutter/material.dart';
@@ -27,10 +28,18 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Main",
+      title: 'Digital',
+      theme: ThemeData(
+          brightness: Brightness.light,
+          primaryColor: Colors.white,
+          fontFamily: 'Helvetica',
+          textTheme: Theme.of(context).textTheme.copyWith(
+              headlineLarge: const TextStyle(
+                  color: Colors.black, fontWeight: FontWeight.bold))),
       initialRoute: '/',
       routes: {
         '/': (context) => const HomePage(),
+        '/enviroment': (context) => const EnviromentPage()
       },
     );
   }

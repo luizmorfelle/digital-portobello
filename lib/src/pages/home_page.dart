@@ -1,9 +1,10 @@
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:digital_portobello/src/widgets/header.dart';
-import 'package:flutter_breadcrumb/flutter_breadcrumb.dart';
+import 'package:digital_portobello/src/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_breadcrumb/flutter_breadcrumb.dart';
 
+import '../widgets/custom_drawer.dart';
 import '../widgets/slider_header.dart';
+import '../widgets/slider_items.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,168 +23,90 @@ class _HomePageState extends State<HomePage> {
       "VERANO_CIELO_BANNER_GRANDE.jpg"
     ]);
 
-    return MaterialApp(
-      title: 'Flutter layout demo',
-      theme: ThemeData(
-        brightness: Brightness.light,
-        primaryColor: Colors.white,
-        fontFamily: 'Helvetica',
-      ),
-      home: Scaffold(
-          appBar: const Header(),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                SliderHeader(images: images),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 16),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            suffixIcon: Icon(Icons.search),
-                            hintText: 'Buscar',
-                          ),
+    return Scaffold(
+        appBar: const CustomAppBar(),
+        drawer: const CustomDrawer(),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              SliderHeader(images: images),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          suffixIcon: Icon(Icons.search),
+                          hintText: 'Buscar',
                         ),
                       ),
-                      SizedBox(
-                        width: 500,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("ESCOLHA OU SIMULE SEU AMBIENTE"),
-                            SizedBox(
-                              width: 200,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  DropdownButton<String>(
-                                    value: 'Residencial',
-                                    items: <String>[
-                                      'Residencial',
-                                      'Comercial',
-                                      'Ver Todos'
-                                    ].map((String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Text(value),
-                                      );
-                                    }).toList(),
-                                    onChanged: (_) {},
-                                  ),
-                                  DropdownButton<String>(
-                                    value: 'Piso',
-                                    items: <String>['Piso', 'Parede']
-                                        .map((String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Text(value),
-                                      );
-                                    }).toList(),
-                                    onChanged: (_) {},
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            BreadCrumb(
-                              items: <BreadCrumbItem>[
-                                BreadCrumbItem(content: Text('Residencial')),
-                                BreadCrumbItem(content: Text('Piso')),
-                              ],
-                              divider: Icon(Icons.chevron_right),
-                            ),
-                            ElevatedButton.icon(
-                                onPressed: () => {},
-                                icon: Icon(Icons.sync_alt),
-                                label: Text("Ver Todos")),
-                          ]),
-                      CarouselSlider(
-                        options: CarouselOptions(
-                            height: 220.0,
-                            animateToClosest: false,
-                            initialPage: 2,
-                            viewportFraction: 0.2,
-                            enableInfiniteScroll: false),
-                        items: images.map((image) {
-                          return Builder(
-                            builder: (BuildContext context) {
-                              return Card(
-                                child: Padding(
-                                  padding: EdgeInsets.all(10),
-                                  child: Wrap(
-                                    direction: Axis.vertical,
-                                    children: [
-                                      Container(
-                                          child: Image(
-                                              fit: BoxFit.cover,
-                                              width: 300,
-                                              image: AssetImage(
-                                                  'assets/images/$image'))),
-                                      Padding(
-                                          padding:
-                                              EdgeInsets.symmetric(vertical: 5),
-                                          child: Text("Ambiente"))
-                                    ],
-                                  ),
+                    ),
+                    Text(
+                      "ESCOLHA OU SIMULE SEU AMBIENTE",
+                      style: Theme.of(context).textTheme.headlineLarge,
+                    ),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Wrap(
+                              crossAxisAlignment: WrapCrossAlignment.center,
+                              spacing: 20,
+                              children: [
+                                BreadCrumb(
+                                  items: <BreadCrumbItem>[
+                                    BreadCrumbItem(
+                                        content: const Text('Residencial')),
+                                    BreadCrumbItem(content: const Text('Piso')),
+                                  ],
+                                  divider: const Icon(Icons.chevron_right),
                                 ),
-                              );
-                            },
-                          );
-                        }).toList(),
-                      ),
-                      CarouselSlider(
-                        options: CarouselOptions(
-                            height: 220.0,
-                            animateToClosest: false,
-                            initialPage: 2,
-                            viewportFraction: 0.2,
-                            enableInfiniteScroll: false),
-                        items: images.map((image) {
-                          return Builder(
-                            builder: (BuildContext context) {
-                              return Card(
-                                child: Padding(
-                                  padding: EdgeInsets.all(10),
-                                  child: Wrap(
-                                    direction: Axis.vertical,
-                                    children: [
-                                      Container(
-                                          child: Image(
-                                              fit: BoxFit.cover,
-                                              width: 300,
-                                              image: AssetImage(
-                                                  'assets/images/$image'))),
-                                      Padding(
-                                          padding:
-                                              EdgeInsets.symmetric(vertical: 5),
-                                          child: Text("Ambiente"))
-                                    ],
-                                  ),
+                                DropdownButton<String>(
+                                  value: 'Residencial',
+                                  items: <String>[
+                                    'Residencial',
+                                    'Comercial',
+                                    'Ver Todos'
+                                  ].map((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                  onChanged: (_) {},
                                 ),
-                              );
-                            },
-                          );
-                        }).toList(),
-                      ),
-                    ],
-                  ),
+                                DropdownButton<String>(
+                                  value: 'Piso',
+                                  items: <String>['Piso', 'Parede']
+                                      .map((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                  onChanged: (_) {},
+                                )
+                              ]),
+                          ElevatedButton.icon(
+                              onPressed: () => {},
+                              icon: const Icon(Icons.sync_alt),
+                              label: const Text("Ver Todos")),
+                        ]),
+                    SliderItems(images: images),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    SliderItems(images: images),
+                  ],
                 ),
-                SliderHeader(images: images),
-              ],
-            ),
-          )),
-    );
+              ),
+              SliderHeader(images: images),
+            ],
+          ),
+        ));
   }
 }
