@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({
@@ -34,7 +35,7 @@ class CustomDrawer extends StatelessWidget {
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               iconColor: Colors.black,
-              onTap: () {},
+              onTap: () => context.push('/tech-search'),
             ),
             ListTile(
               contentPadding:
@@ -45,7 +46,7 @@ class CustomDrawer extends StatelessWidget {
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               iconColor: Colors.black,
-              onTap: () {},
+              onTap: () => context.push('/all-spaces'),
             ),
             ListTile(
               contentPadding:

@@ -6,10 +6,8 @@ import 'package:flutter_breadcrumb/flutter_breadcrumb.dart';
 
 import '../widgets/slider_items.dart';
 
-class EnviromentPage extends StatelessWidget {
-  final id;
-
-  const EnviromentPage({Key? key, this.id}) : super(key: key);
+class SpacesListPage extends StatelessWidget {
+  const SpacesListPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +44,8 @@ class EnviromentPage extends StatelessWidget {
                             label: Text('Voltar'))
                       ],
                     ),
+
+                    //create a breadcrumb widget
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -59,7 +59,6 @@ class EnviromentPage extends StatelessWidget {
                             divider: const Icon(Icons.chevron_right),
                           ),
                         ]),
-                    SliderItems(images: images),
                   ],
                 ),
               ),

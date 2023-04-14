@@ -1,10 +1,9 @@
 import 'dart:developer';
 
-import 'package:digital_portobello/src/pages/enviroment_page.dart';
-import 'package:digital_portobello/src/pages/home_page.dart';
+import 'package:digital_portobello/routes.dart';
 import 'package:digital_portobello/src/config/firebase_options.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 
 void main() {
   init();
@@ -27,8 +26,9 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Digital',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
           brightness: Brightness.light,
           primaryColor: Colors.white,
@@ -36,11 +36,7 @@ class MainApp extends StatelessWidget {
           textTheme: Theme.of(context).textTheme.copyWith(
               headlineLarge: const TextStyle(
                   color: Colors.black, fontWeight: FontWeight.bold))),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const HomePage(),
-        '/enviroment': (context) => const EnviromentPage()
-      },
+      routerConfig: routes,
     );
   }
 }
