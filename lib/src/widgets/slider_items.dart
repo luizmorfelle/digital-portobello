@@ -18,7 +18,7 @@ class SliderItems extends StatelessWidget {
           height: 350.0,
           initialPage: 2,
           animateToClosest: false,
-          viewportFraction: 0.3,
+          viewportFraction: 0.2,
           enableInfiniteScroll: false),
       items: itens.map((item) {
         return Builder(
