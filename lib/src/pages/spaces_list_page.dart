@@ -1,4 +1,4 @@
-import 'package:digital_portobello/src/models/material.dart';
+import 'package:digital_portobello/mock.dart';
 import 'package:digital_portobello/src/widgets/custom_app_bar.dart';
 import 'package:digital_portobello/src/widgets/custom_drawer.dart';
 import 'package:digital_portobello/src/widgets/slider_header.dart';
@@ -17,53 +17,6 @@ class SpacesListPage extends StatelessWidget {
       "GAIA_JADE_BANNER_GRANDE.jpg",
       "MALIBU_LAKE_BANNER_GRANDE.jpg",
       "VERANO_CIELO_BANNER_GRANDE.jpg"
-    ]);
-    List<MaterialModel> materiais = List.of([
-      MaterialModel(
-        id: 1,
-        imagem: 'assets/images/materiais/concreto.jpg',
-        nome: 'Concreto',
-      ),
-      MaterialModel(
-        id: 2,
-        imagem: 'assets/images/materiais/madeira.jpg',
-        nome: 'Madeira',
-      ),
-      MaterialModel(
-        id: 3,
-        imagem: 'assets/images/materiais/pedra.jpg',
-        nome: 'Pedra',
-      ),
-      MaterialModel(
-        id: 4,
-        imagem: 'assets/images/materiais/argila.jpg',
-        nome: 'Argila',
-      ),
-      MaterialModel(
-        id: 5,
-        imagem: 'assets/images/materiais/metal.jpg',
-        nome: 'Metal',
-      ),
-      MaterialModel(
-        id: 6,
-        imagem: 'assets/images/materiais/marmore.jpg',
-        nome: 'Mármore',
-      ),
-      MaterialModel(
-        id: 7,
-        imagem: 'assets/images/materiais/terrazzo.jpg',
-        nome: 'Terrazzo',
-      ),
-      MaterialModel(
-        id: 8,
-        imagem: 'assets/images/materiais/sintetico.jpg',
-        nome: 'Sintético',
-      ),
-      MaterialModel(
-        id: 9,
-        imagem: 'assets/images/materiais/quartzites.jpg',
-        nome: 'Quartzites',
-      ),
     ]);
 
     return Scaffold(
@@ -108,7 +61,7 @@ class SpacesListPage extends StatelessWidget {
                           ),
                         ]),
                     SliderItems(
-                      itens: materiais,
+                      itens: Mock().ambientes,
                     ),
                   ],
                 ),

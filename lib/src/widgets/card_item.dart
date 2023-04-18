@@ -10,7 +10,7 @@ class CardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => context.push('/spaces'),
+      onTap: () => context.push('/${cardItem.path}'),
       child: Card(
         elevation: 3,
         child: Padding(
