@@ -7,8 +7,6 @@ import '../widgets/custom_drawer.dart';
 import '../widgets/slider_header.dart';
 import '../widgets/slider_items.dart';
 
-import '../models/material.dart';
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 

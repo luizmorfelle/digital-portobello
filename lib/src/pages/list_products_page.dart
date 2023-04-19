@@ -3,7 +3,6 @@ import 'package:digital_portobello/src/widgets/custom_app_bar.dart';
 import 'package:digital_portobello/src/widgets/custom_drawer.dart';
 import 'package:digital_portobello/src/widgets/slider_header.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_breadcrumb/flutter_breadcrumb.dart';
 
 class ListProductsPage extends StatelessWidget {
   const ListProductsPage({Key? key}) : super(key: key);
@@ -11,28 +10,18 @@ class ListProductsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: const CustomAppBar(),
-        drawer: const CustomDrawer(),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
+      appBar: const CustomAppBar(),
+      drawer: const CustomDrawer(),
+      body: Column(
+        children: [
+          SingleChildScrollView(
+            child: Column(children: [
               SliderHeader(images: Mock().images),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          suffixIcon: Icon(Icons.search),
-                          hintText: 'Buscar',
-                        ),
-                      ),
-                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -49,17 +38,21 @@ class ListProductsPage extends StatelessWidget {
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: TextField(
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                suffixIcon: Icon(Icons.search),
-                                hintText: 'Buscar',
+                          const SizedBox(
+                            width: 700,
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 8.0),
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  suffixIcon: Icon(Icons.search),
+                                  hintText: 'Buscar',
+                                ),
                               ),
                             ),
                           ),
                           Wrap(
+                            spacing: 20,
                             children: [
                               DropdownButton<String>(
                                 value: 'Residencial',
@@ -91,9 +84,33 @@ class ListProductsPage extends StatelessWidget {
                         ]),
                   ],
                 ),
-              ),
-            ],
+              )
+            ]),
           ),
-        ));
+          Expanded(
+            child: CustomScrollView(slivers: [
+              SliverGrid(
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 500.0,
+                  mainAxisSpacing: 10.0,
+                  crossAxisSpacing: 10.0,
+                  childAspectRatio: 1.0,
+                ),
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                    return Container(
+                      alignment: Alignment.center,
+                      color: Colors.teal[100 * (index % 9)],
+                      child: Text('grid item $index'),
+                    );
+                  },
+                  childCount: 40,
+                ),
+              )
+            ]),
+          ),
+        ],
+      ),
+    );
   }
 }
