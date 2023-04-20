@@ -20,19 +20,16 @@ class CardItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             direction: Axis.vertical,
             children: [
-              Container(
+              Expanded(
                 child: Image.asset(
                   cardItem.imagem,
-                  height: 290,
-                  width: 300,
+                  width: double.infinity,
                   fit: BoxFit.fill,
                 ),
               ),
-              Container(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 4),
-                  child: Text(cardItem.nome),
-                ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: Text(cardItem.nome),
               )
             ],
           ),

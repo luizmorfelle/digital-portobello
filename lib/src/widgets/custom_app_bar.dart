@@ -51,7 +51,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             onTap: () {},
             badgeContent: Text(
               '3',
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Colors.white,
+                  ),
             ),
             child: IconButton(
                 iconSize: 50,

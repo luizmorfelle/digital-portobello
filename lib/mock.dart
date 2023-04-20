@@ -1,6 +1,7 @@
 import 'package:digital_portobello/src/models/card_item_model.dart';
-import 'package:digital_portobello/src/models/material.dart';
-import 'package:digital_portobello/src/models/space.dart';
+import 'package:digital_portobello/src/models/material_model.dart';
+import 'package:digital_portobello/src/models/product_model.dart';
+import 'package:digital_portobello/src/models/space_model.dart';
 
 class Mock {
   List<String> images = List.of([
@@ -8,6 +9,19 @@ class Mock {
     "GAIA_JADE_BANNER_GRANDE.jpg",
     "MALIBU_LAKE_BANNER_GRANDE.jpg",
     "VERANO_CIELO_BANNER_GRANDE.jpg"
+  ]);
+
+  List<ProductModel> products = List.of([
+    ProductModel(
+      id: 1,
+      codProduto: '28899',
+      imagem: 'assets/images/products/charleston.jpg',
+      descProduto: 'ASA DELTA CEMENT',
+      linha: 'GAVEA',
+      codLinha: '433',
+      sufixo: 'ET',
+      descFormatoNominal: '30X42.5',
+    ),
   ]);
 
   List<CardItemModel> materiais = List.of([
