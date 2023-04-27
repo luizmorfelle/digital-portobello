@@ -1,7 +1,6 @@
-import 'package:digital_portobello/src/pages/home_page.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:badges/badges.dart' as badges;
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({Key? key}) : super(key: key);
@@ -21,7 +20,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 IconButton(
-                    iconSize: 50,
+                    iconSize: preferredSize.height / 2,
                     hoverColor: Colors.white,
                     tooltip: 'Home',
                     icon: const Icon(Icons.house),
@@ -29,7 +28,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       context.push('/');
                     }),
                 IconButton(
-                    iconSize: 50,
+                    iconSize: preferredSize.height / 2,
                     hoverColor: Colors.white,
                     tooltip: 'Idiomas',
                     icon: const Icon(Icons.language),
@@ -39,9 +38,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           GestureDetector(
             onTap: () => context.push('/'),
-            child: const Image(
+            child: Image(
                 fit: BoxFit.contain,
-                height: 200,
+                height: preferredSize.height * 2,
                 image: AssetImage('assets/images/PORTOBELLO_LOGO_PRETO.png')),
           ),
           badges.Badge(
@@ -56,7 +55,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   ),
             ),
             child: IconButton(
-                iconSize: 50,
+                iconSize: preferredSize.height / 2,
                 hoverColor: Colors.white,
                 tooltip: 'Favoritos',
                 icon: const Icon(Icons.favorite),

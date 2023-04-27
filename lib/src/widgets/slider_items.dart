@@ -10,15 +10,17 @@ class SliderItems extends StatelessWidget {
   });
 
   final List<CardItemModel> itens;
+  final double cardSize = 400.0;
 
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
       options: CarouselOptions(
-          height: 350.0,
+          height: cardSize,
           initialPage: 2,
           animateToClosest: false,
-          viewportFraction: 0.2,
+          viewportFraction:
+              (1 / (MediaQuery.of(context).size.width / cardSize)),
           enableInfiniteScroll: false),
       items: itens.map((item) {
         return Builder(

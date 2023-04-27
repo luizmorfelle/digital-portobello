@@ -1,9 +1,9 @@
 import 'package:digital_portobello/src/models/card_item_model.dart';
 
-class MaterialModel extends CardItemModel {
-  MaterialModel({
+class LineProductModel extends CardItemModel {
+  LineProductModel({
     required int id,
-    String path = 'lines',
+    String path = 'products',
     required String imagem,
     required String nome,
     String? description,

@@ -1,7 +1,9 @@
 import 'package:digital_portobello/src/pages/all_spaces_page.dart';
 import 'package:digital_portobello/src/pages/home_page.dart';
+import 'package:digital_portobello/src/pages/list_lines_product_page.dart';
 import 'package:digital_portobello/src/pages/list_products_page.dart';
-import 'package:digital_portobello/src/pages/spaces_list_page.dart';
+import 'package:digital_portobello/src/pages/list_spaces_page.dart';
+import 'package:digital_portobello/src/pages/product_page.dart';
 import 'package:digital_portobello/src/pages/tech_search_page.dart';
 import 'package:go_router/go_router.dart';
 
@@ -15,8 +17,16 @@ final routes = GoRouter(routes: [
     builder: (context, state) => const ListProductsPage(),
   ),
   GoRoute(
+    path: '/product',
+    builder: (context, state) => const ProductPage(),
+  ),
+  GoRoute(
+    path: '/lines',
+    builder: (context, state) => const ListLinesProductPage(),
+  ),
+  GoRoute(
     path: '/spaces',
-    builder: (context, state) => const SpacesListPage(),
+    builder: (context, state) => const ListSpacesPage(),
   ),
   GoRoute(
     path: '/tech-search',

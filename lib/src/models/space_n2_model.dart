@@ -1,7 +1,7 @@
 import 'package:digital_portobello/src/models/card_item_model.dart';
 
-class MaterialModel extends CardItemModel {
-  MaterialModel({
+class SpaceN2Model extends CardItemModel {
+  SpaceN2Model({
     required int id,
     String path = 'lines',
     required String imagem,

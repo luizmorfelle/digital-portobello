@@ -1,21 +1,23 @@
-class ProductModel {
-  final int id;
-  final String codProduto;
-  final String sufixo;
-  final String descProduto;
-  final String descFormatoNominal;
-  final String codLinha;
-  final String linha;
-  final String imagem;
+import 'package:digital_portobello/src/models/card_item_model.dart';
 
-  ProductModel({
-    required this.id,
-    required this.codProduto,
-    required this.sufixo,
-    required this.descProduto,
-    required this.descFormatoNominal,
-    required this.codLinha,
-    required this.linha,
-    required this.imagem,
-  });
+class ProductModel extends CardItemModel {
+  String? codProduto;
+  String? sufixo;
+  String? descProduto;
+  String? descFormatoNominal;
+  String? codLinha;
+  String? linha;
+
+  ProductModel(
+      {required super.id,
+      codProduto,
+      sufixo,
+      descProduto,
+      descFormatoNominal,
+      codLinha,
+      linha,
+      super.path = 'product',
+      required super.imagem,
+      required super.nome,
+      super.description});
 }

@@ -30,12 +30,20 @@ class MainApp extends StatelessWidget {
       title: 'Digital',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          brightness: Brightness.light,
-          primaryColor: Colors.white,
-          fontFamily: 'Helvetica',
-          textTheme: Theme.of(context).textTheme.copyWith(
-              headlineLarge: const TextStyle(
-                  color: Colors.black, fontWeight: FontWeight.bold))),
+        brightness: Brightness.light,
+        primaryColor: Colors.white,
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: Colors.black,
+          secondary: Colors.black, // Your accent color
+        ),
+        fontFamily: 'Helvetica',
+        textTheme: Theme.of(context).textTheme.copyWith(
+            headlineLarge: const TextStyle(
+                color: Colors.black, fontWeight: FontWeight.bold),
+            headlineMedium: const TextStyle(
+                color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
+            displaySmall: const TextStyle(color: Colors.black, fontSize: 19)),
+      ),
       routerConfig: routes,
     );
   }

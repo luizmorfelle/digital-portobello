@@ -18,11 +18,7 @@ class AllSpacesPage extends StatelessWidget {
           Row(
             children: [
               Text('Selecione os filtros abaixo para apresentar os produtos'),
-              ElevatedButton.icon(
-                icon: Icon(Icons.arrow_back),
-                label: Text('Voltar'),
-                onPressed: () => {},
-              )
+              BackButton()
             ],
           ),
           DropdownButton<String>(

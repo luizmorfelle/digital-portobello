@@ -10,29 +10,36 @@ class CardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => context.push('/products'),
-      child: Card(
-        elevation: 3,
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Flex(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            direction: Axis.vertical,
-            children: [
-              Expanded(
-                child: Image.asset(
-                  cardItem.imagem,
-                  width: double.infinity,
-                  fit: BoxFit.fill,
-                ),
+      onTap: () => context.push('/${cardItem.path}'),
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Flex(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          direction: Axis.vertical,
+          children: [
+            Expanded(
+              child: Image.asset(
+                cardItem.imagem,
+                width: double.infinity,
+                fit: BoxFit.fill,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                child: Text(cardItem.nome),
-              )
-            ],
-          ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: Text(
+                cardItem.nome,
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: Text(
+                cardItem.description ?? "",
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+            )
+          ],
         ),
       ),
     );
