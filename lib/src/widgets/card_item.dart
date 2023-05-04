@@ -25,20 +25,32 @@ class CardItem extends StatelessWidget {
                 fit: BoxFit.fill,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4),
-              child: Text(
-                cardItem.nome,
-                style: Theme.of(context).textTheme.headlineMedium,
+            SizedBox(
+              height: 60,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    cardItem.nome,
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                  if (cardItem.description != null)
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          cardItem.description ?? "",
+                          style: Theme.of(context).textTheme.headlineMedium,
+                        ),
+                      ],
+                    ),
+                ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4),
-              child: Text(
-                cardItem.description ?? "",
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-            )
           ],
         ),
       ),

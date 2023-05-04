@@ -32,6 +32,7 @@ class Mock {
       id: 1,
       codProduto: '204637',
       tipo: 'Porcelanato Esmaltado',
+      description: 'ASA DELTA CEMENT 30X42',
       borda: 'RET',
       reproducao: 'MARMORE',
       acabamento: 'NAT',

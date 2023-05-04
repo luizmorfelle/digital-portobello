@@ -57,6 +57,7 @@ class ProductModel extends CardItemModel {
       this.expUmidade,
       required super.id,
       super.path = 'product',
+      super.description,
       required super.imagem,
       required super.nome});
 

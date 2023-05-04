@@ -6,8 +6,15 @@ import '../models/breadcrumb_item_model.dart';
 import '../widgets/grid_items.dart';
 import 'base_page.dart';
 
-class ListLinesProductPage extends StatelessWidget {
+class ListLinesProductPage extends StatefulWidget {
   const ListLinesProductPage({Key? key}) : super(key: key);
+
+  @override
+  State<ListLinesProductPage> createState() => _ListLinesProductPageState();
+}
+
+class _ListLinesProductPageState extends State<ListLinesProductPage> {
+  String? selectedSpace;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +22,7 @@ class ListLinesProductPage extends StatelessWidget {
       title: 'ESCOLHA O PRODUTO DESEJADO',
       images: Mock().images,
       itemsBreadCrumb: [
-        BreadCrumbItemModel(name: 'Home', path: ''),
+        BreadCrumbItemModel(name: 'Home', path: '/'),
         BreadCrumbItemModel(name: 'Residencial', path: ''),
         BreadCrumbItemModel(name: 'Piso', path: ''),
         BreadCrumbItemModel(name: 'Banheiro', path: ''),
@@ -51,15 +58,20 @@ class ListLinesProductPage extends StatelessWidget {
                     }).toList(),
                     onChanged: (_) {},
                   ),
-                  DropdownButton<String>(
-                    value: 'A - Z',
-                    items: <String>['A - Z', 'Ma', 'M'].map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (_) {},
+                  DropdownMenu<String>(
+                    initialSelection: 'az',
+                    enableFilter: false,
+                    enableSearch: false,
+                    controller: null,
+                    dropdownMenuEntries: [
+                      DropdownMenuEntry(value: 'az', label: 'A - Z'),
+                      DropdownMenuEntry(value: 'za', label: 'Z - A'),
+                    ],
+                    onSelected: (String? space) {
+                      setState(() {
+                        selectedSpace = space;
+                      });
+                    },
                   ),
                 ],
               )

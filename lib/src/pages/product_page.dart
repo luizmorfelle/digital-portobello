@@ -1,5 +1,4 @@
 import 'package:digital_portobello/mock.dart';
-import 'package:digital_portobello/src/models/product_model.dart';
 import 'package:digital_portobello/src/pages/base_page.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +13,9 @@ class ProductPage extends StatelessWidget {
       itemsBreadCrumb: const [],
       child: Column(
         children: [
+          SizedBox(
+            height: 15,
+          ),
           Flex(
             crossAxisAlignment: CrossAxisAlignment.start,
             direction: Axis.horizontal,
@@ -24,6 +26,9 @@ class ProductPage extends StatelessWidget {
                   children: [
                     Image.asset(
                       Mock().products[0].imagem,
+                    ),
+                    SizedBox(
+                      height: 10,
                     ),
                     SizedBox(
                       width: double.infinity,
@@ -61,7 +66,7 @@ class ProductPage extends StatelessWidget {
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
                                 children: [
-                                  Image.asset(Mock().products[0].imagem),
+                                  const Icon(Icons.house_outlined, size: 80),
                                   Text('RE',
                                       style: Theme.of(context)
                                           .textTheme
@@ -75,7 +80,7 @@ class ProductPage extends StatelessWidget {
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
                                 children: [
-                                  Image.asset(Mock().products[0].imagem),
+                                  const Icon(Icons.business_outlined, size: 80),
                                   Text('RE',
                                       style: Theme.of(context)
                                           .textTheme
@@ -89,7 +94,8 @@ class ProductPage extends StatelessWidget {
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
                                 children: [
-                                  Image.asset(Mock().products[0].imagem),
+                                  const Icon(Icons.temple_buddhist_outlined,
+                                      size: 80),
                                   Text('RE',
                                       style: Theme.of(context)
                                           .textTheme
@@ -110,6 +116,9 @@ class ProductPage extends StatelessWidget {
                   children: [
                     Text('CARACTERÍESTICAS TÉCINAS',
                         style: Theme.of(context).textTheme.titleLarge),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     GridView.builder(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
@@ -152,13 +161,16 @@ class ProductPage extends StatelessWidget {
               )
             ],
           ),
+          SizedBox(
+            height: 20,
+          ),
           Table(
             border: TableBorder.all(),
             columnWidths: const {
               0: FractionColumnWidth(.8),
               1: FractionColumnWidth(.2),
             },
-            children: [
+            children: const [
               TableRow(children: [
                 Text('Informações Técnicas'),
                 Text(''),

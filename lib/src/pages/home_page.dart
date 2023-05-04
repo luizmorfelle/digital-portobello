@@ -18,6 +18,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final TextEditingController spaceController = TextEditingController();
+  final TextEditingController useController = TextEditingController();
+  String? selectedSpace;
+  String? selectedUse;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,27 +50,39 @@ class _HomePageState extends State<HomePage> {
                           'ESCOLHA OU SIMULE SEU AMBIENTE',
                           style: Theme.of(context).textTheme.headlineLarge,
                         ),
-                        DropdownButton<String>(
-                          value: 'Residencial',
-                          items: <String>['Residencial', 'Ma', 'M']
-                              .map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                          onChanged: (_) {},
+                        DropdownMenu<String>(
+                          initialSelection: 'RE',
+                          enableFilter: false,
+                          enableSearch: false,
+                          controller: null,
+                          inputDecorationTheme: InputDecorationTheme(
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide(width: 10))),
+                          dropdownMenuEntries: [
+                            DropdownMenuEntry(
+                                value: 'RE', label: 'Residencial'),
+                            DropdownMenuEntry(value: 'CO', label: 'Comercial'),
+                          ],
+                          onSelected: (String? space) {
+                            setState(() {
+                              selectedSpace = space;
+                            });
+                          },
                         ),
-                        DropdownButton<String>(
-                          value: 'Piso',
-                          items:
-                              <String>['Piso', 'Ma', 'M'].map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                          onChanged: (_) {},
+                        DropdownMenu<String>(
+                          initialSelection: 'PI',
+                          enableFilter: false,
+                          enableSearch: false,
+                          controller: null,
+                          dropdownMenuEntries: [
+                            DropdownMenuEntry(value: 'PI', label: 'Piso'),
+                            DropdownMenuEntry(value: 'PA', label: 'Parede'),
+                          ],
+                          onSelected: (String? use) {
+                            setState(() {
+                              selectedUse = use;
+                            });
+                          },
                         ),
                       ],
                     ),
@@ -75,6 +92,7 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CustomBreadCrumb(items: [
+                      BreadCrumbItemModel(name: 'Home', path: '/'),
                       BreadCrumbItemModel(name: 'Piso', path: ''),
                       BreadCrumbItemModel(name: 'Residencial', path: '')
                     ]),
