@@ -31,23 +31,19 @@ class BasePage extends StatelessWidget {
           SliderHeader(images: images),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            child: Wrap(
-              spacing: 10,
-              runSpacing: 10,
+            child: Column(
               children: [
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Flexible(
-                        child: Text(
-                          title,
-                          style: Theme.of(context).textTheme.headlineLarge,
-                        ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        title,
+                        style: Theme.of(context).textTheme.headlineLarge,
                       ),
-                      const Flexible(child: CustomBackButton()),
-                    ],
-                  ),
+                    ),
+                    const Flexible(child: CustomBackButton()),
+                  ],
                 ),
                 if (itemsBreadCrumb.isNotEmpty)
                   Container(

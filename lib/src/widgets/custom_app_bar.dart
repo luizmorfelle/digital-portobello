@@ -11,6 +11,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       toolbarHeight: preferredSize.height,
       backgroundColor: Colors.white,
       iconTheme: const IconThemeData(color: Colors.black, size: 50),
+      leading: IconButton(
+          icon: Icon(Icons.menu),
+          hoverColor: Colors.white,
+          tooltip: 'Abrir Menu',
+          onPressed: () => Scaffold.of(context).openDrawer()),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

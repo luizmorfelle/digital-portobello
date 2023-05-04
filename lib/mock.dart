@@ -27,16 +27,29 @@ class Mock {
     ),
   ]);
 
-  List<CardItemModel> products = List.of([
+  List<ProductModel> products = List.of([
     ProductModel(
       id: 1,
-      codProduto: '28899',
+      codProduto: '204637',
+      tipo: 'Porcelanato Esmaltado',
+      borda: 'RET',
+      reproducao: 'MARMORE',
+      acabamento: 'NAT',
+      aplicacao: 'PISO',
+      colorBody: 'N',
+      pecaCaixa: '2',
+      faces: '1',
+      espessura: '9.5',
+      corRejunte: 'CINZA',
+      m2caixa: '1.44',
+      varTonalidade: 'V3',
+      juntaAssentamento: '2',
       imagem: 'assets/images/products/artsy-cement-90x90-ext_11345.jpg',
       descProduto: 'ASA DELTA CEMENT',
       nome: 'ASA DELTA CEMENT',
       linha: 'GAVEA',
       codLinha: '433',
-      sufixo: 'ET',
+      sufixo: 'E',
       descFormatoNominal: '30X42.5',
     ),
     ProductModel(
@@ -64,7 +77,6 @@ class Mock {
     ProductModel(
       id: 1,
       codProduto: '28899',
-      description: 'CEMENT 20X20',
       imagem:
           'assets/images/products/barlavento-caribbean-relevo-14-5x14-5-ext_16558.jpg',
       descProduto: 'ASA DELTA CEMENT',
