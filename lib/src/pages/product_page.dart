@@ -1,4 +1,5 @@
 import 'package:digital_portobello/mock.dart';
+import 'package:digital_portobello/src/models/breadcrumb_item_model.dart';
 import 'package:digital_portobello/src/pages/base_page.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,13 @@ class ProductPage extends StatelessWidget {
     return BasePage(
       title: "DETALHES DO PRODUTO",
       images: Mock().images,
-      itemsBreadCrumb: const [],
+      itemsBreadCrumb: [
+        BreadCrumbItemModel(name: 'Home', path: '/'),
+        BreadCrumbItemModel(name: 'Residencial', path: ''),
+        BreadCrumbItemModel(name: 'Piso', path: ''),
+        BreadCrumbItemModel(name: 'Banheiro', path: ''),
+        BreadCrumbItemModel(name: 'Banheiro com chuveiro', path: '')
+      ],
       child: Column(
         children: [
           SizedBox(
@@ -113,6 +120,7 @@ class ProductPage extends StatelessWidget {
               Expanded(
                 flex: 6,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text('CARACTERÍESTICAS TÉCINAS',
                         style: Theme.of(context).textTheme.titleLarge),
@@ -171,10 +179,12 @@ class ProductPage extends StatelessWidget {
               1: FractionColumnWidth(.2),
             },
             children: const [
-              TableRow(children: [
-                Text('Informações Técnicas'),
-                Text(''),
-              ]),
+              TableRow(
+                  decoration: BoxDecoration(color: Colors.grey),
+                  children: [
+                    Text('Informações Técnicas'),
+                    Text(''),
+                  ]),
               TableRow(children: [
                 TableCell(child: Text('Absorção de Água')),
                 TableCell(child: Text('0')),
