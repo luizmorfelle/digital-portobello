@@ -2,6 +2,7 @@ import 'package:digital_portobello/src/models/breadcrumb_item_model.dart';
 import 'package:digital_portobello/src/widgets/custom_back_button.dart';
 import 'package:flutter/material.dart';
 
+import '../models/banner_model.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_breadcrumb.dart';
 import '../widgets/custom_drawer.dart';
@@ -9,14 +10,14 @@ import '../widgets/slider_header.dart';
 
 class BasePage extends StatelessWidget {
   final String title;
-  final List<String> images;
+  late Future<List<BannerModel>> futureBanners;
   final Widget child;
   final List<BreadCrumbItemModel> itemsBreadCrumb;
 
-  const BasePage(
+  BasePage(
       {Key? key,
       required this.title,
-      required this.images,
+      required this.futureBanners,
       required this.itemsBreadCrumb,
       required this.child})
       : super(key: key);
@@ -28,7 +29,7 @@ class BasePage extends StatelessWidget {
       drawer: const CustomDrawer(),
       body: SingleChildScrollView(
         child: Column(children: [
-          SliderHeader(images: images),
+          SliderHeader(images: futureBanners),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Column(

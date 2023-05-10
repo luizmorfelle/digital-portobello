@@ -1,8 +1,8 @@
 class CardItemModel {
   int id;
-  String path;
-  String imagem;
-  String nome;
+  String? path;
+  String? imagem;
+  String? nome;
   String? description;
 
   CardItemModel({

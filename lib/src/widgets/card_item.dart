@@ -19,11 +19,13 @@ class CardItem extends StatelessWidget {
           direction: Axis.vertical,
           children: [
             Expanded(
-              child: Image.asset(
-                cardItem.imagem,
-                width: double.infinity,
-                fit: BoxFit.fill,
-              ),
+              child: cardItem.imagem != null
+                  ? Image.asset(
+                      cardItem.imagem ?? "",
+                      width: double.infinity,
+                      fit: BoxFit.fill,
+                    )
+                  : Placeholder(),
             ),
             SizedBox(
               height: 60,
@@ -32,7 +34,7 @@ class CardItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    cardItem.nome,
+                    cardItem.nome ?? "",
                     style: Theme.of(context).textTheme.headlineMedium,
                   ),
                   if (cardItem.description != null)

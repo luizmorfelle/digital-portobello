@@ -1,8 +1,18 @@
-import 'package:digital_portobello/mock.dart';
-import 'package:digital_portobello/src/models/breadcrumb_item_model.dart';
-import 'package:digital_portobello/src/widgets/custom_breadcrumb.dart';
-import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'dart:ffi';
 
+import 'package:digital_portobello/mock.dart';
+import 'package:digital_portobello/src/models/banner_model.dart';
+import 'package:digital_portobello/src/models/breadcrumb_item_model.dart';
+import 'package:digital_portobello/src/models/space_model.dart';
+import 'package:digital_portobello/src/models/usage_model.dart';
+import 'package:digital_portobello/src/controllers/spaces_controller.dart';
+import 'package:digital_portobello/src/widgets/custom_breadcrumb.dart';
+import 'package:digital_portobello/src/widgets/custom_dropdown_button.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import '../controllers/banners_controller.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer.dart';
 import '../widgets/custom_text_field.dart';
@@ -20,8 +30,17 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final TextEditingController spaceController = TextEditingController();
   final TextEditingController useController = TextEditingController();
-  String? selectedSpace;
-  String? selectedUse;
+  int selectedUsage = 1;
+  int selectedSpace = 1;
+  late Future<List<BannerModel>> futureBanners;
+  late Future<List<SpaceModel>> futureSpaces;
+
+  @override
+  void initState() {
+    super.initState();
+    futureBanners = fetchBanners();
+    futureSpaces = fetchSpaces(selectedUsage, selectedSpace);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +49,7 @@ class _HomePageState extends State<HomePage> {
       drawer: const CustomDrawer(),
       body: SingleChildScrollView(
         child: Column(children: [
-          SliderHeader(images: Mock().images),
+          SliderHeader(images: futureBanners),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Wrap(
@@ -50,37 +69,36 @@ class _HomePageState extends State<HomePage> {
                           'ESCOLHA OU SIMULE SEU AMBIENTE',
                           style: Theme.of(context).textTheme.headlineLarge,
                         ),
-                        DropdownMenu<String>(
-                          initialSelection: 'RE',
-                          enableFilter: false,
-                          enableSearch: false,
-                          controller: null,
-                          inputDecorationTheme: InputDecorationTheme(
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide(width: 10))),
-                          dropdownMenuEntries: [
-                            DropdownMenuEntry(
-                                value: 'RE', label: 'Residencial'),
-                            DropdownMenuEntry(value: 'CO', label: 'Comercial'),
+                        CustomDropdownButton(
+                          items: [
+                            {1: 'Residencial'},
+                            {2: 'Comercial'},
+                            {3: 'Ver Todos'}
                           ],
-                          onSelected: (String? space) {
+                          value: selectedSpace.toString(),
+                          onChange: (value) {
+                            if (value == '3') {
+                              context.push('/all-spaces');
+                              return;
+                            }
                             setState(() {
-                              selectedSpace = space;
+                              selectedSpace = int.parse(value!);
+                              futureSpaces =
+                                  fetchSpaces(selectedUsage, selectedSpace);
                             });
                           },
                         ),
-                        DropdownMenu<String>(
-                          initialSelection: 'PI',
-                          enableFilter: false,
-                          enableSearch: false,
-                          controller: null,
-                          dropdownMenuEntries: [
-                            DropdownMenuEntry(value: 'PI', label: 'Piso'),
-                            DropdownMenuEntry(value: 'PA', label: 'Parede'),
+                        CustomDropdownButton(
+                          items: [
+                            {1: 'Piso'},
+                            {2: 'Parede'}
                           ],
-                          onSelected: (String? use) {
+                          value: selectedUsage.toString(),
+                          onChange: (value) {
                             setState(() {
-                              selectedUse = use;
+                              selectedUsage = int.parse(value!);
+                              futureSpaces =
+                                  fetchSpaces(selectedUsage, selectedSpace);
                             });
                           },
                         ),
@@ -99,7 +117,17 @@ class _HomePageState extends State<HomePage> {
                     const SeeAllSpacesButton()
                   ],
                 ),
-                SliderItems(itens: Mock().ambientes),
+                FutureBuilder(
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return SliderItems(itens: snapshot.data!);
+                    } else if (snapshot.hasError) {
+                      return Text('${snapshot.error}');
+                    }
+                    return CircularProgressIndicator();
+                  },
+                  future: futureSpaces,
+                ),
                 const SizedBox(
                   height: 50,
                 ),

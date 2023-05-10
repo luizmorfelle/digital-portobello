@@ -1,7 +1,9 @@
 import 'package:digital_portobello/mock.dart';
 import 'package:digital_portobello/src/models/breadcrumb_item_model.dart';
 import 'package:digital_portobello/src/pages/base_page.dart';
+import 'package:digital_portobello/src/controllers/banners_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ProductPage extends StatelessWidget {
   const ProductPage({Key? key}) : super(key: key);
@@ -10,7 +12,7 @@ class ProductPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BasePage(
       title: "DETALHES DO PRODUTO",
-      images: Mock().images,
+      futureBanners: fetchBanners(),
       itemsBreadCrumb: [
         BreadCrumbItemModel(name: 'Home', path: '/'),
         BreadCrumbItemModel(name: 'Residencial', path: ''),
@@ -32,7 +34,7 @@ class ProductPage extends StatelessWidget {
                 child: Column(
                   children: [
                     Image.asset(
-                      Mock().products[0].imagem,
+                      Mock().products[0].imagem!,
                     ),
                     SizedBox(
                       height: 10,
@@ -40,7 +42,7 @@ class ProductPage extends StatelessWidget {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton.icon(
-                          onPressed: () {},
+                          onPressed: () => context.push('/favorites'),
                           icon: Icon(Icons.favorite),
                           label: Text("Favoritar")),
                     ),
@@ -173,42 +175,96 @@ class ProductPage extends StatelessWidget {
             height: 20,
           ),
           Table(
-            border: TableBorder.all(),
             columnWidths: const {
               0: FractionColumnWidth(.8),
               1: FractionColumnWidth(.2),
             },
-            children: const [
+            children: [
               TableRow(
                   decoration: BoxDecoration(color: Colors.grey),
                   children: [
-                    Text('Informações Técnicas'),
+                    TableCell(
+                        child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Informações Técnicas',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                    )),
                     Text(''),
                   ]),
               TableRow(children: [
-                TableCell(child: Text('Absorção de Água')),
-                TableCell(child: Text('0')),
+                TableCell(
+                    child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Absorção de água',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                )),
+                Text('17'),
               ]),
+              TableRow(
+                  decoration: BoxDecoration(color: Colors.grey),
+                  children: [
+                    TableCell(
+                        child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Coeficiente de atrito molhado',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                    )),
+                    Text('0'),
+                  ]),
               TableRow(children: [
-                Text('Coeficiente de atrito molhado'),
-                Text('0'),
+                TableCell(
+                    child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Indicação de Uso',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                )),
+                Text('RE RI'),
               ]),
+              TableRow(
+                  decoration: BoxDecoration(color: Colors.grey),
+                  children: [
+                    TableCell(
+                        child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Resitência à manchas',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                    )),
+                    Text('5'),
+                  ]),
               TableRow(children: [
-                Text('Indicação de Uso'),
-                Text('0'),
+                TableCell(
+                    child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Resistência ao ataque químico de BAIXA concentração',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                )),
+                Text('LB'),
               ]),
-              TableRow(children: [
-                Text('Resistência à Manchas'),
-                Text('0'),
-              ]),
-              TableRow(children: [
-                Text('Resistência ao ataque químico de BAIXA concentração'),
-                Text('0'),
-              ]),
-              TableRow(children: [
-                Text('Expansão por umidade'),
-                Text('0'),
-              ]),
+              TableRow(
+                  decoration: BoxDecoration(color: Colors.grey),
+                  children: [
+                    TableCell(
+                        child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Expansão por umidade',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                    )),
+                    Text('0.3'),
+                  ]),
             ],
           ),
         ],

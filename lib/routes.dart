@@ -1,4 +1,5 @@
 import 'package:digital_portobello/src/pages/all_spaces_page.dart';
+import 'package:digital_portobello/src/pages/favorites_page.dart';
 import 'package:digital_portobello/src/pages/home_page.dart';
 import 'package:digital_portobello/src/pages/list_lines_product_page.dart';
 import 'package:digital_portobello/src/pages/list_products_page.dart';
@@ -38,6 +39,6 @@ final routes = GoRouter(routes: [
   ),
   GoRoute(
     path: '/favorites',
-    builder: (context, state) => const AllSpacesPage(),
+    builder: (context, state) => const FavoritesPage(),
   ),
 ]);

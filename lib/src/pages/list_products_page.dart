@@ -1,4 +1,5 @@
 import 'package:digital_portobello/mock.dart';
+import 'package:digital_portobello/src/controllers/banners_controller.dart';
 import 'package:flutter/material.dart';
 
 import '../models/breadcrumb_item_model.dart';
@@ -12,7 +13,7 @@ class ListProductsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BasePage(
       title: 'ESCOLHA O PRODUTO DESEJADO',
-      images: Mock().images,
+      futureBanners: fetchBanners(),
       itemsBreadCrumb: [
         BreadCrumbItemModel(name: 'Home', path: ''),
         BreadCrumbItemModel(name: 'Residencial', path: ''),

@@ -3,7 +3,6 @@ import 'package:digital_portobello/src/models/material_model.dart';
 import 'package:digital_portobello/src/models/product_line_model.dart';
 import 'package:digital_portobello/src/models/product_model.dart';
 import 'package:digital_portobello/src/models/space_model.dart';
-import 'package:digital_portobello/src/models/space_n2_model.dart';
 
 class Mock {
   List<String> images = List.of([
@@ -170,45 +169,6 @@ class Mock {
       id: 9,
       imagem: 'assets/images/materials/quartzites.jpg',
       nome: 'Quartzites',
-    ),
-  ]);
-
-  List<CardItemModel> ambientes = List.of([
-    SpaceModel(
-      id: 1,
-      imagem: 'assets/images/spaces/Banheiro.jpg',
-      nome: 'Banheiro',
-    ),
-    SpaceModel(
-      id: 1,
-      imagem: 'assets/images/spaces/Jantar.jpg',
-      nome: 'Sala de Jantar',
-    ),
-    SpaceModel(
-      id: 1,
-      imagem: 'assets/images/spaces/SalaEstar.jpg',
-      nome: 'Sala de Estar',
-    ),
-  ]);
-
-  List<CardItemModel> ambientesN2 = List.of([
-    SpaceN2Model(
-      id: 1,
-      imagem:
-          'assets/images/spacesN2/Banheiro_com_chuveiro__uso_comum__revenda-ambiente-28642-e-mare-d-autunno-90x90-3d-1-versao_mais_recente.jpg',
-      nome: 'Banheiro com Chuveiro',
-    ),
-    SpaceN2Model(
-      id: 1,
-      imagem:
-          'assets/images/spacesN2/Banheiro_com_chuveiro__uso_privado__-_HOTEL_revenda-ambiente-29386-29395-e-krea-ripple-sidewalk-10x40-amb-1-versao_mais_recente.jpg',
-      nome: 'Banheiro sem Chuveiro',
-    ),
-    SpaceN2Model(
-      id: 1,
-      imagem:
-          'assets/images/spacesN2/Banheiro_com_chuveiro__uso_privado__revenda-ambiente-12277-200068-e-michelangelo-3d-1-versao_mais_recente.jpg',
-      nome: 'Lavabo',
     ),
   ]);
 }
