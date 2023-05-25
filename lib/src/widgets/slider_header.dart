@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class SliderHeader extends StatelessWidget {
   const SliderHeader({super.key, required this.images});
-  final Future<List<BannerModel>> images;
+  final Future<List<BannerModel>>? images;
 
   @override
   Widget build(BuildContext context) {
@@ -12,28 +12,32 @@ class SliderHeader extends StatelessWidget {
       future: images,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return CarouselSlider(
-            options: CarouselOptions(
-                height: 300.0,
-                initialPage: 1,
-                viewportFraction: 1,
-                autoPlay: true,
-                enlargeCenterPage: true),
-            items: snapshot.data?.map((image) {
-              return Builder(
-                builder: (BuildContext context) {
-                  return Container(
-                      width: MediaQuery.of(context).size.width,
-                      margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: Image(
-                          fit: BoxFit.cover,
-                          height: 200,
-                          image: AssetImage(
-                              'assets/images/banners/${image.imagem}')));
-                },
-              );
-            }).toList(),
-          );
+          return snapshot.data!.isEmpty
+              ? Container()
+              : CarouselSlider(
+                  options: CarouselOptions(
+                      height: 300.0,
+                      initialPage: 1,
+                      viewportFraction: 1,
+                      autoPlay: true,
+                      enableInfiniteScroll: snapshot.data!.length > 1,
+                      enlargeCenterPage: true),
+                  items: snapshot.data?.map((image) {
+                    return Builder(
+                      builder: (BuildContext context) {
+                        return Container(
+                            width: MediaQuery.of(context).size.width,
+                            margin:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Image(
+                                fit: BoxFit.cover,
+                                height: 200,
+                                image: AssetImage(
+                                    'assets/images/banners/${image.image}')));
+                      },
+                    );
+                  }).toList(),
+                );
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
         }

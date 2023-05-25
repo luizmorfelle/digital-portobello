@@ -1,4 +1,5 @@
 import 'package:digital_portobello/src/pages/all_spaces_page.dart';
+import 'package:digital_portobello/src/pages/compare_page.dart';
 import 'package:digital_portobello/src/pages/favorites_page.dart';
 import 'package:digital_portobello/src/pages/home_page.dart';
 import 'package:digital_portobello/src/pages/list_lines_product_page.dart';
@@ -14,20 +15,40 @@ final routes = GoRouter(routes: [
     builder: (context, state) => const HomePage(),
   ),
   GoRoute(
-    path: '/products',
-    builder: (context, state) => const ListProductsPage(),
+    path: '/products/:spaceN1Id/:lineId',
+    builder: (context, state) => ListProductsPage(
+        spaceN1Id: state.params['spaceN1Id'], lineId: state.params['lineId']),
   ),
   GoRoute(
-    path: '/product',
-    builder: (context, state) => const ProductPage(),
+    path: '/products/:lineId',
+    builder: (context, state) =>
+        ListProductsPage(spaceN1Id: null, lineId: state.params['lineId']),
   ),
   GoRoute(
-    path: '/lines',
-    builder: (context, state) => const ListLinesProductPage(),
+    path: '/product/:productId',
+    builder: (context, state) =>
+        ProductPage(productId: state.params['productId']),
   ),
   GoRoute(
-    path: '/spaces',
-    builder: (context, state) => const ListSpacesPage(),
+    path: '/product/:productId/:spaceN1Id',
+    builder: (context, state) => ProductPage(
+        productId: state.params['productId'],
+        spaceN1Id: state.params['spaceN1Id']),
+  ),
+  GoRoute(
+    path: '/lines/:spaceN1Id',
+    builder: (context, state) =>
+        ListLinesProductPage(spaceN1Id: state.params['spaceN1Id']),
+  ),
+  GoRoute(
+    path: '/lines/material/:materialName',
+    builder: (context, state) =>
+        ListLinesProductPage(materialName: state.params['materialName']),
+  ),
+  GoRoute(
+    path: '/spaces/:spaceId',
+    builder: (context, state) =>
+        ListSpacesPage(spaceId: state.params['spaceId']),
   ),
   GoRoute(
     path: '/tech-search',
@@ -40,5 +61,9 @@ final routes = GoRouter(routes: [
   GoRoute(
     path: '/favorites',
     builder: (context, state) => const FavoritesPage(),
+  ),
+  GoRoute(
+    path: '/compare',
+    builder: (context, state) => const ComparePage(),
   ),
 ]);

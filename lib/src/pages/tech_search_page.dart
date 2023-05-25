@@ -1,11 +1,14 @@
 import 'package:digital_portobello/src/models/field_tech_search.dart';
 import 'package:digital_portobello/src/models/item_field_tech_search.dart';
+import 'package:digital_portobello/src/pages/list_lines_product_page.dart';
 import 'package:digital_portobello/src/widgets/custom_app_bar.dart';
 import 'package:digital_portobello/src/widgets/custom_back_button.dart';
 import 'package:digital_portobello/src/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:accordion/accordion.dart';
 
+import '../controllers/lines_controller.dart';
+import '../utils/fields_tech_search.dart';
 import 'base_tech_page.dart';
 
 class TechSearchPage extends StatefulWidget {
@@ -16,23 +19,6 @@ class TechSearchPage extends StatefulWidget {
 }
 
 class _TechSearchPageState extends State<TechSearchPage> {
-  final List<FieldTechSearch> fields = [
-    FieldTechSearch(id: 0, title: 'Coeficiente de atrito molhado', itens: [
-      ItemFieldTechSearch(value: '0.3', label: '0,3'),
-      ItemFieldTechSearch(value: '0.4', label: '0,4'),
-      ItemFieldTechSearch(value: '0.5', label: '0,5'),
-      ItemFieldTechSearch(value: '0.6', label: '0,6'),
-    ]),
-    FieldTechSearch(id: 0, title: 'Local de Uso', itens: [
-      ItemFieldTechSearch(value: 'RI', label: 'RI'),
-      ItemFieldTechSearch(value: 'PE', label: 'PE'),
-      ItemFieldTechSearch(value: 'FA', label: 'FA'),
-      ItemFieldTechSearch(value: 'RE', label: 'RE'),
-      ItemFieldTechSearch(value: 'CL', label: 'CL'),
-      ItemFieldTechSearch(value: 'CP', label: 'CP'),
-    ]),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return BaseTechPage(
@@ -47,38 +33,49 @@ class _TechSearchPageState extends State<TechSearchPage> {
               CustomBackButton()
             ],
           ),
-          Accordion(
-            maxOpenSections: 1,
-            openAndCloseAnimation: false,
-            children: fields.map((field) {
-              return AccordionSection(
-                headerBackgroundColor: Colors.grey[200],
-                rightIcon: Icon(Icons.arrow_downward),
-                isOpen: true,
-                header: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(field.title,
-                        style: Theme.of(context).textTheme.titleMedium),
-                    Text(field.itens
-                        .where((element) => element.checked)
-                        .map((e) => e.label)
-                        .toList()
-                        .join(', '))
-                  ],
-                ),
-                content: Row(
-                  children: field.itens.map((item) {
-                    return CheckboxMenuButton(
-                      value: item.checked,
-                      onChanged: (value) =>
-                          {setState(() => item.checked = value!)},
-                      child: Text(item.label),
-                    );
-                  }).toList(),
-                ),
-              );
-            }).toList(),
+          const SizedBox(
+            height: 20,
+          ),
+          ExpansionPanelList.radio(
+            dividerColor: Colors.black,
+            children: fieldsTechSearch
+                .map((field) => ExpansionPanelRadio(
+                    backgroundColor: Colors.grey[200],
+                    value: field.id,
+                    canTapOnHeader: true,
+                    headerBuilder: (context, isExpanded) => ListTile(
+                          title: Text(field.title,
+                              style:
+                                  Theme.of(context).textTheme.headlineMedium),
+                          trailing: Text(
+                            field.itens
+                                .where((it) => it.checked)
+                                .map((e) => e.value)
+                                .join(', '),
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                        ),
+                    body: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: field.itens
+                            .map(
+                              (it) => CheckboxMenuButton(
+                                  value: it.checked,
+                                  onChanged: (event) {
+                                    setState(() {
+                                      it.checked = event!;
+                                    });
+                                  },
+                                  child: Text(it.label)),
+                            )
+                            .toList(),
+                      ),
+                    )))
+                .toList(),
+          ),
+          SizedBox(
+            height: 20,
           ),
           Row(
             children: [
@@ -86,7 +83,7 @@ class _TechSearchPageState extends State<TechSearchPage> {
                 icon: const Icon(Icons.clear),
                 label: const Text('Limpar Filtros'),
                 onPressed: () => setState(() {
-                  fields.forEach((field) {
+                  fieldsTechSearch.forEach((field) {
                     for (var item in field.itens) {
                       item.checked = false;
                     }
@@ -99,7 +96,15 @@ class _TechSearchPageState extends State<TechSearchPage> {
               ElevatedButton.icon(
                 icon: const Icon(Icons.search),
                 label: const Text('Buscar'),
-                onPressed: () => {},
+                onPressed: () => {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ListLinesProductPage(
+                            futureLines:
+                                fetchProductsLinesByFilter(fieldsTechSearch)),
+                      ))
+                },
               ),
             ],
           )
@@ -108,3 +113,5 @@ class _TechSearchPageState extends State<TechSearchPage> {
     );
   }
 }
+
+getFutureProducts(List<FieldTechSearch> fieldsTechSearch) {}

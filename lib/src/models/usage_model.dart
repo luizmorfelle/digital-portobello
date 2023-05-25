@@ -1,29 +1,26 @@
+import 'package:digital_portobello/src/models/space_model.dart';
+
 class UsageModel {
-  int id;
-  String title;
-  String description;
-  String ativo;
-  String image;
+  int? iD;
+  String? title;
+  String? description;
+  String? ativo;
+  String? image;
+  List<SpaceModel?> spaces = [];
 
-  UsageModel(
-      {required this.id,
-      required this.title,
-      required this.description,
-      required this.ativo,
-      required this.image});
+  UsageModel({this.iD, this.title, this.description, this.ativo, this.image});
 
-  UsageModel fromJson(Map<String, dynamic> json) {
-    return UsageModel(
-        id: json['ID'],
-        title: json['Title'],
-        description: json['Description'],
-        ativo: json['Ativo'],
-        image: json['Image']);
+  UsageModel.fromJson(Map<String, dynamic> json) {
+    iD = json['ID'];
+    title = json['Title'];
+    description = json['Description'];
+    ativo = json['Ativo'];
+    image = json['Image'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['ID'] = this.id;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['ID'] = this.iD;
     data['Title'] = this.title;
     data['Description'] = this.description;
     data['Ativo'] = this.ativo;

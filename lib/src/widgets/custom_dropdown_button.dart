@@ -1,43 +1,39 @@
+import 'package:digital_portobello/src/models/dropdown_model.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 
 class CustomDropdownButton extends StatelessWidget {
-  final List<Map<int, String>> items;
-  final String? value;
-  final void Function(String? value)? onChange;
+  final List<DropDownModel> items;
+  final DropDownModel value;
+  final void Function(DropDownModel? value)? onChange;
   const CustomDropdownButton({
     Key? key,
     required this.items,
-    this.value,
+    required this.value,
     required this.onChange,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return DropdownButtonHideUnderline(
-      child: DropdownButton2(
+      child: DropdownButton2<DropDownModel>(
         isExpanded: true,
         hint: Text(
-          items
-              .where((element) => element.keys.first.toString() == value)
-              .first
-              .values
-              .first,
+          value?.value ?? "",
           style: TextStyle(
-            fontSize: 14,
+            fontSize: 20,
             fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
           overflow: TextOverflow.ellipsis,
         ),
         items: items
-            .map((item) => DropdownMenuItem<String>(
-                  value: item.keys.first.toString(),
+            .map((item) => DropdownMenuItem<DropDownModel>(
+                  value: item,
                   child: Text(
-                    item.values.first,
+                    item.value,
                     style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
                       color: Colors.black,
                     ),
                     overflow: TextOverflow.ellipsis,

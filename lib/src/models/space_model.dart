@@ -1,33 +1,31 @@
-import 'package:digital_portobello/src/models/card_item_model.dart';
+import 'package:digital_portobello/src/models/space_n1_model.dart';
 
-class SpaceModel extends CardItemModel {
-  int id;
+class SpaceModel {
+  int? id;
   int? usoId;
   String? title;
   String? description;
   String? ativo;
   String? image;
-  String? homePage;
+  List<SpaceN1Model?> spacesN1 = [];
 
-  SpaceModel(
-      {required this.id,
-      required this.usoId,
-      required this.title,
-      this.description,
-      required this.ativo,
-      required this.image,
-      required this.homePage})
-      : super(id: id, path: 'spaces', imagem: image, nome: title!);
+  SpaceModel({
+    required this.id,
+    required this.usoId,
+    required this.title,
+    required this.description,
+    required this.ativo,
+    required this.image,
+  });
 
-  static SpaceModel? fromJson(Map<String, dynamic> json) {
+  factory SpaceModel.fromJson(Map<String, dynamic> json) {
     return SpaceModel(
         id: json['ID'],
         usoId: json['UsoID'],
         title: json['Title'],
         description: json['Description'],
         ativo: json['Ativo'],
-        image: json['Image'],
-        homePage: json['HomePage']);
+        image: json['Image']);
   }
 
   Map<String, dynamic> toJson() {
@@ -38,7 +36,6 @@ class SpaceModel extends CardItemModel {
     data['Description'] = this.description;
     data['Ativo'] = this.ativo;
     data['Image'] = this.image;
-    data['HomePage'] = this.homePage;
     return data;
   }
 }

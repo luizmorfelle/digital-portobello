@@ -1,17 +1,17 @@
-import 'dart:convert';
-import 'dart:ffi';
-
 import 'package:digital_portobello/mock.dart';
-import 'package:digital_portobello/src/models/banner_model.dart';
+import 'package:digital_portobello/src/controllers/materials_controller.dart';
+import 'package:digital_portobello/src/models/banner_home_model.dart';
 import 'package:digital_portobello/src/models/breadcrumb_item_model.dart';
-import 'package:digital_portobello/src/models/space_model.dart';
-import 'package:digital_portobello/src/models/usage_model.dart';
+import 'package:digital_portobello/src/models/material_model.dart';
+import 'package:digital_portobello/src/models/space_home_model.dart';
+import 'package:digital_portobello/src/models/dropdown_model.dart';
 import 'package:digital_portobello/src/controllers/spaces_controller.dart';
 import 'package:digital_portobello/src/widgets/custom_breadcrumb.dart';
 import 'package:digital_portobello/src/widgets/custom_dropdown_button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../constants.dart';
 import '../controllers/banners_controller.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer.dart';
@@ -30,16 +30,21 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final TextEditingController spaceController = TextEditingController();
   final TextEditingController useController = TextEditingController();
-  int selectedUsage = 1;
-  int selectedSpace = 1;
-  late Future<List<BannerModel>> futureBanners;
-  late Future<List<SpaceModel>> futureSpaces;
+
+  DropDownModel? selectedUsage;
+  DropDownModel? selectedSurface;
+  late Future<List<BannerHomeModel>> futureBanners;
+  late Future<List<SpaceHomeModel>> futureSpaces;
+  late Future<List<MaterialModel>> futureMaterials;
 
   @override
   void initState() {
     super.initState();
     futureBanners = fetchBanners();
-    futureSpaces = fetchSpaces(selectedUsage, selectedSpace);
+    selectedUsage = usages.first;
+    selectedSurface = surfaces.first;
+    futureSpaces = fetchSpaces(selectedUsage?.id, selectedSurface?.id);
+    futureMaterials = fetchMaterials();
   }
 
   @override
@@ -70,35 +75,28 @@ class _HomePageState extends State<HomePage> {
                           style: Theme.of(context).textTheme.headlineLarge,
                         ),
                         CustomDropdownButton(
-                          items: [
-                            {1: 'Residencial'},
-                            {2: 'Comercial'},
-                            {3: 'Ver Todos'}
-                          ],
-                          value: selectedSpace.toString(),
+                          items: usages,
+                          value: selectedUsage!,
                           onChange: (value) {
-                            if (value == '3') {
-                              context.push('/all-spaces');
-                              return;
-                            }
                             setState(() {
-                              selectedSpace = int.parse(value!);
-                              futureSpaces =
-                                  fetchSpaces(selectedUsage, selectedSpace);
+                              if (value?.id == 3) {
+                                context.push('/all-spaces');
+                                return;
+                              }
+                              selectedUsage = value;
+                              futureSpaces = fetchSpaces(
+                                  selectedUsage?.id, selectedSurface?.id);
                             });
                           },
                         ),
                         CustomDropdownButton(
-                          items: [
-                            {1: 'Piso'},
-                            {2: 'Parede'}
-                          ],
-                          value: selectedUsage.toString(),
+                          items: surfaces,
+                          value: selectedSurface!,
                           onChange: (value) {
                             setState(() {
-                              selectedUsage = int.parse(value!);
-                              futureSpaces =
-                                  fetchSpaces(selectedUsage, selectedSpace);
+                              selectedSurface = value;
+                              futureSpaces = fetchSpaces(
+                                  selectedUsage?.id, selectedSurface?.id);
                             });
                           },
                         ),
@@ -111,8 +109,9 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     CustomBreadCrumb(items: [
                       BreadCrumbItemModel(name: 'Home', path: '/'),
-                      BreadCrumbItemModel(name: 'Piso', path: ''),
-                      BreadCrumbItemModel(name: 'Residencial', path: '')
+                      BreadCrumbItemModel(name: selectedUsage!.value, path: ''),
+                      BreadCrumbItemModel(
+                          name: selectedSurface!.value, path: ''),
                     ]),
                     const SeeAllSpacesButton()
                   ],
@@ -122,16 +121,26 @@ class _HomePageState extends State<HomePage> {
                     if (snapshot.hasData) {
                       return SliderItems(itens: snapshot.data!);
                     } else if (snapshot.hasError) {
-                      return Text('${snapshot.error}');
+                      return Text('${snapshot.error} ${snapshot.stackTrace}');
                     }
-                    return CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   },
                   future: futureSpaces,
                 ),
                 const SizedBox(
                   height: 50,
                 ),
-                SliderItems(itens: Mock().materiais)
+                FutureBuilder(
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return SliderItems(itens: snapshot.data!);
+                    } else if (snapshot.hasError) {
+                      return Text('${snapshot.error} ${snapshot.stackTrace}');
+                    }
+                    return const CircularProgressIndicator();
+                  },
+                  future: futureMaterials,
+                ),
               ],
             ),
           )

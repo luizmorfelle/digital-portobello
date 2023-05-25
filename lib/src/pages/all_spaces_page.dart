@@ -1,68 +1,135 @@
-import 'package:accordion/accordion.dart';
-import 'package:flutter/material.dart';
+import 'dart:math';
 
+import 'package:accordion/accordion.dart';
+import 'package:digital_portobello/src/models/usage_model.dart';
+import 'package:digital_portobello/src/pages/base_tech_page.dart';
+import 'package:digital_portobello/src/widgets/custom_back_button.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../constants.dart';
+import '../controllers/spaces_controller.dart';
+import '../models/dropdown_model.dart';
+import '../models/space_home_model.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer.dart';
+import '../widgets/custom_dropdown_button.dart';
 
-class AllSpacesPage extends StatelessWidget {
+class AllSpacesPage extends StatefulWidget {
   const AllSpacesPage({Key? key}) : super(key: key);
 
   @override
+  State<AllSpacesPage> createState() => _AllSpacesPageState();
+}
+
+class _AllSpacesPageState extends State<AllSpacesPage> {
+  DropDownModel? selectedSurface;
+  late Future<List<UsageModel>> futureUsages;
+  int indexUsage = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedSurface = surfaces.first;
+    futureUsages = fetchAllSpacesBySurface(selectedSurface?.id);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(),
-      drawer: CustomDrawer(),
-      body: Column(
-        children: [
-          Text('Todos os Ambientes'),
-          Row(
-            children: [
-              Text('Selecione os filtros abaixo para apresentar os produtos'),
-              BackButton()
-            ],
-          ),
-          DropdownButton<String>(
-            value: 'Piso',
-            items: <String>['Piso', 'Parede'].map((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
-            onChanged: (_) {},
-          ),
-          Accordion(
-            maxOpenSections: 1,
-            children: [
-              AccordionSection(
-                header: Text('Comercial'),
-                content: Accordion(children: [
-                  AccordionSection(
-                    header: Text('Escritório'),
-                    content: Text('Content 1'),
-                  ),
-                  AccordionSection(
-                    header: Text('Loja'),
-                    content: Text('Content 2'),
-                  ),
-                  AccordionSection(
-                    header: Text('Restaurante'),
-                    content: Text('Content 3'),
-                  ),
-                ]),
-              ),
-              AccordionSection(
-                header: Text('Educacional'),
-                content: Text('Content 2'),
-              ),
-              AccordionSection(
-                header: Text('Hotelaria'),
-                content: Text('Content 3'),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
+    return BaseTechPage(
+        title: 'Todos',
+        subTitle: 'Ambientes',
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Selecione os filtros abaixo para apresentar os produtos',
+                    style: Theme.of(context).textTheme.headlineMedium),
+                const CustomBackButton()
+              ],
+            ),
+            CustomDropdownButton(
+              items: surfaces,
+              value: selectedSurface!,
+              onChange: (value) {
+                setState(() {
+                  selectedSurface = value;
+                  futureUsages = fetchAllSpacesBySurface(selectedSurface?.id);
+                });
+              },
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            FutureBuilder(
+              future: futureUsages,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Text('${snapshot.error}');
+                }
+                if (snapshot.hasData) {
+                  return ExpansionPanelList.radio(
+                    dividerColor: Colors.black,
+                    children: snapshot.data!
+                        .map((usage) => ExpansionPanelRadio(
+                            backgroundColor: Colors.grey[200],
+                            canTapOnHeader: true,
+                            headerBuilder: (context, isExpanded) => ListTile(
+                                  title: Text(
+                                    usage.title!,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineMedium,
+                                  ),
+                                ),
+                            body: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: ExpansionPanelList.radio(
+                                children: usage.spaces
+                                    .map((ambient) => ExpansionPanelRadio(
+                                        canTapOnHeader: true,
+                                        backgroundColor: Colors.grey[100],
+                                        headerBuilder: (context, isExpanded) =>
+                                            ListTile(
+                                                title: Text(
+                                              ambient!.title!,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headlineMedium,
+                                            )),
+                                        body: Container(
+                                          color: Colors.white,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(16.0),
+                                            child: ListView.builder(
+                                              shrinkWrap: true,
+                                              itemCount:
+                                                  ambient!.spacesN1.length,
+                                              itemBuilder: (context, index) =>
+                                                  ListTile(
+                                                onTap: () => context.push(
+                                                    '/lines/${ambient.spacesN1[index]!.id}'),
+                                                title: Text(ambient
+                                                    .spacesN1[index]!.title
+                                                    .toString()),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        value: ambient.id.toString()))
+                                    .toList(),
+                              ),
+                            ),
+                            value: usage.iD!))
+                        .toList(),
+                  );
+                }
+                return Center(child: CircularProgressIndicator());
+              },
+            )
+          ],
+        ));
   }
 }

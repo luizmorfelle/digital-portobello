@@ -17,11 +17,11 @@ class CustomBreadCrumb extends StatelessWidget {
           .map(
             (item) => BreadCrumbItem(
               content: Text(
-                item.name,
+                item.name!,
                 style: Theme.of(context).textTheme.displaySmall,
               ),
               onTap:
-                  item.path.isNotEmpty ? () => context.push(item.path) : null,
+                  item.path!.isNotEmpty ? () => context.push(item.path!) : null,
             ),
           )
           .toList(),

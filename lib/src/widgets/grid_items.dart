@@ -11,17 +11,21 @@ class GridItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 4,
-          crossAxisSpacing: 20.0,
-          mainAxisSpacing: 20.0,
-        ),
-        itemCount: items.length,
-        itemBuilder: (_, index) {
-          return CardItem(cardItem: items[index]);
-        });
+    return items.isEmpty
+        ? Container(
+            child: const Text('Nenhum produto encontrado!'),
+          )
+        : GridView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 4,
+              crossAxisSpacing: 20.0,
+              mainAxisSpacing: 20.0,
+            ),
+            itemCount: items.length,
+            itemBuilder: (_, index) {
+              return CardItem(cardItem: items[index]);
+            });
   }
 }

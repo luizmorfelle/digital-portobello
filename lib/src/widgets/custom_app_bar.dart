@@ -1,6 +1,8 @@
 import 'package:badges/badges.dart' as badges;
+import 'package:digital_portobello/src/providers/favorite_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({Key? key}) : super(key: key);
@@ -54,7 +56,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             ignorePointer: false,
             onTap: () {},
             badgeContent: Text(
-              '3',
+              Provider.of<FavoriteProvider>(context)
+                  .getFavoriteProducts
+                  .length
+                  .toString(),
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: Colors.white,
                   ),

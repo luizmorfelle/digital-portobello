@@ -1,44 +1,81 @@
-import 'package:digital_portobello/src/models/card_item_model.dart';
-
-class SpaceN1Model extends CardItemModel {
-  int id;
-  int? usoId;
+class SpaceN1Model {
+  int? id;
+  int? ambientesID;
+  int? superficiesID;
   String? title;
   String? description;
   String? ativo;
   String? image;
   String? homePage;
+  String? coeficienteAtritoMolhado;
+  String? localUso;
+  String? absorcaoAgua;
+  String? resistenciaManchas;
+  String? resAtaQuimicoAlta;
+  String? resAtaQuimicoBaixa;
+  String? expansaoPorUmidade;
+  String? acabamentoSuperficie;
+  String? tag;
 
   SpaceN1Model(
-      {required this.id,
-      required this.usoId,
-      required this.title,
+      {this.id,
+      this.ambientesID,
+      this.superficiesID,
+      this.title,
       this.description,
-      required this.ativo,
-      required this.image,
-      required this.homePage})
-      : super(id: id, path: 'lines', imagem: image, nome: title!);
+      this.ativo,
+      this.image,
+      this.homePage,
+      this.coeficienteAtritoMolhado,
+      this.localUso,
+      this.absorcaoAgua,
+      this.resistenciaManchas,
+      this.resAtaQuimicoAlta,
+      this.resAtaQuimicoBaixa,
+      this.expansaoPorUmidade,
+      this.acabamentoSuperficie,
+      this.tag});
 
-  static SpaceN1Model? fromJson(Map<String, dynamic> json) {
+  factory SpaceN1Model.fromJson(Map<String, dynamic> json) {
     return SpaceN1Model(
         id: json['ID'],
-        usoId: json['UsoID'],
+        ambientesID: json['AmbientesID'],
+        superficiesID: json['SuperficiesID'],
         title: json['Title'],
         description: json['Description'],
         ativo: json['Ativo'],
         image: json['Image'],
-        homePage: json['HomePage']);
+        homePage: json['HomePage'],
+        coeficienteAtritoMolhado: json['CoeficienteAtritoMolhado'],
+        localUso: json['LocalUso'],
+        absorcaoAgua: json['AbsorcaoAgua'],
+        resistenciaManchas: json['ResistenciaManchas'],
+        resAtaQuimicoAlta: json['ResAtaQuimicoAlta'],
+        resAtaQuimicoBaixa: json['ResAtaQuimicoBaixa'],
+        expansaoPorUmidade: json['ExpansaoPorUmidade'],
+        acabamentoSuperficie: json['AcabamentoSuperficie'],
+        tag: json['Tag']);
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['ID'] = this.id;
-    data['UsoID'] = this.usoId;
+    data['AmbientesID'] = this.ambientesID;
+    data['SuperficiesID'] = this.superficiesID;
     data['Title'] = this.title;
     data['Description'] = this.description;
     data['Ativo'] = this.ativo;
     data['Image'] = this.image;
     data['HomePage'] = this.homePage;
+    data['CoeficienteAtritoMolhado'] = this.coeficienteAtritoMolhado;
+    data['LocalUso'] = this.localUso;
+    data['AbsorcaoAgua'] = this.absorcaoAgua;
+    data['ResistenciaManchas'] = this.resistenciaManchas;
+    data['ResAtaQuimicoAlta'] = this.resAtaQuimicoAlta;
+    data['ResAtaQuimicoBaixa'] = this.resAtaQuimicoBaixa;
+    data['ExpansaoPorUmidade'] = this.expansaoPorUmidade;
+    data['AcabamentoSuperficie'] = this.acabamentoSuperficie;
+    data['Tag'] = this.tag;
     return data;
   }
 }
