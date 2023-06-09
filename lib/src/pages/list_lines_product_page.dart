@@ -162,6 +162,7 @@ class _ListLinesProductPageState extends State<ListLinesProductPage> {
                   width: 900,
                   child: CustomTextField(
                     controller: controller,
+                    suggestions: const [],
                     onChanged: (value) {
                       filterLines();
                     },

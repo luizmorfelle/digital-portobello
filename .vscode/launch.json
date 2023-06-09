@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        
+        {
+            "name": "dev",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--dart-define=BASE_URL=http://localhost:8081/api",
+            ]
+        },
+        {
+            "name": "prod",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--dart-define=BASE_URL=https://lb-pbg-app-408389648.us-east-1.elb.amazonaws.com/api",
+            ]
+        }
+    ]
+}

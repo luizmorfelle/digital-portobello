@@ -4,7 +4,7 @@ import 'package:digital_portobello/src/widgets/card_item.dart';
 import 'package:flutter/material.dart';
 
 class SliderItems extends StatefulWidget {
-  SliderItems({
+  const SliderItems({
     super.key,
     required this.itens,
   });
@@ -57,18 +57,30 @@ class _SliderItemsState extends State<SliderItems> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              IconButton(
-                  onPressed: () {
-                    if (pageIndex == 2) return;
-                    buttonCarouselController.previousPage();
-                  },
-                  icon: Icon(Icons.arrow_back)),
-              IconButton(
-                  onPressed: () {
-                    if (pageIndex == widget.itens.length - 3) return;
-                    buttonCarouselController.nextPage();
-                  },
-                  icon: Icon(Icons.arrow_forward)),
+              ElevatedButton(
+                onPressed: () {
+                  buttonCarouselController.previousPage();
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  shadowColor: Colors.white24,
+                  fixedSize: const Size(50, 50),
+                  side: const BorderSide(color: Colors.black, width: 2),
+                ),
+                child: const Icon(Icons.arrow_back, color: Colors.black),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  buttonCarouselController.nextPage();
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  shadowColor: Colors.white24,
+                  fixedSize: const Size(50, 50),
+                  side: const BorderSide(color: Colors.black, width: 2),
+                ),
+                child: const Icon(Icons.arrow_forward, color: Colors.black),
+              ),
             ],
           ),
         ),

@@ -1,5 +1,6 @@
 import 'package:digital_portobello/src/models/breadcrumb_item_model.dart';
 import 'package:digital_portobello/src/models/product_model.dart';
+import 'package:digital_portobello/src/models/space_n1_model.dart';
 import 'package:digital_portobello/src/providers/favorite_provider.dart';
 import 'package:digital_portobello/src/widgets/custom_app_bar.dart';
 import 'package:digital_portobello/src/widgets/custom_back_button.dart';
@@ -16,7 +17,7 @@ class ComparePage extends StatefulWidget {
 }
 
 class _ComparePageState extends State<ComparePage> {
-  late List<ProductModel> products;
+  late Map<ProductModel, SpaceN1Model> products;
   @override
   void initState() {
     super.initState();
@@ -70,7 +71,7 @@ class _ComparePageState extends State<ComparePage> {
               scrollDirection: Axis.horizontal,
               itemCount: products.length,
               itemBuilder: (context, index) {
-                var produto = products[index];
+                var produto = products.keys.elementAt(index);
 
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),

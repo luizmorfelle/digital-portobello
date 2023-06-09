@@ -1,8 +1,6 @@
 import 'package:digital_portobello/src/models/card_item_model.dart';
 import 'package:digital_portobello/src/models/material_model.dart';
 import 'package:digital_portobello/src/models/product_line_model.dart';
-import 'package:digital_portobello/src/models/product_model.dart';
-import 'package:digital_portobello/src/models/space_model.dart';
 
 class Mock {
   List<String> images = List.of([

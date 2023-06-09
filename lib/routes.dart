@@ -6,6 +6,7 @@ import 'package:digital_portobello/src/pages/list_lines_product_page.dart';
 import 'package:digital_portobello/src/pages/list_products_page.dart';
 import 'package:digital_portobello/src/pages/list_spaces_page.dart';
 import 'package:digital_portobello/src/pages/product_page.dart';
+import 'package:digital_portobello/src/pages/tech_library_page.dart';
 import 'package:digital_portobello/src/pages/tech_search_page.dart';
 import 'package:go_router/go_router.dart';
 
@@ -65,5 +66,9 @@ final routes = GoRouter(routes: [
   GoRoute(
     path: '/compare',
     builder: (context, state) => const ComparePage(),
+  ),
+  GoRoute(
+    path: '/tech-library',
+    builder: (context, state) => const TechLibraryPage(),
   ),
 ]);

@@ -57,7 +57,7 @@ class CustomDrawer extends StatelessWidget {
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               iconColor: Colors.black,
-              onTap: () {},
+              onTap: () => context.push('/tech-library'),
             ),
           ],
         ));

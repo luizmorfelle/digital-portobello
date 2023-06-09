@@ -1,11 +1,7 @@
 import 'package:digital_portobello/src/models/field_tech_search.dart';
-import 'package:digital_portobello/src/models/item_field_tech_search.dart';
 import 'package:digital_portobello/src/pages/list_lines_product_page.dart';
-import 'package:digital_portobello/src/widgets/custom_app_bar.dart';
 import 'package:digital_portobello/src/widgets/custom_back_button.dart';
-import 'package:digital_portobello/src/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:accordion/accordion.dart';
 
 import '../controllers/lines_controller.dart';
 import '../utils/fields_tech_search.dart';
@@ -15,10 +11,10 @@ class TechSearchPage extends StatefulWidget {
   const TechSearchPage({Key? key}) : super(key: key);
 
   @override
-  _TechSearchPageState createState() => _TechSearchPageState();
+  TechSearchPageState createState() => TechSearchPageState();
 }
 
-class _TechSearchPageState extends State<TechSearchPage> {
+class TechSearchPageState extends State<TechSearchPage> {
   @override
   Widget build(BuildContext context) {
     return BaseTechPage(
@@ -74,7 +70,7 @@ class _TechSearchPageState extends State<TechSearchPage> {
                     )))
                 .toList(),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Row(
@@ -83,14 +79,14 @@ class _TechSearchPageState extends State<TechSearchPage> {
                 icon: const Icon(Icons.clear),
                 label: const Text('Limpar Filtros'),
                 onPressed: () => setState(() {
-                  fieldsTechSearch.forEach((field) {
+                  for (var field in fieldsTechSearch) {
                     for (var item in field.itens) {
                       item.checked = false;
                     }
-                  });
+                  }
                 }),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               ElevatedButton.icon(

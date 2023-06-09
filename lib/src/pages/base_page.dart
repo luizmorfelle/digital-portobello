@@ -3,7 +3,6 @@ import 'package:digital_portobello/src/models/breadcrumb_item_model.dart';
 import 'package:digital_portobello/src/widgets/custom_back_button.dart';
 import 'package:flutter/material.dart';
 
-import '../models/banner_home_model.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_breadcrumb.dart';
 import '../widgets/custom_drawer.dart';
@@ -11,12 +10,12 @@ import '../widgets/slider_header.dart';
 
 class BasePage extends StatelessWidget {
   final String title;
-  late Future<List<BannerModel>>? futureBanners;
-  late Future<Object> futureObject;
+  final Future<List<BannerModel>>? futureBanners;
+  final Future<Object> futureObject;
   final Widget child;
   final List<BreadCrumbItemModel> itemsBreadCrumb;
 
-  BasePage(
+  const BasePage(
       {Key? key,
       required this.title,
       required this.futureBanners,

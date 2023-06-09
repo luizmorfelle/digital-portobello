@@ -1,7 +1,6 @@
 import 'package:digital_portobello/src/models/card_item_model.dart';
 
 class ProductModel extends CardItemModel {
-  int id;
   int codProduto;
   String? sufixo;
   String? creationDate;
@@ -166,7 +165,7 @@ class ProductModel extends CardItemModel {
   bool checked = false;
 
   ProductModel({
-    required this.id,
+    required super.id,
     required this.codProduto,
     required this.sufixo,
     this.creationDate,
@@ -329,11 +328,9 @@ class ProductModel extends CardItemModel {
     this.briefing,
     required this.simulador,
   }) : super(
-            id: id,
             path: 'product/$id',
             imagem: "assets/images$zoomImage",
-            nome:
-                '${descProduto} ${descFormatoNominal} ${caracteristicaAcabamento}');
+            nome: '$descProduto $descFormatoNominal $caracteristicaAcabamento');
 
   static ProductModel fromJson(Map<String, dynamic> json) {
     return ProductModel(
@@ -504,35 +501,35 @@ class ProductModel extends CardItemModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['Sku'] = '${this.codProduto}${this.sufixo}';
-    data['Acabamento'] = this.caracteristicaAcabamento;
-    data['Peça/caixa'] = this.qtPcCaixa.toString();
-    data['m²/caixa'] = this.qtM2Caixa.toString();
-    data['Tipo'] = this.tipologiaComercial;
-    data['Formato'] = this.descFormatoNominal;
-    data['Número de faces'] = this.nrFaces.toString();
-    data['Var. de Tonalidade'] = this.codVariacaoTonalidade;
-    data['Borda'] = this.acabamentoDeBorda;
-    data['Aplicação'] = this.aplicacaoTecnica;
-    data['Espessura'] = this.espessura;
-    data['Junta de Assentamento'] = this.juntaDeAssentamento;
-    data['Reprodução'] = this.material;
-    data['Color body'] = this.colorBody;
-    data['Cor Rejunte'] = this.rejunte;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['Sku'] = '$codProduto$sufixo';
+    data['Acabamento'] = caracteristicaAcabamento;
+    data['Peça/caixa'] = qtPcCaixa.toString();
+    data['m²/caixa'] = qtM2Caixa.toString();
+    data['Tipo'] = tipologiaComercial;
+    data['Formato'] = descFormatoNominal;
+    data['Número de faces'] = nrFaces.toString();
+    data['Var. de Tonalidade'] = codVariacaoTonalidade;
+    data['Borda'] = acabamentoDeBorda;
+    data['Aplicação'] = aplicacaoTecnica;
+    data['Espessura'] = espessura;
+    data['Junta de Assentamento'] = juntaDeAssentamento;
+    data['Reprodução'] = material;
+    data['Color body'] = colorBody;
+    data['Cor Rejunte'] = rejunte;
 
     return data;
   }
 
   Map<String, dynamic> toJsonTableProduct() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['Absorção de água'] = this.absorcaoDagua.toString();
-    data['Coeficiente de atrito molhado'] = this.atritoMolhadoAstm;
-    data['Indicação de Uso'] = this.uso;
-    data['Resistência à Manchas'] = this.resultadoMinimoLimpeza;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['Absorção de água'] = absorcaoDagua.toString();
+    data['Coeficiente de atrito molhado'] = atritoMolhadoAstm;
+    data['Indicação de Uso'] = uso;
+    data['Resistência à Manchas'] = resultadoMinimoLimpeza;
     data['Resistência ao ataque químico de BAIXA concentração'] =
-        this.ataqueQuiBaixaConc;
-    data['Expansão por umidade'] = this.expansaoPorUmidade;
+        ataqueQuiBaixaConc;
+    data['Expansão por umidade'] = expansaoPorUmidade;
     return data;
   }
 }

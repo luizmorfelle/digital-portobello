@@ -1,16 +1,14 @@
 import 'dart:convert';
-import 'dart:io';
 
+import 'package:digital_portobello/src/api/api.dart';
 import 'package:digital_portobello/src/models/product_line_model.dart';
 import 'package:digital_portobello/src/models/product_model.dart';
-import 'package:http/http.dart' as http;
 
 Future<List<LineProductModel>> fetchProductsLinesByMaterial(
     String? material) async {
-  final response = await http
-      .get(Uri.parse('http://localhost:8080/lines/material/$material'));
+  final response = await Api.get(url: '/lines/material/$material');
   if (response.statusCode == 200) {
-    Iterable iterable = json.decode(response.body);
+    Iterable iterable = json.decode(response.data);
 
     List<LineProductModel> lines =
         List<LineProductModel>.from(iterable.map((model) {
@@ -29,10 +27,10 @@ Future<List<LineProductModel>> fetchProductsLinesByMaterial(
 
 Future<List<ProductModel>> fetchProductsByLineAndSpace(
     String? line, String? space) async {
-  final response = await http
-      .get(Uri.parse('http://localhost:8080/products/line/$line/$space'));
+  final response = await Api.get(url: '/products/line/$line/$space');
+
   if (response.statusCode == 200) {
-    Iterable iterable = json.decode(response.body);
+    Iterable iterable = json.decode(response.data);
 
     List<ProductModel> spaces = List<ProductModel>.from(iterable.map((model) {
       ProductModel it = ProductModel.fromJson(model);
@@ -47,10 +45,9 @@ Future<List<ProductModel>> fetchProductsByLineAndSpace(
 }
 
 Future<List<ProductModel>> fetchProductsByLine(String? line) async {
-  final response =
-      await http.get(Uri.parse('http://localhost:8080/products/line/$line'));
+  final response = await Api.get(url: '/products/line/$line');
   if (response.statusCode == 200) {
-    Iterable iterable = json.decode(response.body);
+    Iterable iterable = json.decode(response.data);
 
     List<ProductModel> spaces = List<ProductModel>.from(iterable.map((model) {
       return ProductModel.fromJson(model);
@@ -63,21 +60,20 @@ Future<List<ProductModel>> fetchProductsByLine(String? line) async {
 }
 
 Future<ProductModel> fetchProduct(String? idProd) async {
-  final response =
-      await http.get(Uri.parse('http://localhost:8080/product/$idProd'));
+  final response = await Api.get(url: '/product/$idProd');
   if (response.statusCode == 200) {
-    return ProductModel.fromJson(jsonDecode(response.body));
+    return ProductModel.fromJson(jsonDecode(response.data));
   } else {
     throw Exception('Failed to load album');
   }
 }
 
-Future<List<ProductModel>> fetchFavoriteProducts() async {
-  final response =
-      await http.get(Uri.parse('http://localhost:8080/products/516/166'));
+Future<List<ProductModel>> fetchProducts(
+    {List<Map<String, String>> filters = const []}) async {
+  var body = {"filters": filters};
+  final response = await Api.post(url: '/products', body: body);
   if (response.statusCode == 200) {
-    Iterable iterable = json.decode(response.body);
-
+    Iterable iterable = json.decode(response.data);
     List<ProductModel> spaces = List<ProductModel>.from(iterable.map((model) {
       return ProductModel.fromJson(model);
     })).toList();

@@ -1,15 +1,15 @@
 import 'dart:convert';
 
+import 'package:digital_portobello/src/api/api.dart';
 import 'package:digital_portobello/src/models/field_tech_search.dart';
 
 import '../models/product_line_model.dart';
-import 'package:http/http.dart' as http;
 
 Future<List<LineProductModel>> fetchProductsLinesBySpace(int? spaceN1Id) async {
-  final response =
-      await http.get(Uri.parse('http://localhost:8080/lines/$spaceN1Id'));
+  final response = await Api.get(url: '/lines/$spaceN1Id');
+
   if (response.statusCode == 200) {
-    Iterable iterable = json.decode(response.body);
+    Iterable iterable = json.decode(response.data);
 
     List<LineProductModel> lines =
         List<LineProductModel>.from(iterable.map((model) {
@@ -43,10 +43,10 @@ Future<List<LineProductModel>> fetchProductsLinesByFilter(
     return dataItem;
   }).toList();
 
-  final response = await http.post(Uri.parse('http://localhost:8080/lines'),
-      body: json.encode(body));
-  if (response.statusCode == 200 && response.body != 'null') {
-    Iterable iterable = json.decode(response.body);
+  final response = await Api.post(url: '/lines', body: body);
+
+  if (response.statusCode == 200 && response.data != 'null') {
+    Iterable iterable = json.decode(response.data);
 
     List<LineProductModel> lines =
         List<LineProductModel>.from(iterable.map((model) {

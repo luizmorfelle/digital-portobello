@@ -107,9 +107,11 @@ class _ProductPageState extends State<ProductPage> {
                             width: double.infinity,
                             child: ElevatedButton.icon(
                                 onPressed: () {
+                                  actualSpaceN1!.spaceModel = previousSpace;
                                   Provider.of<FavoriteProvider>(context,
                                           listen: false)
-                                      .addFavoriteProduct(product!);
+                                      .addFavoriteProduct(
+                                          product!, actualSpaceN1!);
                                   context.push('/favorites');
                                 },
                                 icon: const Icon(Icons.favorite),

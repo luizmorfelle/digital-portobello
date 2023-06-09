@@ -14,7 +14,7 @@ class ProductTable extends StatelessWidget {
     rows.add(TableRow(
         decoration: BoxDecoration(
             color: Colors.grey[400],
-            borderRadius: BorderRadius.vertical(top: Radius.circular(3))),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(3))),
         children: [
           TableCell(
               child: Padding(

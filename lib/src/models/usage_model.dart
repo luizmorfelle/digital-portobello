@@ -20,11 +20,11 @@ class UsageModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['ID'] = this.iD;
-    data['Title'] = this.title;
-    data['Description'] = this.description;
-    data['Ativo'] = this.ativo;
-    data['Image'] = this.image;
+    data['ID'] = iD;
+    data['Title'] = title;
+    data['Description'] = description;
+    data['Ativo'] = ativo;
+    data['Image'] = image;
     return data;
   }
 }

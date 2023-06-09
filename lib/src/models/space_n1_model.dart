@@ -1,3 +1,5 @@
+import 'package:digital_portobello/src/models/space_model.dart';
+
 class SpaceN1Model {
   int? id;
   int? ambientesID;
@@ -16,25 +18,28 @@ class SpaceN1Model {
   String? expansaoPorUmidade;
   String? acabamentoSuperficie;
   String? tag;
+  SpaceModel? spaceModel;
 
-  SpaceN1Model(
-      {this.id,
-      this.ambientesID,
-      this.superficiesID,
-      this.title,
-      this.description,
-      this.ativo,
-      this.image,
-      this.homePage,
-      this.coeficienteAtritoMolhado,
-      this.localUso,
-      this.absorcaoAgua,
-      this.resistenciaManchas,
-      this.resAtaQuimicoAlta,
-      this.resAtaQuimicoBaixa,
-      this.expansaoPorUmidade,
-      this.acabamentoSuperficie,
-      this.tag});
+  SpaceN1Model({
+    this.id,
+    this.ambientesID,
+    this.superficiesID,
+    this.title,
+    this.description,
+    this.ativo,
+    this.image,
+    this.homePage,
+    this.coeficienteAtritoMolhado,
+    this.localUso,
+    this.absorcaoAgua,
+    this.resistenciaManchas,
+    this.resAtaQuimicoAlta,
+    this.resAtaQuimicoBaixa,
+    this.expansaoPorUmidade,
+    this.acabamentoSuperficie,
+    this.tag,
+    this.spaceModel,
+  });
 
   factory SpaceN1Model.fromJson(Map<String, dynamic> json) {
     return SpaceN1Model(
@@ -58,24 +63,24 @@ class SpaceN1Model {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['ID'] = this.id;
-    data['AmbientesID'] = this.ambientesID;
-    data['SuperficiesID'] = this.superficiesID;
-    data['Title'] = this.title;
-    data['Description'] = this.description;
-    data['Ativo'] = this.ativo;
-    data['Image'] = this.image;
-    data['HomePage'] = this.homePage;
-    data['CoeficienteAtritoMolhado'] = this.coeficienteAtritoMolhado;
-    data['LocalUso'] = this.localUso;
-    data['AbsorcaoAgua'] = this.absorcaoAgua;
-    data['ResistenciaManchas'] = this.resistenciaManchas;
-    data['ResAtaQuimicoAlta'] = this.resAtaQuimicoAlta;
-    data['ResAtaQuimicoBaixa'] = this.resAtaQuimicoBaixa;
-    data['ExpansaoPorUmidade'] = this.expansaoPorUmidade;
-    data['AcabamentoSuperficie'] = this.acabamentoSuperficie;
-    data['Tag'] = this.tag;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['ID'] = id;
+    data['AmbientesID'] = ambientesID;
+    data['SuperficiesID'] = superficiesID;
+    data['Title'] = title;
+    data['Description'] = description;
+    data['Ativo'] = ativo;
+    data['Image'] = image;
+    data['HomePage'] = homePage;
+    data['CoeficienteAtritoMolhado'] = coeficienteAtritoMolhado;
+    data['LocalUso'] = localUso;
+    data['AbsorcaoAgua'] = absorcaoAgua;
+    data['ResistenciaManchas'] = resistenciaManchas;
+    data['ResAtaQuimicoAlta'] = resAtaQuimicoAlta;
+    data['ResAtaQuimicoBaixa'] = resAtaQuimicoBaixa;
+    data['ExpansaoPorUmidade'] = expansaoPorUmidade;
+    data['AcabamentoSuperficie'] = acabamentoSuperficie;
+    data['Tag'] = tag;
     return data;
   }
 }

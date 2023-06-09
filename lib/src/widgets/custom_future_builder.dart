@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../mock.dart';
 import '../models/space_n1_model.dart';
-import 'grid_items.dart';
 
 class CustomFutureBuilder extends StatelessWidget {
   const CustomFutureBuilder({
@@ -24,7 +22,7 @@ class CustomFutureBuilder extends StatelessWidget {
           return Text('${snapshot.error}');
         }
 
-        return CircularProgressIndicator();
+        return const CircularProgressIndicator();
       },
       future: futureSpaces,
     );

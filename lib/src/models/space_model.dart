@@ -29,13 +29,13 @@ class SpaceModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['ID'] = this.id;
-    data['UsoID'] = this.usoId;
-    data['Title'] = this.title;
-    data['Description'] = this.description;
-    data['Ativo'] = this.ativo;
-    data['Image'] = this.image;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['ID'] = id;
+    data['UsoID'] = usoId;
+    data['Title'] = title;
+    data['Description'] = description;
+    data['Ativo'] = ativo;
+    data['Image'] = image;
     return data;
   }
 }

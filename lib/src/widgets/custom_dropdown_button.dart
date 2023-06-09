@@ -19,8 +19,8 @@ class CustomDropdownButton extends StatelessWidget {
       child: DropdownButton2<DropDownModel>(
         isExpanded: true,
         hint: Text(
-          value?.value ?? "",
-          style: TextStyle(
+          value.value,
+          style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
             color: Colors.black,

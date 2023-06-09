@@ -5,7 +5,7 @@ class BannerHomeModel extends BannerModel {
   String? texto;
   String? posicao;
   int ordem = 0;
-  Null? dataExpiracao;
+  String? dataExpiracao;
   String? status;
   String? aplicacao;
   String? idsAplicacao;
@@ -40,18 +40,18 @@ class BannerHomeModel extends BannerModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['ID'] = this.id;
-    data['Titulo'] = this.titulo;
-    data['Texto'] = this.texto;
-    data['Posicao'] = this.posicao;
-    data['Imagem'] = this.image;
-    data['Ordem'] = this.ordem;
-    data['DataExpiracao'] = this.dataExpiracao;
-    data['Status'] = this.status;
-    data['Aplicacao'] = this.aplicacao;
-    data['IdsAplicacao'] = this.idsAplicacao;
-    data['Padrao'] = this.padrao;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['ID'] = id;
+    data['Titulo'] = titulo;
+    data['Texto'] = texto;
+    data['Posicao'] = posicao;
+    data['Imagem'] = image;
+    data['Ordem'] = ordem;
+    data['DataExpiracao'] = dataExpiracao;
+    data['Status'] = status;
+    data['Aplicacao'] = aplicacao;
+    data['IdsAplicacao'] = idsAplicacao;
+    data['Padrao'] = padrao;
     return data;
   }
 }

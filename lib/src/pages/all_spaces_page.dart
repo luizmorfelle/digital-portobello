@@ -1,6 +1,3 @@
-import 'dart:math';
-
-import 'package:accordion/accordion.dart';
 import 'package:digital_portobello/src/models/usage_model.dart';
 import 'package:digital_portobello/src/pages/base_tech_page.dart';
 import 'package:digital_portobello/src/widgets/custom_back_button.dart';
@@ -10,9 +7,6 @@ import 'package:go_router/go_router.dart';
 import '../../constants.dart';
 import '../controllers/spaces_controller.dart';
 import '../models/dropdown_model.dart';
-import '../models/space_home_model.dart';
-import '../widgets/custom_app_bar.dart';
-import '../widgets/custom_drawer.dart';
 import '../widgets/custom_dropdown_button.dart';
 
 class AllSpacesPage extends StatefulWidget {
@@ -94,7 +88,7 @@ class _AllSpacesPageState extends State<AllSpacesPage> {
                                         headerBuilder: (context, isExpanded) =>
                                             ListTile(
                                                 title: Text(
-                                              ambient!.title!,
+                                              ambient.title!,
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headlineMedium,
@@ -126,7 +120,7 @@ class _AllSpacesPageState extends State<AllSpacesPage> {
                         .toList(),
                   );
                 }
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               },
             )
           ],

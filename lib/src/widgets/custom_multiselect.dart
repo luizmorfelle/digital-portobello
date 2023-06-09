@@ -50,7 +50,7 @@ class _CustomMultiSelectState extends State<CustomMultiSelect> {
                 ))
             .toList(),
         value: null,
-        customButton: Text('aaa'),
+        customButton: const Text('aaa'),
         onChanged: (_) {},
         buttonStyleData: ButtonStyleData(
           height: 50,

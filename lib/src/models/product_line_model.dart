@@ -34,10 +34,10 @@ class LineProductModel extends CardItemModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['Linha'] = this.nome;
-    data['Cod_linha'] = this.id;
-    data['ZoomImage'] = this.imagem;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['Linha'] = nome;
+    data['Cod_linha'] = id;
+    data['ZoomImage'] = imagem;
     return data;
   }
 }

@@ -1,6 +1,6 @@
-import 'package:digital_portobello/src/controllers/products_controller.dart';
 import 'package:digital_portobello/src/models/breadcrumb_item_model.dart';
 import 'package:digital_portobello/src/models/product_model.dart';
+import 'package:digital_portobello/src/models/space_n1_model.dart';
 import 'package:digital_portobello/src/providers/favorite_provider.dart';
 import 'package:digital_portobello/src/widgets/custom_app_bar.dart';
 import 'package:digital_portobello/src/widgets/custom_back_button.dart';
@@ -9,6 +9,10 @@ import 'package:digital_portobello/src/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_flutter/qr_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../../constants.dart';
 
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({Key? key}) : super(key: key);
@@ -18,7 +22,7 @@ class FavoritesPage extends StatefulWidget {
 }
 
 class _FavoritesPageState extends State<FavoritesPage> {
-  late List<ProductModel> products;
+  late Map<ProductModel, SpaceN1Model> products;
   @override
   void initState() {
     super.initState();
@@ -56,12 +60,56 @@ class _FavoritesPageState extends State<FavoritesPage> {
                     ],
                   ),
                   ElevatedButton.icon(
-                      onPressed: () {
-                        Provider.of<FavoriteProvider>(context, listen: false)
-                            .removeAllFavoriteProduct();
-                      },
-                      icon: const Icon(Icons.delete),
-                      label: const Text('Excluir Todos'))
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            String url = '';
+                            products.forEach((product, space) {
+                              url +=
+                                  '${product.codProduto}${product.sufixo}-${space.id}-${surfaces.firstWhere((it) => it.id == space.superficiesID).value}_${space.title}_${space.spaceModel!.title},';
+                            });
+                            return AlertDialog(
+                              title: const Text("Baixe a lista de produtos"),
+                              content: InkWell(
+                                onTap: () async => await launchUrl(Uri(
+                                    scheme: 'https',
+                                    host:
+                                        'lb-pbg-app-408389648.us-east-1.elb.amazonaws.com',
+                                    path: '/pdf',
+                                    queryParameters: {'product': url})),
+                                child: SizedBox(
+                                  height: 400,
+                                  width: 400,
+                                  child: QrImageView(
+                                    data:
+                                        'https://lb-pbg-app-408389648.us-east-1.elb.amazonaws.com/pdf?product=$url',
+                                    version: QrVersions.auto,
+                                  ),
+                                ),
+                              ),
+                              actions: [
+                                ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text("Fechar"),
+                                ),
+                              ],
+                            );
+                          });
+                    },
+                    icon: const Icon(Icons.qr_code),
+                    label: const Text('Receber Produtos'),
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      Provider.of<FavoriteProvider>(context, listen: false)
+                          .removeAllFavoriteProduct();
+                    },
+                    icon: const Icon(Icons.delete),
+                    label: const Text('Excluir Todos'),
+                  ),
                 ],
               ),
             ),
@@ -90,7 +138,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                   child: ListView.builder(
                     itemCount: products.length,
                     itemBuilder: (context, index) {
-                      var produto = products[index];
+                      var productMap = products.entries.elementAt(index);
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -117,7 +165,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                                 child: Align(
                                                   alignment: Alignment.center,
                                                   child: Image.asset(
-                                                    'assets/images${produto.zoomImage!}',
+                                                    'assets/images${productMap.key.zoomImage!}',
                                                     fit: BoxFit.contain,
                                                   ),
                                                 ),
@@ -126,10 +174,12 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                                   child: Align(
                                                 alignment: Alignment.topRight,
                                                 child: Checkbox(
-                                                    value: produto.checked,
+                                                    value:
+                                                        productMap.key.checked,
                                                     onChanged: (e) {
                                                       setState(() {
-                                                        produto.checked = e!;
+                                                        productMap.key.checked =
+                                                            e!;
                                                       });
                                                     }),
                                               ))
@@ -146,7 +196,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                             Row(
                                               children: [
                                                 Text(
-                                                  "${produto.linha!} - ${produto.descProduto}",
+                                                  "${productMap.key.linha!} - ${productMap.key.descProduto}",
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .titleLarge,
@@ -157,17 +207,25 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                               children: [
                                                 CustomBreadCrumb(items: [
                                                   BreadCrumbItemModel(
-                                                      name: 'Piso', path: ''),
-                                                  BreadCrumbItemModel(
-                                                      name: 'Residencial',
+                                                      name: surfaces
+                                                          .firstWhere((it) =>
+                                                              it.id ==
+                                                              productMap.value
+                                                                  .superficiesID)
+                                                          .value,
                                                       path: ''),
                                                   BreadCrumbItemModel(
-                                                      name: 'Banheiro',
+                                                      name:
+                                                          '${productMap.value.spaceModel!.title}',
+                                                      path: ''),
+                                                  BreadCrumbItemModel(
+                                                      name:
+                                                          '${productMap.value.title}',
                                                       path: ''),
                                                 ])
                                               ],
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 10,
                                             ),
                                             GridView.builder(
@@ -180,7 +238,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                                   crossAxisSpacing: 10.0,
                                                   mainAxisSpacing: 10.0,
                                                 ),
-                                                itemCount: produto
+                                                itemCount: productMap.key
                                                     .toJson()
                                                     .keys
                                                     .length,
@@ -192,7 +250,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                                               .start,
                                                       children: [
                                                         Text(
-                                                            produto
+                                                            productMap.key
                                                                     .toJson()
                                                                     .keys
                                                                     .toList()[
@@ -202,7 +260,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                                                 .textTheme
                                                                 .titleMedium),
                                                         Text(
-                                                            produto
+                                                            productMap.key
                                                                     .toJson()
                                                                     .values
                                                                     .toList()[
@@ -221,7 +279,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                                           context,
                                                           listen: false)
                                                       .removeFavoriteProduct(
-                                                          produto);
+                                                          productMap.key);
                                                 },
                                                 icon: const Icon(Icons.delete),
                                                 label: const Text('Excluir'))
@@ -234,11 +292,12 @@ class _FavoritesPageState extends State<FavoritesPage> {
                               ),
                             ),
                           ),
-                          if (products.indexOf(produto) == products.length - 1)
+                          if (products.keys.toList().indexOf(productMap.key) ==
+                              products.keys.length - 1)
                             Padding(
                               padding: const EdgeInsets.all(16.0),
                               child: ElevatedButton.icon(
-                                onPressed: products
+                                onPressed: products.keys
                                             .where((element) => element.checked)
                                             .length <
                                         2

@@ -41,7 +41,7 @@ class _ListSpacesPageState extends State<ListSpacesPage> {
       title: 'SELECIONE SEU AMBIENTE',
       futureBanners: actualSpace == null
           ? null
-          : fetchBannersSurface(spaceId: actualSpace!.idAmbiente.toString()),
+          : fetchBannersSurface(spaceId: actualSpace?.idAmbiente.toString()),
       futureObject: futureActualSpace,
       itemsBreadCrumb: actualSpace == null
           ? []

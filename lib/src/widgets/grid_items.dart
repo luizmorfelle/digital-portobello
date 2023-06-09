@@ -12,9 +12,7 @@ class GridItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return items.isEmpty
-        ? Container(
-            child: const Text('Nenhum produto encontrado!'),
-          )
+        ? const Text('Nenhum produto encontrado!')
         : GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,

@@ -25,7 +25,7 @@ class CardItem extends StatelessWidget {
                       width: double.infinity,
                       fit: BoxFit.fill,
                     )
-                  : Placeholder(),
+                  : const Placeholder(),
             ),
             SizedBox(
               height: 60,

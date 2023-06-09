@@ -14,7 +14,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.white,
       iconTheme: const IconThemeData(color: Colors.black, size: 50),
       leading: IconButton(
-          icon: Icon(Icons.menu),
+          icon: const Icon(Icons.menu),
           hoverColor: Colors.white,
           tooltip: 'Abrir Menu',
           onPressed: () => Scaffold.of(context).openDrawer()),
@@ -48,7 +48,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: Image(
                 fit: BoxFit.contain,
                 height: preferredSize.height * 2,
-                image: AssetImage('assets/images/PORTOBELLO_LOGO_PRETO.png')),
+                image: const AssetImage(
+                    'assets/images/PORTOBELLO_LOGO_PRETO.png')),
           ),
           badges.Badge(
             position: badges.BadgePosition.topEnd(top: 5, end: 5),

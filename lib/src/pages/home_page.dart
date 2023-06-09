@@ -1,11 +1,10 @@
-import 'package:digital_portobello/mock.dart';
 import 'package:digital_portobello/src/controllers/materials_controller.dart';
+import 'package:digital_portobello/src/controllers/spaces_controller.dart';
 import 'package:digital_portobello/src/models/banner_home_model.dart';
 import 'package:digital_portobello/src/models/breadcrumb_item_model.dart';
+import 'package:digital_portobello/src/models/dropdown_model.dart';
 import 'package:digital_portobello/src/models/material_model.dart';
 import 'package:digital_portobello/src/models/space_home_model.dart';
-import 'package:digital_portobello/src/models/dropdown_model.dart';
-import 'package:digital_portobello/src/controllers/spaces_controller.dart';
 import 'package:digital_portobello/src/widgets/custom_breadcrumb.dart';
 import 'package:digital_portobello/src/widgets/custom_dropdown_button.dart';
 import 'package:flutter/material.dart';
@@ -61,9 +60,12 @@ class _HomePageState extends State<HomePage> {
               spacing: 10,
               runSpacing: 10,
               children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10.0),
-                  child: CustomTextField(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: CustomTextField(
+                    onSubmitted: (value) =>
+                        context.push('product/${value.split('-')[0].trim()}'),
+                  ),
                 ),
                 Row(
                   children: [

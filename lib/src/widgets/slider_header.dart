@@ -2,41 +2,163 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:digital_portobello/src/models/banner_model.dart';
 import 'package:flutter/material.dart';
 
-class SliderHeader extends StatelessWidget {
+class SliderHeader extends StatefulWidget {
   const SliderHeader({super.key, required this.images});
   final Future<List<BannerModel>>? images;
 
   @override
+  State<SliderHeader> createState() => _SliderHeaderState();
+}
+
+class _SliderHeaderState extends State<SliderHeader> {
+  CarouselController buttonCarouselController = CarouselController();
+  int pageIndex = 1;
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<BannerModel>>(
-      future: images,
+      future: widget.images,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return snapshot.data!.isEmpty
               ? Container()
-              : CarouselSlider(
-                  options: CarouselOptions(
-                      height: 300.0,
-                      initialPage: 1,
-                      viewportFraction: 1,
-                      autoPlay: true,
-                      enableInfiniteScroll: snapshot.data!.length > 1,
-                      enlargeCenterPage: true),
-                  items: snapshot.data?.map((image) {
-                    return Builder(
-                      builder: (BuildContext context) {
-                        return Container(
-                            width: MediaQuery.of(context).size.width,
-                            margin:
-                                const EdgeInsets.symmetric(horizontal: 10.0),
-                            child: Image(
-                                fit: BoxFit.cover,
-                                height: 200,
-                                image: AssetImage(
-                                    'assets/images/banners/${image.image}')));
-                      },
-                    );
-                  }).toList(),
+              : SizedBox(
+                  height: 300,
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      CarouselSlider(
+                        carouselController: buttonCarouselController,
+                        options: CarouselOptions(
+                            onPageChanged: (index, reason) {
+                              setState(() {
+                                pageIndex = index;
+                              });
+                            },
+                            height: 300.0,
+                            initialPage: 1,
+                            viewportFraction: 1,
+                            autoPlay: true,
+                            enableInfiniteScroll: snapshot.data!.length > 1,
+                            enlargeCenterPage: true),
+                        items: snapshot.data?.map((image) {
+                          return Builder(
+                            builder: (BuildContext context) {
+                              return Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Image(
+                                      fit: BoxFit.cover,
+                                      height: 300,
+                                      image: AssetImage(
+                                          'assets/images/banners/${image.image}')));
+                            },
+                          );
+                        }).toList(),
+                      ),
+                      if (snapshot.data!.length > 1)
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                buttonCarouselController.nextPage();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                shadowColor: Colors.white24,
+                                fixedSize: const Size(50, 50),
+                                side: const BorderSide(
+                                    color: Colors.black, width: 2),
+                              ),
+                              child: const Icon(Icons.arrow_forward,
+                                  color: Colors.black),
+                            ),
+                          ),
+                        ),
+                      if (snapshot.data!.length > 1)
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                buttonCarouselController.previousPage();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                shadowColor: Colors.white24,
+                                fixedSize: const Size(50, 50),
+                                side: const BorderSide(
+                                    color: Colors.black, width: 2),
+                              ),
+                              child: const Icon(Icons.arrow_back,
+                                  color: Colors.black),
+                            ),
+                          ),
+                        ),
+                      if (snapshot.data!.length > 1)
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Padding(
+                            padding: const EdgeInsets.all(0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                  onTap: () {},
+                                  child: const Icon(
+                                    Icons.play_arrow,
+                                    color: Colors.white,
+                                    size: 30,
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: snapshot.data!
+                                      .map(
+                                        (e) => InkWell(
+                                          onTap: () {
+                                            buttonCarouselController
+                                                .animateToPage(
+                                                    snapshot.data!.indexOf(e));
+                                          },
+                                          child: Container(
+                                            margin: const EdgeInsets.symmetric(
+                                                horizontal: 6),
+                                            width: 10,
+                                            height: 10,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  snapshot.data!.indexOf(e) ==
+                                                          pageIndex
+                                                      ? Colors.black
+                                                      : Colors.white,
+                                              shape: BoxShape.circle,
+                                              border: Border.all(
+                                                color: Colors.white,
+                                                width: 2,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                      .toList(),
+                                ),
+                                InkWell(
+                                  onTap: () {},
+                                  child: const Icon(
+                                    Icons.stop,
+                                    color: Colors.white,
+                                    size: 30,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
                 );
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');

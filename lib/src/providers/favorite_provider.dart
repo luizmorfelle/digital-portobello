@@ -1,15 +1,16 @@
 import 'package:digital_portobello/src/models/product_model.dart';
+import 'package:digital_portobello/src/models/space_n1_model.dart';
 import 'package:flutter/material.dart';
 
 class FavoriteProvider extends ChangeNotifier {
-  List<ProductModel> favoriteProducts = [];
+  Map<ProductModel, SpaceN1Model> favoriteProducts = {};
 
-  List<ProductModel> get getFavoriteProducts {
+  Map<ProductModel, SpaceN1Model> get getFavoriteProducts {
     return favoriteProducts;
   }
 
-  void addFavoriteProduct(ProductModel product) {
-    favoriteProducts.add(product);
+  void addFavoriteProduct(ProductModel product, SpaceN1Model space) {
+    favoriteProducts[product] = space;
     notifyListeners();
   }
 
