@@ -14,7 +14,7 @@
             "request": "launch",
             "type": "dart",
             "args": [
-                "--dart-define=BASE_URL=https://lb-pbg-app-408389648.us-east-1.elb.amazonaws.com/api",
+                "--dart-define=BASE_URL=https://digitalapi.portobello.com.br/api",
             ]
         }
     ]

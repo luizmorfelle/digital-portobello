@@ -67,12 +67,14 @@ class _ProductPageState extends State<ProductPage> {
               BreadCrumbItemModel(name: 'Home', path: '/'),
               BreadCrumbItemModel(
                   name: usages
-                      .firstWhere((it) => it.id == previousSpace?.usoId)
+                      .firstWhere(
+                          (it) => it.id == previousSpace?.usoId.toString())
                       .value,
                   path: ''),
               BreadCrumbItemModel(
                   name: surfaces
-                      .firstWhere((it) => it.id == actualSpaceN1?.superficiesID)
+                      .firstWhere((it) =>
+                          it.id == actualSpaceN1?.superficiesID.toString())
                       .value,
                   path: ''),
               BreadCrumbItemModel(name: previousSpace?.title, path: ''),
@@ -198,15 +200,17 @@ class _ProductPageState extends State<ProductPage> {
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleMedium),
-                                      Text(
-                                          product!
-                                                  .toJson()
-                                                  .values
-                                                  .toList()[index] ??
-                                              "N/A",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleLarge),
+                                      FittedBox(
+                                        child: Text(
+                                            product!
+                                                    .toJson()
+                                                    .values
+                                                    .toList()[index] ??
+                                                "N/A",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleLarge),
+                                      ),
                                     ],
                                   ),
                                 );

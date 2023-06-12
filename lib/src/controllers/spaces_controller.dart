@@ -8,7 +8,8 @@ import 'package:digital_portobello/src/models/usage_model.dart';
 import '../models/space_home_model.dart';
 import '../models/space_n1_home_model.dart';
 
-Future<List<SpaceHomeModel>> fetchSpaces(int? usageId, int? surfaceId) async {
+Future<List<SpaceHomeModel>> fetchSpaces(
+    String? usageId, String? surfaceId) async {
   final response = await Api.get(url: '/environments_home');
   if (response.statusCode == 200) {
     Iterable iterable = json.decode(response.data);
@@ -17,7 +18,9 @@ Future<List<SpaceHomeModel>> fetchSpaces(int? usageId, int? surfaceId) async {
         List<SpaceHomeModel>.from(iterable.map((model) {
       return SpaceHomeModel.fromJson(model);
     }))
-            .where((it) => it.idSuperficie == surfaceId && usageId == it.idUso)
+            .where((it) =>
+                it.idSuperficie.toString() == surfaceId &&
+                usageId == it.idUso.toString())
             .toList();
     spaces.sort((a, b) => a.title!.compareTo(b.title!));
 

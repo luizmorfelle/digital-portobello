@@ -1,5 +1,7 @@
+import 'package:digital_portobello/l10n/l10n.dart';
 import 'package:digital_portobello/routes.dart';
 import 'package:digital_portobello/src/providers/favorite_provider.dart';
+import 'package:digital_portobello/src/providers/sales_channel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,8 +13,10 @@ class MainApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: FavoriteProvider()),
+        ChangeNotifierProvider.value(value: SalesChannelProvider()),
       ],
       child: MaterialApp.router(
+        // supportedLocales: L10n.all,
         title: 'Digital',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
@@ -21,6 +25,15 @@ class MainApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSwatch().copyWith(
             primary: Colors.black,
             secondary: Colors.black, // Your accent color
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              minimumSize: Size(100, 50),
+              side: const BorderSide(color: Colors.black, width: 1),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
           ),
           fontFamily: 'Helvetica',
           textTheme: Theme.of(context).textTheme.copyWith(

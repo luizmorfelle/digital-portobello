@@ -1,5 +1,11 @@
+import 'package:digital_portobello/src/models/dropdown_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+
+import '../../constants.dart';
+import '../providers/sales_channel.dart';
+import 'custom_dropdown_button.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({
@@ -58,6 +64,19 @@ class CustomDrawer extends StatelessWidget {
               ),
               iconColor: Colors.black,
               onTap: () => context.push('/tech-library'),
+            ),
+            ListTile(
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              title: CustomDropdownButton(
+                items: salesChannels,
+                value:
+                    Provider.of<SalesChannelProvider>(context).getSaleChannel,
+                onChange: (value) {
+                  Provider.of<SalesChannelProvider>(context, listen: false)
+                      .setSaleChannel(value as DropDownModel);
+                },
+              ),
             ),
           ],
         ));

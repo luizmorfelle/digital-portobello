@@ -1,5 +1,5 @@
 class DropDownModel {
-  final int id;
+  final String id;
   final String value;
 
   DropDownModel(this.id, this.value);

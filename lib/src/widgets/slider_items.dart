@@ -64,7 +64,7 @@ class _SliderItemsState extends State<SliderItems> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   shadowColor: Colors.white24,
-                  fixedSize: const Size(50, 50),
+                  minimumSize: const Size(50, 50),
                   side: const BorderSide(color: Colors.black, width: 2),
                 ),
                 child: const Icon(Icons.arrow_back, color: Colors.black),
@@ -76,7 +76,7 @@ class _SliderItemsState extends State<SliderItems> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   shadowColor: Colors.white24,
-                  fixedSize: const Size(50, 50),
+                  minimumSize: const Size(50, 50),
                   side: const BorderSide(color: Colors.black, width: 2),
                 ),
                 child: const Icon(Icons.arrow_forward, color: Colors.black),

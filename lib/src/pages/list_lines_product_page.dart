@@ -34,8 +34,8 @@ class _ListLinesProductPageState extends State<ListLinesProductPage> {
   SpaceN1Model? actualSpaceN1;
   SpaceModel? previousSpace;
   List<DropDownModel> sortList = [
-    DropDownModel(0, 'A - Z'),
-    DropDownModel(1, 'Z - A'),
+    DropDownModel('0', 'A - Z'),
+    DropDownModel('1', 'Z - A'),
   ];
   List<LineProductModel>? linesProduct;
   List<LineProductModel>? fullLinesProduct;
@@ -140,12 +140,14 @@ class _ListLinesProductPageState extends State<ListLinesProductPage> {
               BreadCrumbItemModel(name: 'Home', path: '/'),
               BreadCrumbItemModel(
                   name: usages
-                      .firstWhere((it) => it.id == previousSpace?.usoId)
+                      .firstWhere(
+                          (it) => it.id == previousSpace?.usoId.toString())
                       .value,
                   path: ''),
               BreadCrumbItemModel(
                   name: surfaces
-                      .firstWhere((it) => it.id == actualSpaceN1?.superficiesID)
+                      .firstWhere((it) =>
+                          it.id == actualSpaceN1?.superficiesID.toString())
                       .value,
                   path: ''),
               BreadCrumbItemModel(name: previousSpace?.title, path: ''),
@@ -178,7 +180,7 @@ class _ListLinesProductPageState extends State<ListLinesProductPage> {
                         setState(
                           () {
                             selectedSort = value;
-                            sortLines(value!.id);
+                            sortLines(int.parse(value!.id));
                           },
                         );
                       },

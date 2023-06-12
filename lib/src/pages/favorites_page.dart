@@ -208,10 +208,13 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                                 CustomBreadCrumb(items: [
                                                   BreadCrumbItemModel(
                                                       name: surfaces
-                                                          .firstWhere((it) =>
-                                                              it.id ==
-                                                              productMap.value
-                                                                  .superficiesID)
+                                                          .firstWhere(
+                                                            (it) =>
+                                                                it.id ==
+                                                                productMap.value
+                                                                    .superficiesID
+                                                                    .toString(),
+                                                          )
                                                           .value,
                                                       path: ''),
                                                   BreadCrumbItemModel(

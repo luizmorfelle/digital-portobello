@@ -25,7 +25,7 @@ class _AllSpacesPageState extends State<AllSpacesPage> {
   void initState() {
     super.initState();
     selectedSurface = surfaces.first;
-    futureUsages = fetchAllSpacesBySurface(selectedSurface?.id);
+    futureUsages = fetchAllSpacesBySurface(int.parse(selectedSurface!.id));
   }
 
   @override
@@ -50,7 +50,8 @@ class _AllSpacesPageState extends State<AllSpacesPage> {
               onChange: (value) {
                 setState(() {
                   selectedSurface = value;
-                  futureUsages = fetchAllSpacesBySurface(selectedSurface?.id);
+                  futureUsages =
+                      fetchAllSpacesBySurface(int.parse(selectedSurface!.id));
                 });
               },
             ),

@@ -56,15 +56,12 @@ class CustomDropdownButton extends StatelessWidget {
           elevation: 2,
         ),
         dropdownStyleData: DropdownStyleData(
-          maxHeight: 200,
-          width: 200,
           padding: null,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(14),
+            borderRadius: BorderRadius.circular(8),
             color: Colors.white,
           ),
           elevation: 8,
-          offset: const Offset(-20, 0),
         ),
         menuItemStyleData: const MenuItemStyleData(
           height: 40,

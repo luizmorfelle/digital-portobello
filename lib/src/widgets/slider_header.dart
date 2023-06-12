@@ -66,7 +66,7 @@ class _SliderHeaderState extends State<SliderHeader> {
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.white,
                                 shadowColor: Colors.white24,
-                                fixedSize: const Size(50, 50),
+                                minimumSize: const Size(50, 50),
                                 side: const BorderSide(
                                     color: Colors.black, width: 2),
                               ),
@@ -87,7 +87,7 @@ class _SliderHeaderState extends State<SliderHeader> {
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.white,
                                 shadowColor: Colors.white24,
-                                fixedSize: const Size(50, 50),
+                                minimumSize: const Size(50, 50),
                                 side: const BorderSide(
                                     color: Colors.black, width: 2),
                               ),

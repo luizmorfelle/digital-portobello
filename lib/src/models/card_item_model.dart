@@ -12,5 +12,5 @@ class CardItemModel extends DropDownModel {
     required this.imagem,
     required this.nome,
     this.description,
-  }) : super(id, nome!);
+  }) : super(id.toString(), nome!);
 }

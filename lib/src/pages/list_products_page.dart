@@ -67,12 +67,14 @@ class _ListProductsPageState extends State<ListProductsPage> {
               BreadCrumbItemModel(name: 'Home', path: '/'),
               BreadCrumbItemModel(
                   name: usages
-                      .firstWhere((it) => it.id == previousSpace?.usoId)
+                      .firstWhere(
+                          (it) => it.id == previousSpace?.usoId.toString())
                       .value,
                   path: ''),
               BreadCrumbItemModel(
                   name: surfaces
-                      .firstWhere((it) => it.id == actualSpaceN1?.superficiesID)
+                      .firstWhere((it) =>
+                          it.id == actualSpaceN1?.superficiesID.toString())
                       .value,
                   path: ''),
               BreadCrumbItemModel(name: previousSpace?.title, path: ''),

@@ -49,12 +49,14 @@ class _ListSpacesPageState extends State<ListSpacesPage> {
               BreadCrumbItemModel(name: 'Home', path: '/'),
               BreadCrumbItemModel(
                   name: usages
-                      .firstWhere((it) => it.id == actualSpace?.idUso)
+                      .firstWhere(
+                          (it) => it.id == actualSpace?.idUso.toString())
                       .value,
                   path: ''),
               BreadCrumbItemModel(
                   name: surfaces
-                      .firstWhere((it) => it.id == actualSpace?.idSuperficie)
+                      .firstWhere(
+                          (it) => it.id == actualSpace?.idSuperficie.toString())
                       .value,
                   path: ''),
               BreadCrumbItemModel(name: actualSpace?.title, path: '')
