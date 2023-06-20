@@ -3,10 +3,13 @@ import 'dart:convert';
 import 'package:digital_portobello/src/api/api.dart';
 import 'package:digital_portobello/src/models/product_line_model.dart';
 import 'package:digital_portobello/src/models/product_model.dart';
+import 'package:digital_portobello/src/providers/sales_channel_provider.dart';
 
 Future<List<LineProductModel>> fetchProductsLinesByMaterial(
     String? material) async {
-  final response = await Api.get(url: '/lines/material/$material');
+  final response = await Api.get(
+      url: '/lines/material/$material',
+      queryParameters: {'cv': SalesChannelProvider().getSaleChannel.id});
   if (response.statusCode == 200) {
     Iterable iterable = json.decode(response.data);
 
@@ -27,7 +30,9 @@ Future<List<LineProductModel>> fetchProductsLinesByMaterial(
 
 Future<List<ProductModel>> fetchProductsByLineAndSpace(
     String? line, String? space) async {
-  final response = await Api.get(url: '/products/line/$line/$space');
+  final response = await Api.get(
+      url: '/products/line/$line/$space',
+      queryParameters: {'cv': SalesChannelProvider().getSaleChannel.id});
 
   if (response.statusCode == 200) {
     Iterable iterable = json.decode(response.data);
@@ -45,7 +50,9 @@ Future<List<ProductModel>> fetchProductsByLineAndSpace(
 }
 
 Future<List<ProductModel>> fetchProductsByLine(String? line) async {
-  final response = await Api.get(url: '/products/line/$line');
+  final response = await Api.get(
+      url: '/products/line/$line',
+      queryParameters: {'cv': SalesChannelProvider().getSaleChannel.id});
   if (response.statusCode == 200) {
     Iterable iterable = json.decode(response.data);
 
@@ -69,7 +76,15 @@ Future<ProductModel> fetchProduct(String? idProd) async {
 }
 
 Future<List<ProductModel>> fetchProducts(
-    {List<Map<String, String>> filters = const []}) async {
+    {List<Map<String, String>>? filters}) async {
+  filters ??= [];
+  if (SalesChannelProvider().getSaleChannel.description != null) {
+    filters.add({
+      "field": SalesChannelProvider().getSaleChannel.description!,
+      "value": "Y",
+      "operator": "="
+    });
+  }
   var body = {"filters": filters};
   final response = await Api.post(url: '/products', body: body);
   if (response.statusCode == 200) {

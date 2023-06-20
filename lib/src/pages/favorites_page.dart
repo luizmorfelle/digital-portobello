@@ -12,7 +12,8 @@ import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../constants.dart';
+import '../utils/constants.dart';
+import '../utils/translate.dart';
 
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({Key? key}) : super(key: key);
@@ -51,12 +52,13 @@ class _FavoritesPageState extends State<FavoritesPage> {
                         children: [
                           const Icon(Icons.favorite),
                           Text(
-                            'Favoritos',
+                            tl('favorites', context),
                             style: Theme.of(context).textTheme.headlineMedium,
                           ),
                         ],
                       ),
-                      Text('Você favoritou ${products.length} produtos!')
+                      Text(
+                          '${tl('your_favorites', context)} ${products.length} ${tl('your_favorites_2', context)}')
                     ],
                   ),
                   ElevatedButton.icon(
@@ -70,7 +72,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                   '${product.codProduto}${product.sufixo}-${space.id}-${surfaces.firstWhere((it) => it.id == space.superficiesID).value}_${space.title}_${space.spaceModel!.title},';
                             });
                             return AlertDialog(
-                              title: const Text("Baixe a lista de produtos"),
+                              title: Text(tl('recieve_list', context)),
                               content: InkWell(
                                 onTap: () async => await launchUrl(Uri(
                                     scheme: 'https',
@@ -93,14 +95,14 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
-                                  child: const Text("Fechar"),
+                                  child: Text(tl('close', context)),
                                 ),
                               ],
                             );
                           });
                     },
                     icon: const Icon(Icons.qr_code),
-                    label: const Text('Receber Produtos'),
+                    label: Text(tl('export_list', context)),
                   ),
                   ElevatedButton.icon(
                     onPressed: () {
@@ -108,7 +110,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                           .removeAllFavoriteProduct();
                     },
                     icon: const Icon(Icons.delete),
-                    label: const Text('Excluir Todos'),
+                    label: Text(tl('delete_all', context)),
                   ),
                 ],
               ),
@@ -128,7 +130,8 @@ class _FavoritesPageState extends State<FavoritesPage> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(20.0),
-                        child: Text('Nenhum produto favoritado.',
+                        child: Text(
+                            tl('Nenhum produto foi favoritado', context),
                             style: Theme.of(context).textTheme.titleLarge),
                       ),
                     ],
@@ -253,21 +256,25 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                                               .start,
                                                       children: [
                                                         Text(
-                                                            productMap.key
-                                                                    .toJson()
-                                                                    .keys
-                                                                    .toList()[
-                                                                index],
+                                                            tl(
+                                                                productMap.key
+                                                                        .toJson()
+                                                                        .keys
+                                                                        .toList()[
+                                                                    index],
+                                                                context),
                                                             style: Theme.of(
                                                                     context)
                                                                 .textTheme
                                                                 .titleMedium),
                                                         Text(
-                                                            productMap.key
-                                                                    .toJson()
-                                                                    .values
-                                                                    .toList()[
-                                                                index]!,
+                                                            tl(
+                                                                productMap.key
+                                                                        .toJson()
+                                                                        .values
+                                                                        .toList()[
+                                                                    index]!,
+                                                                context),
                                                             style: Theme.of(
                                                                     context)
                                                                 .textTheme
@@ -285,7 +292,8 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                                           productMap.key);
                                                 },
                                                 icon: const Icon(Icons.delete),
-                                                label: const Text('Excluir'))
+                                                label:
+                                                    Text(tl('delete', context)))
                                           ],
                                         ),
                                       ),
@@ -309,7 +317,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                         context.push('/compare');
                                       },
                                 icon: const Icon(Icons.compare_arrows),
-                                label: const Text('Comparar'),
+                                label: Text(tl('compare', context)),
                               ),
                             )
                         ],

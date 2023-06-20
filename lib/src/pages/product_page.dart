@@ -4,11 +4,12 @@ import 'package:digital_portobello/src/models/breadcrumb_item_model.dart';
 import 'package:digital_portobello/src/models/product_model.dart';
 import 'package:digital_portobello/src/pages/base_page.dart';
 import 'package:digital_portobello/src/providers/favorite_provider.dart';
+import 'package:digital_portobello/src/utils/translate.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../../constants.dart';
+import '../utils/constants.dart';
 import '../controllers/spaces_controller.dart';
 import '../models/space_model.dart';
 import '../models/space_n1_model.dart';
@@ -54,7 +55,7 @@ class _ProductPageState extends State<ProductPage> {
   @override
   Widget build(BuildContext context) {
     return BasePage(
-      title: "DETALHES DO PRODUTO",
+      title: tl('product_detail', context).toUpperCase(),
       futureBanners: product == null && actualSpaceN1 == null
           ? null
           : fetchBannersSurface(
@@ -117,7 +118,17 @@ class _ProductPageState extends State<ProductPage> {
                                   context.push('/favorites');
                                 },
                                 icon: const Icon(Icons.favorite),
-                                label: const Text("Favoritar")),
+                                label: Text(tl('want_to_receive', context))),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton.icon(
+                                onPressed: () {},
+                                icon: const Icon(Icons.qr_code),
+                                label: Text(tl('simulate_here', context))),
                           ),
                         ],
                       ),
@@ -138,7 +149,7 @@ class _ProductPageState extends State<ProductPage> {
                             const SizedBox(
                               height: 40,
                             ),
-                            Text('LOCAIS DE USO',
+                            Text(tl('material', context),
                                 style: Theme.of(context).textTheme.titleLarge),
                             Flex(
                               direction: Axis.horizontal,
@@ -152,7 +163,7 @@ class _ProductPageState extends State<ProductPage> {
                                               'assets/icons/$uso.png',
                                               height: 70,
                                             ),
-                                            Text(uso,
+                                            Text(tl(uso, context),
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .titleLarge),
@@ -170,7 +181,7 @@ class _ProductPageState extends State<ProductPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Text('CARACTERÍESTICAS TÉCINAS',
+                          Text(tl('tech_features', context),
                               style: Theme.of(context).textTheme.titleLarge),
                           const SizedBox(
                             height: 20,
@@ -193,20 +204,24 @@ class _ProductPageState extends State<ProductPage> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                          product!
-                                              .toJson()
-                                              .keys
-                                              .toList()[index],
+                                          tl(
+                                              product!
+                                                  .toJson()
+                                                  .keys
+                                                  .toList()[index],
+                                              context),
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleMedium),
                                       FittedBox(
                                         child: Text(
-                                            product!
-                                                    .toJson()
-                                                    .values
-                                                    .toList()[index] ??
-                                                "N/A",
+                                            tl(
+                                                product!
+                                                        .toJson()
+                                                        .values
+                                                        .toList()[index] ??
+                                                    "N/A",
+                                                context),
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .titleLarge),

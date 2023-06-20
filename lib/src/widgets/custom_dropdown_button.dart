@@ -1,4 +1,5 @@
 import 'package:digital_portobello/src/models/dropdown_model.dart';
+import 'package:digital_portobello/src/utils/translate.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class CustomDropdownButton extends StatelessWidget {
       child: DropdownButton2<DropDownModel>(
         isExpanded: true,
         hint: Text(
-          value.value,
+          tl(value.value, context),
           style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -31,7 +32,7 @@ class CustomDropdownButton extends StatelessWidget {
             .map((item) => DropdownMenuItem<DropDownModel>(
                   value: item,
                   child: Text(
-                    item.value,
+                    tl(item.value, context),
                     style: const TextStyle(
                       fontSize: 16,
                       color: Colors.black,

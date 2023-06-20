@@ -3,11 +3,12 @@ import 'package:digital_portobello/src/controllers/products_controller.dart';
 import 'package:digital_portobello/src/models/product_model.dart';
 import 'package:flutter/material.dart';
 
-import '../../constants.dart';
+import '../utils/constants.dart';
 import '../controllers/spaces_controller.dart';
 import '../models/breadcrumb_item_model.dart';
 import '../models/space_model.dart';
 import '../models/space_n1_model.dart';
+import '../utils/translate.dart';
 import '../widgets/grid_items.dart';
 import 'base_page.dart';
 
@@ -53,7 +54,7 @@ class _ListProductsPageState extends State<ListProductsPage> {
   @override
   Widget build(BuildContext context) {
     return BasePage(
-      title: 'ESCOLHA O PRODUTO DESEJADO',
+      title: tl('Escolha o produto desejado', context).toUpperCase(),
       futureBanners: actualSpaceN1 == null && products.isEmpty
           ? null
           : fetchBannersSurface(

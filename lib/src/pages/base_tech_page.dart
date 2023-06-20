@@ -22,39 +22,32 @@ class BaseTechPage extends StatelessWidget {
       drawer: const CustomDrawer(),
       body: SingleChildScrollView(
         child: Column(children: [
-          Wrap(
-            spacing: 10,
-            runSpacing: 10,
-            children: [
-              Container(
-                decoration: BoxDecoration(color: Colors.grey[300]),
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Row(
+          Container(
+            decoration: BoxDecoration(color: Colors.grey[300]),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Row(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            title,
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                          Text(
-                            subTitle,
-                            style: Theme.of(context).textTheme.headlineMedium,
-                          ),
-                        ],
-                      )
+                      Text(
+                        title,
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      Text(
+                        subTitle,
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
                     ],
-                  ),
-                ),
+                  )
+                ],
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                child: child,
-              )
-            ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            child: child,
           ),
         ]),
       ),

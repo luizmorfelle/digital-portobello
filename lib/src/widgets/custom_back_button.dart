@@ -1,3 +1,4 @@
+import 'package:digital_portobello/src/utils/translate.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -18,8 +19,8 @@ class CustomBackButton extends StatelessWidget {
         ),
       ),
       icon: const Icon(Icons.arrow_back_rounded, color: Colors.black, size: 30),
-      label: const Text(
-        'Voltar',
+      label: Text(
+        tl('back', context),
         style: TextStyle(color: Colors.black, fontSize: 20),
       ),
       onPressed: () => context.pop(),

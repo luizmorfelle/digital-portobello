@@ -1,10 +1,11 @@
-import 'package:digital_portobello/constants.dart';
+import 'package:digital_portobello/src/utils/constants.dart';
 import 'package:digital_portobello/src/controllers/banners_controller.dart';
 import 'package:digital_portobello/src/controllers/products_controller.dart';
 import 'package:digital_portobello/src/models/color_model.dart';
 import 'package:digital_portobello/src/models/dropdown_model.dart';
 import 'package:digital_portobello/src/models/material_model.dart';
 import 'package:digital_portobello/src/models/space_n1_model.dart';
+import 'package:digital_portobello/src/utils/translate.dart';
 import 'package:digital_portobello/src/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 
@@ -129,7 +130,7 @@ class _ListLinesProductPageState extends State<ListLinesProductPage> {
     }
 
     return BasePage(
-      title: 'ESCOLHA O PRODUTO DESEJADO',
+      title: tl('Escolha o produto desejado', context).toUpperCase(),
       futureBanners: fetchBannersSurface(
           spaceN1Id: actualSpaceN1?.id.toString() ?? "",
           material: widget.materialName ?? ""),

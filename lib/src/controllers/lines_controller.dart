@@ -4,9 +4,12 @@ import 'package:digital_portobello/src/api/api.dart';
 import 'package:digital_portobello/src/models/field_tech_search.dart';
 
 import '../models/product_line_model.dart';
+import '../providers/sales_channel_provider.dart';
 
 Future<List<LineProductModel>> fetchProductsLinesBySpace(int? spaceN1Id) async {
-  final response = await Api.get(url: '/lines/$spaceN1Id');
+  final response = await Api.get(
+      url: '/lines/$spaceN1Id',
+      queryParameters: {'cv': SalesChannelProvider().getSaleChannel.id});
 
   if (response.statusCode == 200) {
     Iterable iterable = json.decode(response.data);

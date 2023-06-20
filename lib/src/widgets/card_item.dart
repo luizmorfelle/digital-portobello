@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../models/card_item_model.dart';
+import '../utils/translate.dart';
 
 class CardItem extends StatelessWidget {
   final CardItemModel cardItem;
@@ -34,7 +35,7 @@ class CardItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    cardItem.nome ?? "",
+                    tl(cardItem.nome ?? "", context),
                     style: Theme.of(context).textTheme.headlineMedium,
                   ),
                   if (cardItem.description != null)
@@ -45,7 +46,7 @@ class CardItem extends StatelessWidget {
                           height: 5,
                         ),
                         Text(
-                          cardItem.description ?? "",
+                          tl(cardItem.description ?? "", context),
                           style: Theme.of(context).textTheme.headlineMedium,
                         ),
                       ],

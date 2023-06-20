@@ -1,4 +1,5 @@
 import 'package:digital_portobello/src/models/card_item_model.dart';
+import 'package:digital_portobello/src/utils/translate.dart';
 import 'package:digital_portobello/src/widgets/card_item.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,7 @@ class GridItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return items.isEmpty
-        ? const Text('Nenhum produto encontrado!')
+        ? Text(tl('product_not_found', context))
         : GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,

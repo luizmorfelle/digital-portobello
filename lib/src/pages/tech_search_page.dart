@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../controllers/lines_controller.dart';
 import '../utils/fields_tech_search.dart';
+import '../utils/translate.dart';
 import 'base_tech_page.dart';
 
 class TechSearchPage extends StatefulWidget {
@@ -18,15 +19,15 @@ class TechSearchPageState extends State<TechSearchPage> {
   @override
   Widget build(BuildContext context) {
     return BaseTechPage(
-      title: 'Pesquisa',
-      subTitle: 'Técnica',
+      title: tl('advanced_search', context).split(' ')[0],
+      subTitle: tl('advanced_search', context).split(' ')[1],
       child: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Text('Selecione os filtros abaixo para apresentar os produtos'),
-              CustomBackButton()
+            children: [
+              Text(tl('select_filters', context)),
+              const CustomBackButton()
             ],
           ),
           const SizedBox(
@@ -40,7 +41,7 @@ class TechSearchPageState extends State<TechSearchPage> {
                     value: field.id,
                     canTapOnHeader: true,
                     headerBuilder: (context, isExpanded) => ListTile(
-                          title: Text(field.title,
+                          title: Text(tl(field.title, context),
                               style:
                                   Theme.of(context).textTheme.headlineMedium),
                           trailing: Text(
@@ -63,7 +64,7 @@ class TechSearchPageState extends State<TechSearchPage> {
                                       it.checked = event!;
                                     });
                                   },
-                                  child: Text(it.label)),
+                                  child: Text(tl(it.label, context))),
                             )
                             .toList(),
                       ),
@@ -77,7 +78,7 @@ class TechSearchPageState extends State<TechSearchPage> {
             children: [
               ElevatedButton.icon(
                 icon: const Icon(Icons.clear),
-                label: const Text('Limpar Filtros'),
+                label: Text(tl('reset_filter', context)),
                 onPressed: () => setState(() {
                   for (var field in fieldsTechSearch) {
                     for (var item in field.itens) {
@@ -91,7 +92,7 @@ class TechSearchPageState extends State<TechSearchPage> {
               ),
               ElevatedButton.icon(
                 icon: const Icon(Icons.search),
-                label: const Text('Buscar'),
+                label: Text(tl('search', context)),
                 onPressed: () => {
                   Navigator.push(
                       context,

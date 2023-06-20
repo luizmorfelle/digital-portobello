@@ -1,10 +1,11 @@
-import 'package:digital_portobello/constants.dart';
+import 'package:digital_portobello/src/utils/constants.dart';
 import 'package:digital_portobello/src/controllers/banners_controller.dart';
 import 'package:digital_portobello/src/controllers/spaces_controller.dart';
 import 'package:digital_portobello/src/models/breadcrumb_item_model.dart';
 import 'package:digital_portobello/src/models/space_home_model.dart';
 import 'package:digital_portobello/src/models/space_n1_home_model.dart';
 import 'package:digital_portobello/src/pages/base_page.dart';
+import 'package:digital_portobello/src/utils/translate.dart';
 import 'package:digital_portobello/src/widgets/grid_items.dart';
 import 'package:digital_portobello/src/widgets/see_all_spaces_button.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,7 @@ class _ListSpacesPageState extends State<ListSpacesPage> {
   @override
   Widget build(BuildContext context) {
     return BasePage(
-      title: 'SELECIONE SEU AMBIENTE',
+      title: tl('select_your_ambient', context).toUpperCase(),
       futureBanners: actualSpace == null
           ? null
           : fetchBannersSurface(spaceId: actualSpace?.idAmbiente.toString()),

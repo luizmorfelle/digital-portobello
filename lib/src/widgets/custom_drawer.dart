@@ -1,10 +1,11 @@
 import 'package:digital_portobello/src/models/dropdown_model.dart';
+import 'package:digital_portobello/src/utils/translate.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../../constants.dart';
-import '../providers/sales_channel.dart';
+import '../utils/constants.dart';
+import '../providers/sales_channel_provider.dart';
 import 'custom_dropdown_button.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -37,7 +38,7 @@ class CustomDrawer extends StatelessWidget {
                   const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               leading: const Icon(Icons.search),
               title: Text(
-                'Pesquisa Técnica',
+                tl('advanced_search', context),
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               iconColor: Colors.black,
@@ -48,7 +49,7 @@ class CustomDrawer extends StatelessWidget {
                   const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               leading: const Icon(Icons.content_paste_search_rounded),
               title: Text(
-                'Todos ambientes',
+                tl('tech_search', context),
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               iconColor: Colors.black,
@@ -59,7 +60,7 @@ class CustomDrawer extends StatelessWidget {
                   const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               leading: const Icon(Icons.menu_book_sharp),
               title: Text(
-                'Biblioteca Técnica',
+                tl('tech_lib', context),
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               iconColor: Colors.black,
@@ -68,14 +69,21 @@ class CustomDrawer extends StatelessWidget {
             ListTile(
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-              title: CustomDropdownButton(
-                items: salesChannels,
-                value:
-                    Provider.of<SalesChannelProvider>(context).getSaleChannel,
-                onChange: (value) {
-                  Provider.of<SalesChannelProvider>(context, listen: false)
-                      .setSaleChannel(value as DropDownModel);
-                },
+              title: Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text('Canal de Venda'),
+                  CustomDropdownButton(
+                    items: salesChannels,
+                    value: Provider.of<SalesChannelProvider>(context)
+                        .getSaleChannel,
+                    onChange: (value) {
+                      Provider.of<SalesChannelProvider>(context, listen: false)
+                          .setSaleChannel(value as DropDownModel);
+                    },
+                  ),
+                ],
               ),
             ),
           ],

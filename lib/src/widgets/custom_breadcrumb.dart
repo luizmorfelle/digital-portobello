@@ -1,4 +1,5 @@
 import 'package:digital_portobello/src/models/breadcrumb_item_model.dart';
+import 'package:digital_portobello/src/utils/translate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_breadcrumb/flutter_breadcrumb.dart';
 import 'package:go_router/go_router.dart';
@@ -17,7 +18,7 @@ class CustomBreadCrumb extends StatelessWidget {
           .map(
             (item) => BreadCrumbItem(
               content: Text(
-                item.name!,
+                tl(item.name!, context),
                 style: Theme.of(context).textTheme.displaySmall,
               ),
               onTap:

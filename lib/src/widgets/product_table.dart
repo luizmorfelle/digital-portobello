@@ -1,4 +1,5 @@
 import 'package:digital_portobello/src/models/product_model.dart';
+import 'package:digital_portobello/src/utils/translate.dart';
 import 'package:flutter/material.dart';
 
 class ProductTable extends StatelessWidget {
@@ -20,7 +21,7 @@ class ProductTable extends StatelessWidget {
               child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
-              'Informações Técnicas',
+              tl('Informações Técnicas', context),
               style: Theme.of(context).textTheme.titleLarge,
             ),
           )),
@@ -43,7 +44,7 @@ class ProductTable extends StatelessWidget {
               child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
-              mapJson.key,
+              tl(mapJson.key, context),
               style: Theme.of(context).textTheme.titleMedium,
             ),
           )),
@@ -51,7 +52,7 @@ class ProductTable extends StatelessWidget {
               child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
-              mapJson.value.toString(),
+              tl(mapJson.value.toString(), context),
               style: Theme.of(context).textTheme.titleMedium,
             ),
           )),

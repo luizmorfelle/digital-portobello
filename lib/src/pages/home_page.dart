@@ -5,13 +5,16 @@ import 'package:digital_portobello/src/models/breadcrumb_item_model.dart';
 import 'package:digital_portobello/src/models/dropdown_model.dart';
 import 'package:digital_portobello/src/models/material_model.dart';
 import 'package:digital_portobello/src/models/space_home_model.dart';
+import 'package:digital_portobello/src/providers/language_provider.dart';
 import 'package:digital_portobello/src/widgets/custom_breadcrumb.dart';
 import 'package:digital_portobello/src/widgets/custom_dropdown_button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
-import '../../constants.dart';
+import '../utils/constants.dart';
 import '../controllers/banners_controller.dart';
+import '../utils/translate.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer.dart';
 import '../widgets/custom_text_field.dart';
@@ -73,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                       spacing: 35,
                       children: [
                         Text(
-                          'ESCOLHA OU SIMULE SEU AMBIENTE',
+                          tl('choose_environment', context).toUpperCase(),
                           style: Theme.of(context).textTheme.headlineLarge,
                         ),
                         CustomDropdownButton(
@@ -81,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                           value: selectedUsage!,
                           onChange: (value) {
                             setState(() {
-                              if (value?.id == 3) {
+                              if (value?.id == '3') {
                                 context.push('/all-spaces');
                                 return;
                               }
@@ -111,9 +114,10 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     CustomBreadCrumb(items: [
                       BreadCrumbItemModel(name: 'Home', path: '/'),
-                      BreadCrumbItemModel(name: selectedUsage!.value, path: ''),
                       BreadCrumbItemModel(
-                          name: selectedSurface!.value, path: ''),
+                          name: tl(selectedUsage!.value, context), path: ''),
+                      BreadCrumbItemModel(
+                          name: tl(selectedSurface!.value, context), path: ''),
                     ]),
                     const SeeAllSpacesButton()
                   ],

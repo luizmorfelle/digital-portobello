@@ -2,6 +2,7 @@ import 'package:digital_portobello/src/models/breadcrumb_item_model.dart';
 import 'package:digital_portobello/src/models/product_model.dart';
 import 'package:digital_portobello/src/models/space_n1_model.dart';
 import 'package:digital_portobello/src/providers/favorite_provider.dart';
+import 'package:digital_portobello/src/utils/translate.dart';
 import 'package:digital_portobello/src/widgets/custom_app_bar.dart';
 import 'package:digital_portobello/src/widgets/custom_back_button.dart';
 import 'package:digital_portobello/src/widgets/custom_breadcrumb.dart';
@@ -46,12 +47,13 @@ class _ComparePageState extends State<ComparePage> {
                         children: [
                           const Icon(Icons.compare_arrows),
                           Text(
-                            'COMPARAÇÃO',
+                            tl('comparison', context),
                             style: Theme.of(context).textTheme.headlineMedium,
                           ),
                         ],
                       ),
-                      Text('Você está comparando ${products.length} produtos!')
+                      Text(tl('you_are_comparing', context)
+                          .replaceAll('%i', products.length.toString()))
                     ],
                   ),
                 ],
@@ -132,18 +134,22 @@ class _ComparePageState extends State<ComparePage> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                                produto
-                                                    .toJson()
-                                                    .keys
-                                                    .toList()[index],
+                                                tl(
+                                                    produto
+                                                        .toJson()
+                                                        .keys
+                                                        .toList()[index],
+                                                    context),
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .titleMedium),
                                             Text(
-                                                produto
-                                                    .toJson()
-                                                    .values
-                                                    .toList()[index]!,
+                                                tl(
+                                                    produto
+                                                        .toJson()
+                                                        .values
+                                                        .toList()[index]!,
+                                                    context),
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .titleLarge),
@@ -159,7 +165,7 @@ class _ComparePageState extends State<ComparePage> {
                                         .removeFavoriteProduct(produto);
                                   },
                                   icon: const Icon(Icons.delete),
-                                  label: const Text('Excluir'))
+                                  label: Text(tl('delete', context)))
                             ],
                           ),
                         ),

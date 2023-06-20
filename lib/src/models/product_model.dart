@@ -503,19 +503,18 @@ class ProductModel extends CardItemModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['Sku'] = '$codProduto$sufixo';
-    data['Acabamento'] = caracteristicaAcabamento;
-    data['Peça/caixa'] = qtPcCaixa.toString();
-    data['m²/caixa'] = qtM2Caixa.toString();
-    data['Tipo'] = tipologiaComercial;
-    data['Formato'] = descFormatoNominal;
-    data['Número de faces'] = nrFaces.toString();
+    data['edge_finish'] = caracteristicaAcabamento;
+    data['piece_per_box'] = qtPcCaixa.toString();
+    data['m2_per_box'] = qtM2Caixa.toString();
+    data['type'] = tipologiaComercial;
+    data['format'] = descFormatoNominal;
+    data['num_faces'] = nrFaces.toString();
     data['Var. de Tonalidade'] = codVariacaoTonalidade;
-    data['Borda'] = acabamentoDeBorda;
-    data['Aplicação'] = aplicacaoTecnica;
-    data['Espessura'] = espessura;
-    data['Junta de Assentamento'] = juntaDeAssentamento;
-    data['Reprodução'] = material;
-    data['Color body'] = colorBody;
+    data['edge'] = acabamentoDeBorda;
+    data['application'] = aplicacaoTecnica;
+    data['thickness'] = espessura;
+    data['setting_joint'] = juntaDeAssentamento;
+    data['reproduction'] = material;
     data['Cor Rejunte'] = rejunte;
 
     return data;

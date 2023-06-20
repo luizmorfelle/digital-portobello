@@ -1,10 +1,11 @@
 import 'package:digital_portobello/src/models/usage_model.dart';
 import 'package:digital_portobello/src/pages/base_tech_page.dart';
+import 'package:digital_portobello/src/utils/translate.dart';
 import 'package:digital_portobello/src/widgets/custom_back_button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../constants.dart';
+import '../utils/constants.dart';
 import '../controllers/spaces_controller.dart';
 import '../models/dropdown_model.dart';
 import '../widgets/custom_dropdown_button.dart';
@@ -31,15 +32,15 @@ class _AllSpacesPageState extends State<AllSpacesPage> {
   @override
   Widget build(BuildContext context) {
     return BaseTechPage(
-        title: 'Todos',
-        subTitle: 'Ambientes',
+        title: tl('tech_search', context).split(' ')[0],
+        subTitle: tl('tech_search', context).split(' ')[1],
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Selecione os filtros abaixo para apresentar os produtos',
+                Text(tl('select_filters', context),
                     style: Theme.of(context).textTheme.headlineMedium),
                 const CustomBackButton()
               ],
@@ -73,7 +74,7 @@ class _AllSpacesPageState extends State<AllSpacesPage> {
                             canTapOnHeader: true,
                             headerBuilder: (context, isExpanded) => ListTile(
                                   title: Text(
-                                    usage.title!,
+                                    tl(usage.title!, context),
                                     style: Theme.of(context)
                                         .textTheme
                                         .headlineMedium,
@@ -89,7 +90,7 @@ class _AllSpacesPageState extends State<AllSpacesPage> {
                                         headerBuilder: (context, isExpanded) =>
                                             ListTile(
                                                 title: Text(
-                                              ambient.title!,
+                                              tl(ambient.title!, context),
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headlineMedium,
@@ -106,9 +107,11 @@ class _AllSpacesPageState extends State<AllSpacesPage> {
                                                   ListTile(
                                                 onTap: () => context.push(
                                                     '/lines/${ambient.spacesN1[index]!.id}'),
-                                                title: Text(ambient
-                                                    .spacesN1[index]!.title
-                                                    .toString()),
+                                                title: Text(tl(
+                                                    ambient
+                                                        .spacesN1[index]!.title
+                                                        .toString(),
+                                                    context)),
                                               ),
                                             ),
                                           ),

@@ -12,11 +12,18 @@ final Dio dio = Dio(BaseOptions(
 class Api {
   static Future<Response> get(
       {String url = "", Map<String, dynamic>? queryParameters}) {
-    return dio.get(url, queryParameters: queryParameters, options: Options());
+    try {
+      return dio.get(url, queryParameters: queryParameters, options: Options());
+    } catch (e) {
+      return Future.error(e);
+    }
   }
 
-  static Future<Response> post({String url = "", Map<String, dynamic>? body}) {
-    print(json.encode(body));
-    return dio.post(url, data: json.encode(body));
+  static Future<Response> post(
+      {String url = "",
+      Map<String, dynamic>? body,
+      Map<String, dynamic>? queryParameters}) {
+    return dio.post(url,
+        data: json.encode(body), queryParameters: queryParameters);
   }
 }
