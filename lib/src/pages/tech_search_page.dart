@@ -110,5 +110,3 @@ class TechSearchPageState extends State<TechSearchPage> {
     );
   }
 }
-
-getFutureProducts(List<FieldTechSearch> fieldsTechSearch) {}

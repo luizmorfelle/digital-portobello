@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:digital_portobello/src/api/api.dart';
 import 'package:digital_portobello/src/models/field_tech_search.dart';
@@ -39,14 +40,28 @@ Future<List<LineProductModel>> fetchProductsLinesByFilter(
     Map<String, dynamic> dataItem = <String, dynamic>{};
     dataItem["field"] = field.fieldApi;
     dataItem["operator"] = field.operatorApi;
-    dataItem["value"] = field.itens
+    var values = field.itens
         .where((it) => it.checked)
         .map((item) => "'${item.value}'")
         .join(',');
+    if (field.operatorApi == 'in') {
+      dataItem["value"] = values;
+    } else if (field.operatorApi == '<=') {
+      dataItem["value"] =
+          values.split(',').map((e) => int.parse(e)).reduce(max);
+    } else if (field.operatorApi == 'between') {
+      // dataItem["value"] = values.split(',').
+    } else {
+      dataItem["value"] =
+          values.split(',').map((e) => int.parse(e)).reduce(min);
+    }
     return dataItem;
   }).toList();
 
-  final response = await Api.post(url: '/lines', body: body);
+  final response = await Api.post(
+      url: '/lines',
+      body: body,
+      queryParameters: {'cv': SalesChannelProvider().getSaleChannel.id});
 
   if (response.statusCode == 200 && response.data != 'null') {
     Iterable iterable = json.decode(response.data);

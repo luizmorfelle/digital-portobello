@@ -8,19 +8,15 @@ import '../models/banner_home_model.dart';
 Future<List<BannerHomeModel>> fetchBanners() async {
   final response = await Api.get(url: '/banners');
 
-  if (response.statusCode == 200) {
-    Iterable iterable = json.decode(response.data);
-    List<BannerHomeModel> banners = List<BannerHomeModel>.from(
-            iterable.map((model) => BannerHomeModel.fromJson(model)))
-        .where((it) => it.status == 'a' && it.posicao == 'cabeçalho')
-        .toList();
+  Iterable iterable = json.decode(response.data);
+  List<BannerHomeModel> banners = List<BannerHomeModel>.from(
+          iterable.map((model) => BannerHomeModel.fromJson(model)))
+      .where((it) => it.status == 'a' && it.posicao == 'cabeçalho')
+      .toList();
 
-    banners.sort((a, b) => a.ordem.compareTo(b.ordem));
+  banners.sort((a, b) => a.ordem.compareTo(b.ordem));
 
-    return banners;
-  } else {
-    throw Exception('Failed to load album');
-  }
+  return banners;
 }
 
 Future<List<BannerSurfaceModel>> fetchBannersSurface({
@@ -41,14 +37,10 @@ Future<List<BannerSurfaceModel>> fetchBannersSurface({
   final response =
       await Api.get(url: '/banner_surface', queryParameters: queryParameters);
 
-  if (response.statusCode == 200) {
-    Iterable iterable = json.decode(response.data);
-    List<BannerSurfaceModel> banners = List<BannerSurfaceModel>.from(
-            iterable.map((model) => BannerSurfaceModel.fromJson(model)))
-        .take(20)
-        .toList();
-    return banners;
-  } else {
-    throw Exception('Failed to load album');
-  }
+  Iterable iterable = json.decode(response.data);
+  List<BannerSurfaceModel> banners = List<BannerSurfaceModel>.from(
+          iterable.map((model) => BannerSurfaceModel.fromJson(model)))
+      .take(20)
+      .toList();
+  return banners;
 }

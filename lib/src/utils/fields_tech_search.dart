@@ -32,17 +32,13 @@ final List<FieldTechSearch> fieldsTechSearch = [
     id: 2,
     title: 'Absorção de água',
     fieldApi: 'absorcao_dagua',
-    operatorApi: '<=',
+    operatorApi: 'between',
     itens: [
-      ItemFieldTechSearch(value: '0.5', label: 'Abaixo de 0,5% (Bla)'),
-      ItemFieldTechSearch(
-          value: '3 and absorcao_dagua > 0.5', label: '0,5% até 3% (Blb)'),
-      ItemFieldTechSearch(
-          value: '6 and absorcao_dagua > 3', label: '3% até 6% (Blla)'),
-      ItemFieldTechSearch(
-          value: '10 and absorcao_dagua > 6', label: '6% até 10% (Bllb)'),
-      ItemFieldTechSearch(
-          value: '100 and absorcao_dagua > 10', label: 'Encima de 10% (Blll)'),
+      ItemFieldTechSearch(value: '0 and 0.5', label: 'Abaixo de 0,5% (Bla)'),
+      ItemFieldTechSearch(value: '0.5 and 3', label: '0,5% até 3% (Blb)'),
+      ItemFieldTechSearch(value: '3 and 6', label: '3% até 6% (Blla)'),
+      ItemFieldTechSearch(value: '6 and 10', label: '6% até 10% (Bllb)'),
+      ItemFieldTechSearch(value: '10 and 100', label: 'Encima de 10% (Blll)'),
     ],
   ),
   FieldTechSearch(

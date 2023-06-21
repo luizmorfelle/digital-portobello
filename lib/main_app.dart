@@ -3,6 +3,7 @@ import 'package:digital_portobello/src/providers/language_provider.dart';
 import 'package:digital_portobello/src/routes/routes.dart';
 import 'package:digital_portobello/src/providers/favorite_provider.dart';
 import 'package:digital_portobello/src/providers/sales_channel_provider.dart';
+import 'package:digital_portobello/src/utils/timer_inactivity.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,16 +19,16 @@ class MainApp extends StatelessWidget {
         ChangeNotifierProvider.value(value: LanguageProvider()),
       ],
       child: MaterialApp.router(
-        supportedLocales: L10n.all,
         title: 'Digital',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           brightness: Brightness.light,
           primaryColor: Colors.white,
           colorScheme: ColorScheme.fromSwatch().copyWith(
-            primary: Colors.black,
+            primary: Colors.white,
             secondary: Colors.black, // Your accent color
           ),
+          tabBarTheme: TabBarTheme(),
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
               minimumSize: const Size(100, 50),

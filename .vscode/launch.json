@@ -13,9 +13,14 @@
             "name": "prod",
             "request": "launch",
             "type": "dart",
-            "args": [
-                "--dart-define=BASE_URL=https://digitalapi.portobello.com.br/api",
-            ]
+            "toolArgs": [
+                "--dart-define",
+                "BASE_URL=https://api-portobello.sensedia.com/digital-portobello/",
+                "--dart-define",
+                "CLIENT_ID=53eea8e8-7630-4cf8-96f4-1d97f8e8db91",
+                "--dart-define",
+                "AUTH=Basic NTNlZWE4ZTgtNzYzMC00Y2Y4LTk2ZjQtMWQ5N2Y4ZThkYjkxOjFmYTI4ZjIxLThmZGYtNGRlMC1iYWE0LTBmY2M1NGQwYTVmNg=="
+            ],
         }
     ]
 }

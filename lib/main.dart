@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:digital_portobello/src/config/firebase_options.dart';
 import 'package:digital_portobello/src/utils/my_http_overrides.dart';
+import 'package:digital_portobello/src/utils/timer_inactivity.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
