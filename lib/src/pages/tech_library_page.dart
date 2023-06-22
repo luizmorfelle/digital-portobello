@@ -1,11 +1,8 @@
 import 'package:digital_portobello/src/models/tech_library_tab.dart';
-import 'package:digital_portobello/src/pages/list_lines_product_page.dart';
 import 'package:digital_portobello/src/widgets/custom_back_button.dart';
 import 'package:flutter/material.dart';
 
-import '../controllers/lines_controller.dart';
 import '../controllers/tech_library_controller.dart';
-import '../utils/fields_tech_search.dart';
 import '../utils/translate.dart';
 import 'base_tech_page.dart';
 
@@ -49,11 +46,14 @@ class TechLibraryPageState extends State<TechLibraryPage> {
                     child: Scaffold(
                       appBar: AppBar(
                         automaticallyImplyLeading: false,
-                        bottom: TabBar(
-                          indicatorColor: Colors.white,
-                          labelStyle: TextStyle(color: Colors.white),
-                          labelColor: Colors.white,
-                          unselectedLabelStyle: TextStyle(color: Colors.white),
+                        title: TabBar(
+                          padding: EdgeInsets.zero,
+                          indicatorColor: Colors.black,
+                          labelStyle:
+                              TextStyle(color: Colors.black, fontSize: 18),
+                          labelColor: Colors.black,
+                          unselectedLabelColor: Colors.grey,
+                          // unselectedLabelStyle: TextStyle(color: Colors.red),
                           tabs: snapshot.data!
                               .map((e) => Tab(
                                     text: e.title,

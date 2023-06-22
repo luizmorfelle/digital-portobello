@@ -28,7 +28,6 @@ class MainApp extends StatelessWidget {
             primary: Colors.white,
             secondary: Colors.black, // Your accent color
           ),
-          tabBarTheme: TabBarTheme(),
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
               minimumSize: const Size(100, 50),
