@@ -8,7 +8,7 @@ import '../models/product_line_model.dart';
 import '../providers/sales_channel_provider.dart';
 
 Future<List<LineProductModel>> fetchProductsLinesBySpace(int? spaceN1Id) async {
-  final response = await Api.get(
+  final response = await api.get(
       url: '/lines/$spaceN1Id',
       queryParameters: {'cv': SalesChannelProvider().getSaleChannel.id});
 
@@ -58,7 +58,7 @@ Future<List<LineProductModel>> fetchProductsLinesByFilter(
     return dataItem;
   }).toList();
 
-  final response = await Api.post(
+  final response = await api.post(
       url: '/lines',
       body: body,
       queryParameters: {'cv': SalesChannelProvider().getSaleChannel.id});

@@ -3,6 +3,7 @@ import 'package:digital_portobello/src/controllers/products_controller.dart';
 import 'package:digital_portobello/src/utils/translate.dart';
 import 'package:digital_portobello/src/utils/uppercase_text_formatter.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomTextField extends StatefulWidget {
   final TextEditingController? controller;
@@ -53,17 +54,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
         : AutoCompleteTextField<String>(
             key: key,
             suggestions: suggestions!,
-            submitOnSuggestionTap: true,
-            onFocusChanged: (value) {
-              print(value);
-            },
             textInputAction: TextInputAction.search,
             suggestionsAmount: 10,
-            unFocusOnItemSubmitted: true,
             controller: widget.controller,
-            itemSubmitted: (value) {
-              widget.onSubmitted!(value);
-            },
+            submitOnSuggestionTap: true,
+            itemSubmitted: (value) => context.pop(),
             textChanged: widget.onChanged,
             inputFormatters: [UpperCaseTextFormatter()],
             textCapitalization: TextCapitalization.characters,

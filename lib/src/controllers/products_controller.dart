@@ -7,7 +7,7 @@ import 'package:digital_portobello/src/providers/sales_channel_provider.dart';
 
 Future<List<LineProductModel>> fetchProductsLinesByMaterial(
     String? material) async {
-  final response = await Api.get(
+  final response = await api.get(
       url: '/lines/material/$material',
       queryParameters: {'cv': SalesChannelProvider().getSaleChannel.id});
   if (response.statusCode == 200) {
@@ -30,7 +30,7 @@ Future<List<LineProductModel>> fetchProductsLinesByMaterial(
 
 Future<List<ProductModel>> fetchProductsByLineAndSpace(
     String? line, String? space) async {
-  final response = await Api.get(
+  final response = await api.get(
       url: '/products/line/$line/$space',
       queryParameters: {'cv': SalesChannelProvider().getSaleChannel.id});
 
@@ -50,7 +50,7 @@ Future<List<ProductModel>> fetchProductsByLineAndSpace(
 }
 
 Future<List<ProductModel>> fetchProductsByLine(String? line) async {
-  final response = await Api.get(
+  final response = await api.get(
       url: '/products/line/$line',
       queryParameters: {'cv': SalesChannelProvider().getSaleChannel.id});
   if (response.statusCode == 200) {
@@ -67,12 +67,8 @@ Future<List<ProductModel>> fetchProductsByLine(String? line) async {
 }
 
 Future<ProductModel> fetchProduct(String? idProd) async {
-  final response = await Api.get(url: '/product/$idProd');
-  if (response.statusCode == 200) {
-    return ProductModel.fromJson(jsonDecode(response.data));
-  } else {
-    throw Exception('Failed to load album');
-  }
+  final response = await api.get(url: '/product/$idProd');
+  return ProductModel.fromJson(jsonDecode(response.data));
 }
 
 Future<List<ProductModel>> fetchProducts(
@@ -86,15 +82,11 @@ Future<List<ProductModel>> fetchProducts(
     });
   }
   var body = {"filters": filters};
-  final response = await Api.post(url: '/products', body: body);
-  if (response.statusCode == 200) {
-    Iterable iterable = json.decode(response.data);
-    List<ProductModel> spaces = List<ProductModel>.from(iterable.map((model) {
-      return ProductModel.fromJson(model);
-    })).toList();
+  final response = await api.post(url: '/products', body: body);
+  Iterable iterable = json.decode(response.data);
+  List<ProductModel> spaces = List<ProductModel>.from(iterable.map((model) {
+    return ProductModel.fromJson(model);
+  })).toList();
 
-    return spaces;
-  } else {
-    throw Exception('Failed to load album');
-  }
+  return spaces;
 }

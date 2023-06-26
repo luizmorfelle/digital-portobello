@@ -50,8 +50,8 @@ class TechLibraryPageState extends State<TechLibraryPage> {
                           padding: EdgeInsets.zero,
                           indicatorColor: Colors.black,
                           labelStyle:
-                              TextStyle(color: Colors.black, fontSize: 18),
-                          labelColor: Colors.black,
+                              TextStyle(color: Colors.white, fontSize: 18),
+                          labelColor: Colors.white,
                           unselectedLabelColor: Colors.grey,
                           // unselectedLabelStyle: TextStyle(color: Colors.red),
                           tabs: snapshot.data!

@@ -910,6 +910,7 @@ const Map<String, String> pt = {
   'Comercial Leve': 'Comercial Leve',
   'simulate': 'SIMULE AQUI',
   'simulate_here': 'Simule Aqui',
+  'close': 'Fechar',
   'PISO': 'PISO',
   'PAREDE': 'PAREDE',
   'REVESTIMENTO': 'REVESTIMENTO',

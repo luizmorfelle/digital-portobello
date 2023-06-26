@@ -4,7 +4,7 @@ import 'package:digital_portobello/src/api/api.dart';
 import 'package:digital_portobello/src/models/material_model.dart';
 
 Future<List<MaterialModel>> fetchMaterials() async {
-  final response = await Api.get(url: '/materials');
+  final response = await api.get(url: '/materials');
 
   if (response.statusCode == 200) {
     Iterable iterable = json.decode(response.data);

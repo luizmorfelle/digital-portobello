@@ -6,7 +6,7 @@ import 'package:digital_portobello/src/models/banner_surface_model.dart';
 import '../models/banner_home_model.dart';
 
 Future<List<BannerHomeModel>> fetchBanners() async {
-  final response = await Api.get(url: '/banners');
+  final response = await api.get(url: '/banners');
 
   Iterable iterable = json.decode(response.data);
   List<BannerHomeModel> banners = List<BannerHomeModel>.from(
@@ -35,7 +35,7 @@ Future<List<BannerSurfaceModel>> fetchBannersSurface({
     'ambient_id': spaceId ?? "",
   };
   final response =
-      await Api.get(url: '/banner_surface', queryParameters: queryParameters);
+      await api.get(url: '/banner_surface', queryParameters: queryParameters);
 
   Iterable iterable = json.decode(response.data);
   List<BannerSurfaceModel> banners = List<BannerSurfaceModel>.from(

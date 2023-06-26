@@ -3,6 +3,7 @@ const Map<String, String> en = {
   'advanced_search': 'Technical Research',
   'application': 'Application',
   'back': 'Back',
+  'close': 'Close',
   'junta_assentamento_is': 'BEDDING JOINT (DRY INTERNAL WALLS)',
   'junta_assentamento_ef': 'BEDDING JOINT (EXTERNAL WALLS (FACADES)',
   'junta_assentamento_p': 'BEDDING JOINT (FLOORING)',

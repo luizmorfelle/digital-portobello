@@ -1,3 +1,4 @@
+import 'package:digital_portobello/src/api/api.dart';
 import 'package:digital_portobello/src/controllers/materials_controller.dart';
 import 'package:digital_portobello/src/controllers/spaces_controller.dart';
 import 'package:digital_portobello/src/models/banner_home_model.dart';
@@ -5,15 +6,13 @@ import 'package:digital_portobello/src/models/breadcrumb_item_model.dart';
 import 'package:digital_portobello/src/models/dropdown_model.dart';
 import 'package:digital_portobello/src/models/material_model.dart';
 import 'package:digital_portobello/src/models/space_home_model.dart';
-import 'package:digital_portobello/src/providers/language_provider.dart';
 import 'package:digital_portobello/src/widgets/custom_breadcrumb.dart';
 import 'package:digital_portobello/src/widgets/custom_dropdown_button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
-import '../utils/constants.dart';
 import '../controllers/banners_controller.dart';
+import '../utils/constants.dart';
 import '../utils/translate.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer.dart';
@@ -74,6 +73,8 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Wrap(
                       spacing: 35,
+                      direction: Axis.horizontal,
+                      clipBehavior: Clip.antiAlias,
                       children: [
                         Text(
                           tl('choose_environment', context).toUpperCase(),

@@ -8,6 +8,8 @@ import 'package:digital_portobello/src/utils/translate.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_flutter/qr_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../utils/constants.dart';
 import '../controllers/spaces_controller.dart';
@@ -126,7 +128,39 @@ class _ProductPageState extends State<ProductPage> {
                           SizedBox(
                             width: double.infinity,
                             child: ElevatedButton.icon(
-                                onPressed: () {},
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        String url =
+                                            'https://digital.portobello.com.br/?roomvoStartVisualizer=true&sku=${product!.codProduto}${product!.sufixo}&product_type=${actualSpaceN1?.superficiesID == 1 ? 'floor' : 'wall'}';
+
+                                        return AlertDialog(
+                                          title:
+                                              Text(tl('recieve_list', context)),
+                                          content: InkWell(
+                                            onTap: () async =>
+                                                await launchUrl(Uri.parse(url)),
+                                            child: SizedBox(
+                                              height: 400,
+                                              width: 400,
+                                              child: QrImageView(
+                                                data: url,
+                                                version: QrVersions.auto,
+                                              ),
+                                            ),
+                                          ),
+                                          actions: [
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: Text(tl('close', context)),
+                                            ),
+                                          ],
+                                        );
+                                      });
+                                },
                                 icon: const Icon(Icons.qr_code),
                                 label: Text(tl('simulate_here', context))),
                           ),
@@ -151,33 +185,37 @@ class _ProductPageState extends State<ProductPage> {
                             ),
                             Text(tl('material', context),
                                 style: Theme.of(context).textTheme.titleLarge),
-                            Flex(
-                              direction: Axis.horizontal,
-                              children: product!.uso!
-                                  .split(' ')
-                                  .map((uso) => Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          children: [
-                                            Image.asset(
-                                              'assets/icons/$uso.png',
-                                              height: 70,
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Flex(
+                                direction: Axis.horizontal,
+                                children: product!.uso!
+                                    .split(' ')
+                                    .map((uso) => Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Column(
+                                              children: [
+                                                Image.asset(
+                                                  'assets/icons/$uso.png',
+                                                ),
+                                                Text(tl(uso, context),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleLarge),
+                                              ],
                                             ),
-                                            Text(tl(uso, context),
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .titleLarge),
-                                          ],
-                                        ),
-                                      ))
-                                  .toList(),
+                                          ),
+                                        ))
+                                    .toList(),
+                              ),
                             ),
                           ],
                         ),
                       ),
                     ),
                     Expanded(
-                      flex: 6,
+                      flex: 7,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
@@ -203,16 +241,18 @@ class _ProductPageState extends State<ProductPage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                          tl(
-                                              product!
-                                                  .toJson()
-                                                  .keys
-                                                  .toList()[index],
-                                              context),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleMedium),
+                                      FittedBox(
+                                        child: Text(
+                                            tl(
+                                                product!
+                                                    .toJson()
+                                                    .keys
+                                                    .toList()[index],
+                                                context),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleMedium),
+                                      ),
                                       FittedBox(
                                         child: Text(
                                             tl(

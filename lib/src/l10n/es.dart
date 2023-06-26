@@ -23,6 +23,7 @@ const Map<String, String> es = {
   'favorites_expire': 'FAVORITOS EXPIRA EN __ SEGUNDOS',
   'filter': 'FILTRAR',
   'format': 'Formato',
+  'close': 'Cerrar',
   'see_all_2': 'Ver todos',
   'gross_weight': 'Peso bruto (Udm)',
   'your_favorites': 'Usted marcó como favorito(s) ',

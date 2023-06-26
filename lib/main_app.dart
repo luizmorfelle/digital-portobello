@@ -1,3 +1,4 @@
+import 'package:digital_portobello/src/api/api.dart';
 import 'package:digital_portobello/src/l10n/l10n.dart';
 import 'package:digital_portobello/src/providers/language_provider.dart';
 import 'package:digital_portobello/src/routes/routes.dart';
@@ -7,9 +8,14 @@ import 'package:digital_portobello/src/utils/timer_inactivity.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   const MainApp({super.key});
 
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -25,7 +31,7 @@ class MainApp extends StatelessWidget {
           brightness: Brightness.light,
           primaryColor: Colors.white,
           colorScheme: ColorScheme.fromSwatch().copyWith(
-            primary: Colors.white,
+            primary: Colors.black,
             secondary: Colors.black, // Your accent color
           ),
           elevatedButtonTheme: ElevatedButtonThemeData(
