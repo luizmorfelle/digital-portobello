@@ -18,3 +18,5 @@ final List<DropDownModel> salesChannels = [
   DropDownModel('EXP', 'Exportação', description: 'cv_exportacao'),
   DropDownModel('TOD', 'Todos', description: null),
 ];
+
+const double CARD_ITEM_SIZE = 380.0;

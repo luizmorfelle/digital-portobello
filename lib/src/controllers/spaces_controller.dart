@@ -26,6 +26,7 @@ Future<List<SpaceHomeModel>> fetchSpaces(
 }
 
 Future<List<UsageModel>> fetchAllSpacesBySurface(int? surfaceId) async {
+  print('aaaa');
   final response = await api.get(url: '/usage');
   List<UsageModel> usages = List<UsageModel>.from(
       json.decode(response.data).map((it) => UsageModel.fromJson(it)));
@@ -68,6 +69,7 @@ Future<SpaceModel> fetchSpace(int? spaceId) async {
 }
 
 Future<SpaceN1Model> fetchSpaceN1(int? spaceId) async {
+  print('$spaceId');
   final response = await api.get(url: '/environment_n1/$spaceId');
   return SpaceN1Model.fromJson(jsonDecode(response.data));
 }

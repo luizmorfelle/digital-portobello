@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:digital_portobello/src/models/banner_model.dart';
 import 'package:flutter/material.dart';
+import 'package:skeletons/skeletons.dart';
 
 class SliderHeader extends StatefulWidget {
   const SliderHeader({super.key, required this.images});
@@ -44,12 +45,21 @@ class _SliderHeaderState extends State<SliderHeader> {
                           return Builder(
                             builder: (BuildContext context) {
                               return Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  child: Image(
-                                      fit: BoxFit.cover,
+                                width: MediaQuery.of(context).size.width,
+                                child: Image.asset(
+                                  'assets/images/banners/${image.image}',
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Image.network(
+                                      '${image.image}',
+                                      width: 300,
                                       height: 300,
-                                      image: AssetImage(
-                                          'assets/images/banners/${image.image}')));
+                                      fit: BoxFit.cover,
+                                    );
+                                  },
+                                  fit: BoxFit.cover,
+                                  height: 300,
+                                ),
+                              );
                             },
                           );
                         }).toList(),
@@ -161,9 +171,20 @@ class _SliderHeaderState extends State<SliderHeader> {
                   ),
                 );
         } else if (snapshot.hasError) {
-          return Text('${snapshot.error}');
+          return Text('${snapshot.error} - ${snapshot.stackTrace}');
+        } else if (widget.images == null) {
+          return Container();
         }
-        return const Center(child: CircularProgressIndicator());
+        return Skeleton(
+            isLoading: true,
+            skeleton: SkeletonAvatar(
+              style: SkeletonAvatarStyle(
+                width: double.infinity,
+                minHeight: 300,
+                maxHeight: 301,
+              ),
+            ),
+            child: Container());
       },
     );
   }

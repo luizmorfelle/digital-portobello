@@ -3,6 +3,8 @@ import 'package:digital_portobello/src/models/card_item_model.dart';
 import 'package:digital_portobello/src/widgets/card_item.dart';
 import 'package:flutter/material.dart';
 
+import '../utils/constants.dart';
+
 class SliderItems extends StatefulWidget {
   const SliderItems({
     super.key,
@@ -18,7 +20,6 @@ class SliderItems extends StatefulWidget {
 class _SliderItemsState extends State<SliderItems> {
   CarouselController buttonCarouselController = CarouselController();
 
-  final double cardSize = 380.0;
   int pageIndex = 2;
 
   @override
@@ -28,7 +29,7 @@ class _SliderItemsState extends State<SliderItems> {
         CarouselSlider(
           carouselController: buttonCarouselController,
           options: CarouselOptions(
-              height: cardSize,
+              height: CARD_ITEM_SIZE,
               initialPage: 2,
               onPageChanged: (index, reason) {
                 setState(() {
@@ -41,7 +42,7 @@ class _SliderItemsState extends State<SliderItems> {
               },
               animateToClosest: false,
               viewportFraction:
-                  (1 / (MediaQuery.of(context).size.width / cardSize)),
+                  (1 / (MediaQuery.of(context).size.width / CARD_ITEM_SIZE)),
               enableInfiniteScroll: false),
           items: widget.itens.map((item) {
             return Builder(
@@ -52,7 +53,7 @@ class _SliderItemsState extends State<SliderItems> {
           }).toList(),
         ),
         SizedBox(
-          height: cardSize,
+          height: CARD_ITEM_SIZE,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,

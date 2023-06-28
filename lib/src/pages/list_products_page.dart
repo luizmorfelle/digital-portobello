@@ -81,18 +81,7 @@ class _ListProductsPageState extends State<ListProductsPage> {
               BreadCrumbItemModel(name: previousSpace?.title, path: ''),
               BreadCrumbItemModel(name: actualSpaceN1?.title, path: ''),
             ],
-      child: FutureBuilder(
-        future: futureProducts,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Text('${snapshot.error}');
-          } else if (snapshot.hasData) {
-            return GridItems(items: snapshot.data!);
-          }
-
-          return const CircularProgressIndicator();
-        },
-      ),
+      child: GridItems(futureItems: futureProducts),
     );
   }
 }

@@ -63,16 +63,8 @@ class _ListSpacesPageState extends State<ListSpacesPage> {
               BreadCrumbItemModel(name: actualSpace?.title, path: '')
             ],
       child: Column(children: [
-        FutureBuilder(
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return GridItems(items: snapshot.data!);
-            } else if (snapshot.hasError) {
-              return Text('${snapshot.error}');
-            }
-            return const CircularProgressIndicator();
-          },
-          future: futureSpaces,
+        GridItems(
+          futureItems: futureSpaces,
         ),
         const SeeAllSpacesButton()
       ]),

@@ -6,7 +6,7 @@ final List<FieldTechSearch> fieldsTechSearch = [
     id: 0,
     title: 'Coeficiente de atrito molhado',
     fieldApi: 'atrito_molhado_iso',
-    operatorApi: '<=',
+    operatorApi: 'in',
     itens: [
       ItemFieldTechSearch(value: '0.3', label: '0,3'),
       ItemFieldTechSearch(value: '0.4', label: '0,4'),

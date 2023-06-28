@@ -1,6 +1,9 @@
 import 'package:digital_portobello/src/models/tech_library_tab.dart';
 import 'package:digital_portobello/src/widgets/custom_back_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:flutter_youtube_view/flutter_youtube_view.dart';
+import 'package:pdf/pdf.dart';
 
 import '../controllers/tech_library_controller.dart';
 import '../utils/translate.dart';
@@ -63,9 +66,34 @@ class TechLibraryPageState extends State<TechLibraryPage> {
                       ),
                       body: TabBarView(
                         children: snapshot.data!
-                            .map((e) => Text(
-                                  e.title,
-                                ))
+                            .map((e) => GridView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 4,
+                                  crossAxisSpacing: 20.0,
+                                  mainAxisSpacing: 20.0,
+                                ),
+                                itemCount: e.files?.length ?? 0,
+                                itemBuilder: (_, index) {
+                                  return Card(
+                                    child: Column(
+                                      children: [
+                                        FlutterYoutubeView(
+                                            scaleMode: YoutubeScaleMode
+                                                .none, // <option> fitWidth, fitHeight
+                                            params: YoutubeParam(
+                                                videoId: 'NMs-EP6Z2OQ',
+                                                showUI: false,
+                                                startSeconds: 0.0, // <option>
+                                                autoPlay: false) // <option>
+                                            ),
+                                        Text('${e.files![index].title}')
+                                      ],
+                                    ),
+                                  );
+                                }))
                             .toList(),
                       ),
                     ),

@@ -48,6 +48,7 @@ class TechSearchPageState extends State<TechSearchPage> {
                             field.itens
                                 .where((it) => it.checked)
                                 .map((e) => e.value)
+                                .toSet()
                                 .join(', '),
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),

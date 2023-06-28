@@ -1,10 +1,7 @@
-import 'package:digital_portobello/src/api/api.dart';
-import 'package:digital_portobello/src/l10n/l10n.dart';
-import 'package:digital_portobello/src/providers/language_provider.dart';
-import 'package:digital_portobello/src/routes/routes.dart';
 import 'package:digital_portobello/src/providers/favorite_provider.dart';
+import 'package:digital_portobello/src/providers/language_provider.dart';
 import 'package:digital_portobello/src/providers/sales_channel_provider.dart';
-import 'package:digital_portobello/src/utils/timer_inactivity.dart';
+import 'package:digital_portobello/src/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

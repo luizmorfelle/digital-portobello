@@ -22,6 +22,13 @@ class CardItem extends StatelessWidget {
             Expanded(
               child: cardItem.imagem != null
                   ? Image.asset(
+                      errorBuilder: (context, error, stackTrace) =>
+                          const Center(
+                        child: Icon(
+                          Icons.error,
+                          color: Colors.red,
+                        ),
+                      ),
                       cardItem.imagem ?? "",
                       width: double.infinity,
                       fit: BoxFit.fill,

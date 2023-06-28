@@ -34,7 +34,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         setState(() {
           suggestions = value
               .map((e) =>
-                  '${e.codProduto}${e.sufixo} - ${e.linha} - ${e.descProduto} - ${e.descFormatoNominal} - ${e.acabamentoDeBorda}')
+                  '${e.id} - ${e.codProduto}${e.sufixo} - ${e.linha} - ${e.descProduto} - ${e.descFormatoNominal} - ${e.acabamentoDeBorda}')
               .toList();
         });
       });
@@ -51,44 +51,82 @@ class _CustomTextFieldState extends State<CustomTextField> {
         ? const Center(
             child: CircularProgressIndicator(),
           )
-        : AutoCompleteTextField<String>(
-            key: key,
-            suggestions: suggestions!,
-            textInputAction: TextInputAction.search,
-            suggestionsAmount: 10,
-            controller: widget.controller,
-            submitOnSuggestionTap: true,
-            itemSubmitted: (value) => context.pop(),
-            textChanged: widget.onChanged,
-            inputFormatters: [UpperCaseTextFormatter()],
-            textCapitalization: TextCapitalization.characters,
-            itemSorter: (a, b) => a.compareTo(b),
-            itemFilter: (suggestion, input) =>
-                suggestion.toUpperCase().contains(input.toUpperCase()),
-            style: const TextStyle(color: Colors.white),
-            cursorColor: Colors.white,
-            decoration: InputDecoration(
-                border: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                focusedBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                enabledBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                filled: true,
-                fillColor: Colors.grey,
-                suffixIcon: const Icon(
-                  Icons.search,
-                  color: Colors.white,
+        : RawAutocomplete(
+            optionsBuilder: (TextEditingValue textEditingValue) {
+              if (textEditingValue.text == '' ||
+                  textEditingValue.text.length < 3) {
+                return const Iterable<String>.empty();
+              } else {
+                List<String> matches = <String>[];
+                matches.addAll(suggestions!);
+
+                matches.retainWhere((s) {
+                  return s
+                      .toLowerCase()
+                      .contains(textEditingValue.text.toLowerCase());
+                });
+                return matches;
+              }
+            },
+            onSelected: (String selection) {
+              widget.onSubmitted!(selection);
+            },
+            fieldViewBuilder: (BuildContext context,
+                TextEditingController textEditingController,
+                FocusNode focusNode,
+                VoidCallback onFieldSubmitted) {
+              return TextField(
+                decoration: InputDecoration(
+                    border: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    filled: true,
+                    fillColor: Colors.grey,
+                    suffixIcon: const Icon(
+                      Icons.search,
+                      color: Colors.white,
+                    ),
+                    hintStyle:
+                        const TextStyle(color: Colors.white, fontSize: 20),
+                    hintText: tl('search', context)),
+                controller: textEditingController,
+                focusNode: focusNode,
+                onSubmitted: (String value) {},
+              );
+            },
+            optionsViewBuilder: (BuildContext context,
+                void Function(String) onSelected, Iterable<String> options) {
+              return Material(
+                child: SizedBox(
+                  height: 200,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: options.map((opt) {
+                        return InkWell(
+                          onTap: () {
+                            onSelected(opt);
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.only(right: 60),
+                            child: Card(
+                              child: Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.all(10),
+                                child: Text(opt),
+                              ),
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ),
                 ),
-                hintStyle: const TextStyle(color: Colors.white, fontSize: 20),
-                hintText: tl('search', context)),
-            itemBuilder: (BuildContext context, String suggestion) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(suggestion),
               );
             },
           );

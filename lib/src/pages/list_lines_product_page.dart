@@ -131,9 +131,11 @@ class _ListLinesProductPageState extends State<ListLinesProductPage> {
 
     return BasePage(
       title: tl('Escolha o produto desejado', context).toUpperCase(),
-      futureBanners: fetchBannersSurface(
-          spaceN1Id: actualSpaceN1?.id.toString() ?? "",
-          material: widget.materialName ?? ""),
+      futureBanners: actualSpaceN1 != null || widget.materialName != null
+          ? fetchBannersSurface(
+              spaceN1Id: actualSpaceN1?.id.toString() ?? "",
+              material: widget.materialName ?? "")
+          : null,
       futureObject: futureLinesProduct,
       itemsBreadCrumb: previousSpace == null || actualSpaceN1 == null
           ? []
@@ -191,7 +193,7 @@ class _ListLinesProductPageState extends State<ListLinesProductPage> {
               ],
             ),
           ),
-          GridItems(items: linesProduct ?? []),
+          GridItems(futureItems: futureLinesProduct)
         ],
       ),
     );

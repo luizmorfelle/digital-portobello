@@ -10,6 +10,7 @@ import 'package:digital_portobello/src/widgets/custom_breadcrumb.dart';
 import 'package:digital_portobello/src/widgets/custom_dropdown_button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:skeletons/skeletons.dart';
 
 import '../controllers/banners_controller.dart';
 import '../utils/constants.dart';
@@ -66,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: CustomTextField(
                     onSubmitted: (value) =>
-                        context.push('product/${value.split('-')[0].trim()}'),
+                        context.push('/product/${value.split('-')[0].trim()}'),
                   ),
                 ),
                 Row(
@@ -130,7 +131,27 @@ class _HomePageState extends State<HomePage> {
                     } else if (snapshot.hasError) {
                       return Text('${snapshot.error} ${snapshot.stackTrace}');
                     }
-                    return const CircularProgressIndicator();
+                    return Skeleton(
+                        isLoading: true,
+                        skeleton: Flex(
+                          direction: Axis.horizontal,
+                          children: List.filled(
+                              MediaQuery.of(context).size.width ~/
+                                  CARD_ITEM_SIZE,
+                              Expanded(
+                                flex: 1,
+                                child: const Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 8.0),
+                                  child: SkeletonAvatar(
+                                    style: SkeletonAvatarStyle(
+                                        height: CARD_ITEM_SIZE,
+                                        width: CARD_ITEM_SIZE),
+                                  ),
+                                ),
+                              )),
+                        ),
+                        child: Container());
                   },
                   future: futureSpaces,
                 ),
@@ -144,7 +165,28 @@ class _HomePageState extends State<HomePage> {
                     } else if (snapshot.hasError) {
                       return Text('${snapshot.error} ${snapshot.stackTrace}');
                     }
-                    return const CircularProgressIndicator();
+                    return Skeleton(
+                        isLoading: true,
+                        skeleton: Flex(
+                          direction: Axis.horizontal,
+                          children: List.filled(
+                              MediaQuery.of(context).size.width ~/
+                                  CARD_ITEM_SIZE,
+                              Expanded(
+                                flex: 1,
+                                child: const Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 8.0),
+                                  child: SkeletonAvatar(
+                                    style: SkeletonAvatarStyle(
+                                        height: CARD_ITEM_SIZE,
+                                        width: CARD_ITEM_SIZE),
+                                  ),
+                                ),
+                              )),
+                        ),
+                        child: Container());
+                    ;
                   },
                   future: futureMaterials,
                 ),

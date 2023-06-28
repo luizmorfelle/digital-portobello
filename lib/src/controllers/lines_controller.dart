@@ -48,12 +48,12 @@ Future<List<LineProductModel>> fetchProductsLinesByFilter(
       dataItem["value"] = values;
     } else if (field.operatorApi == '<=') {
       dataItem["value"] =
-          values.split(',').map((e) => int.parse(e)).reduce(max);
+          values.split(',').map((e) => double.parse(e.trim())).reduce(max);
     } else if (field.operatorApi == 'between') {
       // dataItem["value"] = values.split(',').
     } else {
       dataItem["value"] =
-          values.split(',').map((e) => int.parse(e)).reduce(min);
+          values.split(',').map((e) => double.parse(e)).reduce(min);
     }
     return dataItem;
   }).toList();
