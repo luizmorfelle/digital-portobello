@@ -191,19 +191,26 @@ class _ProductPageState extends State<ProductPage> {
                                 direction: Axis.horizontal,
                                 children: product!.uso!
                                     .split(' ')
-                                    .map((uso) => Expanded(
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Column(
-                                              children: [
-                                                Image.asset(
-                                                  'assets/icons/$uso.png',
-                                                ),
-                                                Text(tl(uso, context),
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .titleLarge),
-                                              ],
+                                    .map((uso) => Flexible(
+                                          child: Container(
+                                            constraints: BoxConstraints(
+                                                maxHeight: 150, maxWidth: 150),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Column(
+                                                children: [
+                                                  Flexible(
+                                                    child: Image.asset(
+                                                      'assets/icons/$uso.png',
+                                                    ),
+                                                  ),
+                                                  Text(tl(uso, context),
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .titleLarge),
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ))

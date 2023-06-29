@@ -43,6 +43,7 @@ Future<List<LineProductModel>> fetchProductsLinesByFilter(
     var values = field.itens
         .where((it) => it.checked)
         .map((item) => "'${item.value}'")
+        .toSet()
         .join(',');
     if (field.operatorApi == 'in') {
       dataItem["value"] = values;

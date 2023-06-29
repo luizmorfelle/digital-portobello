@@ -38,7 +38,7 @@ final List<FieldTechSearch> fieldsTechSearch = [
       ItemFieldTechSearch(value: '0.5 and 3', label: '0,5% até 3% (Blb)'),
       ItemFieldTechSearch(value: '3 and 6', label: '3% até 6% (Blla)'),
       ItemFieldTechSearch(value: '6 and 10', label: '6% até 10% (Bllb)'),
-      ItemFieldTechSearch(value: '10 and 100', label: 'Encima de 10% (Blll)'),
+      ItemFieldTechSearch(value: '10 and 100', label: 'Acima de 10% (Blll)'),
     ],
   ),
   FieldTechSearch(
