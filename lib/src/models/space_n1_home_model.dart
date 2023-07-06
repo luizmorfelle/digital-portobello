@@ -16,7 +16,7 @@ class SpaceN1HomeModel extends CardItemModel {
       this.spaceHome,
       this.idAmbienteN1})
       : super(
-            path: 'lines/$idAmbienteN1',
+            path: 'groups/$idAmbienteN1',
             imagem: "assets/images/spacesN1/$image",
             nome: title!);
 

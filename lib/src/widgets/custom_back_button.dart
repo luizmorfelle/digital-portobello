@@ -18,7 +18,7 @@ class CustomBackButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
       ),
-      icon: const Icon(Icons.arrow_back_rounded, color: Colors.black, size: 30),
+      icon: const Icon(Icons.arrow_back, color: Colors.black, size: 30),
       label: Text(
         tl('back', context),
         style: TextStyle(color: Colors.black, fontSize: 20),

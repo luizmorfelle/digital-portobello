@@ -22,7 +22,7 @@ class CustomDropdownButton extends StatelessWidget {
         hint: Text(
           tl(value.value, context),
           style: const TextStyle(
-            fontSize: 20,
+            fontSize: 18,
             fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
@@ -34,7 +34,7 @@ class CustomDropdownButton extends StatelessWidget {
                   child: Text(
                     tl(item.value, context),
                     style: const TextStyle(
-                      fontSize: 16,
+                      fontSize: 15,
                       color: Colors.black,
                     ),
                     overflow: TextOverflow.ellipsis,

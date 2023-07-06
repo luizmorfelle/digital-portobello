@@ -42,7 +42,7 @@ class _ListSpacesPageState extends State<ListSpacesPage> {
       title: tl('select_your_ambient', context).toUpperCase(),
       futureBanners: actualSpace == null
           ? null
-          : fetchBannersSurface(spaceId: actualSpace?.idAmbiente.toString()),
+          : fetchBannersSurface(spaceId: widget.spaceId),
       futureObject: futureActualSpace,
       itemsBreadCrumb: actualSpace == null
           ? []
@@ -66,7 +66,9 @@ class _ListSpacesPageState extends State<ListSpacesPage> {
         GridItems(
           futureItems: futureSpaces,
         ),
-        const SeeAllSpacesButton()
+        SeeAllSpacesButton(
+          surfaceId: actualSpace?.idSuperficie.toString(),
+        )
       ]),
     );
   }

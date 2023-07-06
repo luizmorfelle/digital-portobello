@@ -1,11 +1,11 @@
 import 'package:digital_portobello/src/models/card_item_model.dart';
 
-class LineProductModel extends CardItemModel {
+class GroupProductModel extends CardItemModel {
   int? spaceN1Id;
   List<String>? colors = [];
   List<String>? materials = [];
 
-  LineProductModel(
+  GroupProductModel(
       {required int id,
       required String imagem,
       required String nome,
@@ -17,17 +17,18 @@ class LineProductModel extends CardItemModel {
             id: id,
             isFull: false,
             path: spaceN1Id == null
-                ? 'products/line/$id'
-                : 'products/line/$spaceN1Id/$id',
+                ? 'products/groups/$id'
+                : 'products/groups/$spaceN1Id/$id',
             imagem: 'assets/images$imagem',
             nome: nome,
             description: description);
 
-  factory LineProductModel.fromJson(Map<String, dynamic> json) {
-    var it = LineProductModel(
-      id: int.parse(json['Cod_linha']),
+  factory GroupProductModel.fromJson(Map<String, dynamic> json) {
+    var it = GroupProductModel(
+      id: int.parse(json['Cod_grupo']),
       imagem: json['ZoomImage'].toString().split(',')[0],
-      nome: json['Linha'],
+      nome: json['Grupo'],
+      description: json['Descricao'],
       colors: json['Cor'].toString().split(','),
       materials: json['Material'].toString().split(','),
     );
@@ -37,9 +38,14 @@ class LineProductModel extends CardItemModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Linha'] = nome;
-    data['Cod_linha'] = id;
+
+    data['Cod_grupo'] = id;
     data['ZoomImage'] = imagem;
+    data['Grupo'] = nome;
+    data['Descricao'] = description;
+    data['Cor'] = colors;
+    data['Material'] = materials;
+
     return data;
   }
 }

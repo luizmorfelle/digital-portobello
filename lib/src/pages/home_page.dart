@@ -1,3 +1,4 @@
+import 'package:digital_portobello/main.dart';
 import 'package:digital_portobello/src/api/api.dart';
 import 'package:digital_portobello/src/controllers/materials_controller.dart';
 import 'package:digital_portobello/src/controllers/spaces_controller.dart';
@@ -75,6 +76,7 @@ class _HomePageState extends State<HomePage> {
                     Wrap(
                       spacing: 35,
                       direction: Axis.horizontal,
+                      crossAxisAlignment: WrapCrossAlignment.center,
                       clipBehavior: Clip.antiAlias,
                       children: [
                         Text(
@@ -87,7 +89,8 @@ class _HomePageState extends State<HomePage> {
                           onChange: (value) {
                             setState(() {
                               if (value?.id == '3') {
-                                context.push('/all-spaces');
+                                context
+                                    .push('/all-spaces/${selectedSurface!.id}');
                                 return;
                               }
                               selectedUsage = value;
@@ -121,10 +124,13 @@ class _HomePageState extends State<HomePage> {
                       BreadCrumbItemModel(
                           name: tl(selectedSurface!.value, context), path: ''),
                     ]),
-                    const SeeAllSpacesButton()
+                    SeeAllSpacesButton(
+                      surfaceId: selectedSurface?.id,
+                    )
                   ],
                 ),
                 FutureBuilder(
+                  future: futureSpaces,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return SliderItems(itens: snapshot.data!);
@@ -138,9 +144,9 @@ class _HomePageState extends State<HomePage> {
                           children: List.filled(
                               MediaQuery.of(context).size.width ~/
                                   CARD_ITEM_SIZE,
-                              Expanded(
+                              const Expanded(
                                 flex: 1,
-                                child: const Padding(
+                                child: Padding(
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 8.0),
                                   child: SkeletonAvatar(
@@ -153,7 +159,6 @@ class _HomePageState extends State<HomePage> {
                         ),
                         child: Container());
                   },
-                  future: futureSpaces,
                 ),
                 const SizedBox(
                   height: 50,
@@ -172,9 +177,9 @@ class _HomePageState extends State<HomePage> {
                           children: List.filled(
                               MediaQuery.of(context).size.width ~/
                                   CARD_ITEM_SIZE,
-                              Expanded(
+                              const Expanded(
                                 flex: 1,
-                                child: const Padding(
+                                child: Padding(
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 8.0),
                                   child: SkeletonAvatar(

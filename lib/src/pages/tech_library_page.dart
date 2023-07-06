@@ -1,9 +1,8 @@
 import 'package:digital_portobello/src/models/tech_library_tab.dart';
 import 'package:digital_portobello/src/widgets/custom_back_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:flutter_youtube_view/flutter_youtube_view.dart';
-import 'package:pdf/pdf.dart';
+import 'package:pdf_render/pdf_render_widgets.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../controllers/tech_library_controller.dart';
 import '../utils/translate.dart';
@@ -80,16 +79,53 @@ class TechLibraryPageState extends State<TechLibraryPage> {
                                   return Card(
                                     child: Column(
                                       children: [
-                                        FlutterYoutubeView(
-                                            scaleMode: YoutubeScaleMode
-                                                .none, // <option> fitWidth, fitHeight
-                                            params: YoutubeParam(
-                                                videoId: 'NMs-EP6Z2OQ',
-                                                showUI: false,
-                                                startSeconds: 0.0, // <option>
-                                                autoPlay: false) // <option>
-                                            ),
-                                        Text('${e.files![index].title}')
+                                        e.files?[index].tipo == 'pdf'
+                                            ? Expanded(
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    launchUrl(Uri.parse(
+                                                        e.files![index].url!));
+                                                  },
+                                                  child: PdfDocumentLoader.openFile(
+                                                      'https://educapes.capes.gov.br/bitstream/capes/432730/2/Livro%20%20Introduc%C3%A3o%20a%20Computac%C3%A3o.pdf',
+                                                      pageNumber: 1,
+                                                      pageBuilder: (context,
+                                                              textureBuilder,
+                                                              pageSize) =>
+                                                          textureBuilder()),
+                                                ),
+                                              )
+                                            : InkWell(
+                                                onTap: () {
+                                                  launchUrl(Uri.parse(
+                                                      e.files![index].url!));
+                                                },
+                                                child: Stack(
+                                                  children: [
+                                                    Image.network(getThumbnail(
+                                                        e.files![index].url!)),
+                                                    Positioned.fill(
+                                                      child: Center(
+                                                        child: Icon(
+                                                          Icons.play_circle,
+                                                          color: Colors.white,
+                                                          size: 50,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 8.0),
+                                          child: Text(
+                                            '${e.files![index].title}',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleLarge,
+                                          ),
+                                        )
                                       ],
                                     ),
                                   );
@@ -108,5 +144,10 @@ class TechLibraryPageState extends State<TechLibraryPage> {
         ],
       ),
     );
+  }
+
+  String getThumbnail(String s) {
+    String id = s.split('v=')[1];
+    return 'https://img.youtube.com/vi/$id/0.jpg';
   }
 }

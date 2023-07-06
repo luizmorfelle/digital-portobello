@@ -23,7 +23,7 @@ class FavoritesPage extends StatefulWidget {
 }
 
 class _FavoritesPageState extends State<FavoritesPage> {
-  late Map<ProductModel, SpaceN1Model> products;
+  late Map<ProductModel, SpaceN1Model?> products;
   @override
   void initState() {
     super.initState();
@@ -68,8 +68,9 @@ class _FavoritesPageState extends State<FavoritesPage> {
                           builder: (BuildContext context) {
                             String url = '';
                             products.forEach((product, space) {
-                              url +=
-                                  '${product.codProduto}${product.sufixo}-${space.id}-${surfaces.firstWhere((it) => it.id == space.superficiesID).value}_${space.title}_${space.spaceModel!.title},';
+                              url += space != null
+                                  ? '${product.codProduto}${product.sufixo}-${space.id}-${surfaces.firstWhere((it) => it.id == space.superficiesID.toString()).value}_${space.title}_${space.spaceModel!.title},'
+                                  : '${product.codProduto}${product.sufixo}';
                             });
                             return AlertDialog(
                               title: Text(tl('recieve_list', context)),
@@ -206,31 +207,33 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                                 ),
                                               ],
                                             ),
-                                            Row(
-                                              children: [
-                                                CustomBreadCrumb(items: [
-                                                  BreadCrumbItemModel(
-                                                      name: surfaces
-                                                          .firstWhere(
-                                                            (it) =>
-                                                                it.id ==
-                                                                productMap.value
-                                                                    .superficiesID
-                                                                    .toString(),
-                                                          )
-                                                          .value,
-                                                      path: ''),
-                                                  BreadCrumbItemModel(
-                                                      name:
-                                                          '${productMap.value.spaceModel!.title}',
-                                                      path: ''),
-                                                  BreadCrumbItemModel(
-                                                      name:
-                                                          '${productMap.value.title}',
-                                                      path: ''),
-                                                ])
-                                              ],
-                                            ),
+                                            if (productMap.value != null)
+                                              Row(
+                                                children: [
+                                                  CustomBreadCrumb(items: [
+                                                    BreadCrumbItemModel(
+                                                        name: surfaces
+                                                            .firstWhere(
+                                                              (it) =>
+                                                                  it.id ==
+                                                                  productMap
+                                                                      .value!
+                                                                      .superficiesID
+                                                                      .toString(),
+                                                            )
+                                                            .value,
+                                                        path: ''),
+                                                    BreadCrumbItemModel(
+                                                        name:
+                                                            '${productMap.value!.spaceModel!.title}',
+                                                        path: ''),
+                                                    BreadCrumbItemModel(
+                                                        name:
+                                                            '${productMap.value!.title}',
+                                                        path: ''),
+                                                  ])
+                                                ],
+                                              ),
                                             const SizedBox(
                                               height: 10,
                                             ),
@@ -266,14 +269,15 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                                             style: Theme.of(
                                                                     context)
                                                                 .textTheme
-                                                                .titleMedium),
+                                                                .bodyLarge),
                                                         Text(
                                                             tl(
                                                                 productMap.key
-                                                                        .toJson()
-                                                                        .values
-                                                                        .toList()[
-                                                                    index]!,
+                                                                            .toJson()
+                                                                            .values
+                                                                            .toList()[
+                                                                        index] ??
+                                                                    "-",
                                                                 context),
                                                             style: Theme.of(
                                                                     context)

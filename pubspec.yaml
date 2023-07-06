@@ -50,8 +50,8 @@ dependencies:
   country_flags: ^2.0.0
   skeletons: ^0.0.3
   pdf: ^3.10.1
-  flutter_pdfview: ^1.3.1
-  flutter_youtube_view: ^2.0.4
+  pdf_render: ^1.4.0
+  tuple: ^2.0.2
 
 # flutter_localizations:
 #   sdk: flutter
@@ -90,6 +90,7 @@ flutter:
     - assets/images/products/
     - assets/icons/
     - assets/.env
+    - assets/id.txt
   
 
   # An image asset can refer to one or more resolution-specific "variants", see

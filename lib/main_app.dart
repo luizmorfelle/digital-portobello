@@ -42,8 +42,19 @@ class _MainAppState extends State<MainApp> {
           ),
           fontFamily: 'Helvetica',
           textTheme: Theme.of(context).textTheme.copyWith(
+              titleLarge: const TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w800,
+                  fontSize: 24),
+              titleMedium: const TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 20),
+              bodyLarge: const TextStyle(color: Colors.black, fontSize: 19),
               headlineLarge: const TextStyle(
-                  color: Colors.black, fontWeight: FontWeight.bold),
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 40),
               headlineMedium: const TextStyle(
                   color: Colors.black,
                   fontSize: 20,

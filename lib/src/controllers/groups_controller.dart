@@ -2,26 +2,26 @@ import 'dart:convert';
 
 import 'package:digital_portobello/src/api/api.dart';
 import 'package:digital_portobello/src/models/field_tech_search.dart';
+import 'package:digital_portobello/src/models/group_product_model.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 
-import '../models/product_line_model.dart';
 import '../providers/sales_channel_provider.dart';
 
-Future<List<LineProductModel>> fetchProductsLinesBySpace(
+Future<List<GroupProductModel>> fetchProductsGroupsBySpace(
     int? spaceN1Id, BuildContext context) async {
-  final response = await api.get(url: '/lines/$spaceN1Id', queryParameters: {
+  final response = await api.get(url: '/groups/$spaceN1Id', queryParameters: {
     'cv': Provider.of<SalesChannelProvider>(context).getSaleChannel.id
   });
 
   if (response.statusCode == 200) {
     Iterable iterable = json.decode(response.data);
 
-    List<LineProductModel> lines =
-        List<LineProductModel>.from(iterable.map((model) {
-      LineProductModel line = LineProductModel.fromJson(model);
+    List<GroupProductModel> lines =
+        List<GroupProductModel>.from(iterable.map((model) {
+      GroupProductModel line = GroupProductModel.fromJson(model);
       line.spaceN1Id = spaceN1Id;
-      line.path = 'products/line/$spaceN1Id/${line.id}';
+      line.path = 'products/groups/$spaceN1Id/${line.id}';
       return line;
     })).toList();
     lines.sort(
@@ -33,7 +33,7 @@ Future<List<LineProductModel>> fetchProductsLinesBySpace(
   }
 }
 
-Future<List<LineProductModel>> fetchProductsLinesByFilter(
+Future<List<GroupProductModel>> fetchProductsGroupsByFilter(
     List<FieldTechSearch> fields, BuildContext context) async {
   Map<String, dynamic> body = <String, dynamic>{};
   body['filters'] = fields
@@ -51,16 +51,16 @@ Future<List<LineProductModel>> fetchProductsLinesByFilter(
     return dataItem;
   }).toList();
 
-  final response = await api.post(url: '/lines', body: body, queryParameters: {
+  final response = await api.post(url: '/groups', body: body, queryParameters: {
     'cv': Provider.of<SalesChannelProvider>(context).getSaleChannel.id
   });
 
   if (response.statusCode == 200 && response.data != 'null') {
     Iterable iterable = json.decode(response.data);
 
-    List<LineProductModel> lines =
-        List<LineProductModel>.from(iterable.map((model) {
-      LineProductModel line = LineProductModel.fromJson(model);
+    List<GroupProductModel> lines =
+        List<GroupProductModel>.from(iterable.map((model) {
+      GroupProductModel line = GroupProductModel.fromJson(model);
 
       return line;
     })).toList();
@@ -73,20 +73,21 @@ Future<List<LineProductModel>> fetchProductsLinesByFilter(
   }
 }
 
-Future<List<LineProductModel>> fetchProductsLinesByMaterial(
+Future<List<GroupProductModel>> fetchProductsGroupsByMaterial(
     String? material, BuildContext context) async {
+  print("aaaaaaaa");
   final response = await api.get(
-      url: '/lines/material/$material',
+      url: '/groups/material/$material',
       queryParameters: {
         'cv': Provider.of<SalesChannelProvider>(context).getSaleChannel.id
       });
   if (response.statusCode == 200) {
     Iterable iterable = json.decode(response.data);
 
-    List<LineProductModel> lines =
-        List<LineProductModel>.from(iterable.map((model) {
-      LineProductModel line = LineProductModel.fromJson(model);
-      line.path = 'products/line/${line.id}';
+    List<GroupProductModel> lines =
+        List<GroupProductModel>.from(iterable.map((model) {
+      GroupProductModel line = GroupProductModel.fromJson(model);
+      line.path = 'products/groups/${line.id}';
       return line;
     })).toList();
     lines.sort(

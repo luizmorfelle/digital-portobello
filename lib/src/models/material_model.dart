@@ -9,7 +9,7 @@ class MaterialModel extends CardItemModel {
     this.slug,
     String? description,
   }) : super(
-            path: 'lines/material/$slug',
+            path: 'groups/material/$slug',
             imagem: 'assets/images/materials/$imagem',
             nome: nome,
             description: description);

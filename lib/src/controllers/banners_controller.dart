@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:digital_portobello/main.dart';
 import 'package:digital_portobello/src/api/api.dart';
 import 'package:digital_portobello/src/models/banner_surface_model.dart';
 
@@ -11,7 +12,12 @@ Future<List<BannerHomeModel>> fetchBanners() async {
   Iterable iterable = json.decode(response.data);
   List<BannerHomeModel> banners = List<BannerHomeModel>.from(
           iterable.map((model) => BannerHomeModel.fromJson(model)))
-      .where((it) => it.status == 'a' && it.posicao == 'cabeçalho')
+      .where((it) =>
+          it.status == 'a' &&
+          it.posicao == 'cabeçalho' &&
+          (it.aplicacao == 'T' ||
+              (it.aplicacao == 'L' &&
+                  it.idsAplicacao!.split(' ').contains(id))))
       .toList();
 
   banners.sort((a, b) => a.ordem.compareTo(b.ordem));

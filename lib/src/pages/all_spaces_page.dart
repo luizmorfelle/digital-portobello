@@ -11,8 +11,9 @@ import '../models/dropdown_model.dart';
 import '../widgets/custom_dropdown_button.dart';
 
 class AllSpacesPage extends StatefulWidget {
-  const AllSpacesPage({Key? key}) : super(key: key);
+  const AllSpacesPage({Key? key, this.surfaceId}) : super(key: key);
 
+  final String? surfaceId;
   @override
   State<AllSpacesPage> createState() => _AllSpacesPageState();
 }
@@ -25,7 +26,10 @@ class _AllSpacesPageState extends State<AllSpacesPage> {
   @override
   void initState() {
     super.initState();
-    selectedSurface = surfaces.first;
+    selectedSurface = surfaces.firstWhere(
+      (element) => element.id == widget.surfaceId,
+      orElse: () => surfaces.first,
+    );
     futureUsages = fetchAllSpacesBySurface(int.parse(selectedSurface!.id));
   }
 
@@ -51,8 +55,8 @@ class _AllSpacesPageState extends State<AllSpacesPage> {
               onChange: (value) {
                 setState(() {
                   selectedSurface = value;
-                  futureUsages =
-                      fetchAllSpacesBySurface(int.parse(selectedSurface!.id));
+                  futureUsages = Future(() =>
+                      fetchAllSpacesBySurface(int.parse(selectedSurface!.id)));
                 });
               },
             ),

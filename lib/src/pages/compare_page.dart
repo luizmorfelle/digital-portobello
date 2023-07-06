@@ -18,7 +18,7 @@ class ComparePage extends StatefulWidget {
 }
 
 class _ComparePageState extends State<ComparePage> {
-  late Map<ProductModel, SpaceN1Model> products;
+  late Map<ProductModel, SpaceN1Model?> products;
   @override
   void initState() {
     super.initState();
@@ -105,17 +105,6 @@ class _ComparePageState extends State<ComparePage> {
                                     style:
                                         Theme.of(context).textTheme.titleLarge,
                                   ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  CustomBreadCrumb(items: [
-                                    BreadCrumbItemModel(name: 'Piso', path: ''),
-                                    BreadCrumbItemModel(
-                                        name: 'Residencial', path: ''),
-                                    BreadCrumbItemModel(
-                                        name: 'Banheiro', path: ''),
-                                  ])
                                 ],
                               ),
                               const SizedBox(

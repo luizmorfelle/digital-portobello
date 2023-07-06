@@ -2,6 +2,7 @@ import 'package:digital_portobello/src/pages/all_spaces_page.dart';
 import 'package:digital_portobello/src/pages/compare_page.dart';
 import 'package:digital_portobello/src/pages/favorites_page.dart';
 import 'package:digital_portobello/src/pages/home_page.dart';
+import 'package:digital_portobello/src/pages/list_groups_product_page.dart';
 import 'package:digital_portobello/src/pages/list_lines_product_page.dart';
 import 'package:digital_portobello/src/pages/list_products_page.dart';
 import 'package:digital_portobello/src/pages/list_spaces_page.dart';
@@ -16,14 +17,24 @@ final routes = GoRouter(routes: [
     builder: (context, state) => const HomePage(),
   ),
   GoRoute(
-    path: '/products/:spaceN1Id/:lineId',
+    path: '/products/line/:spaceN1Id/:lineId',
     builder: (context, state) => ListProductsPage(
         spaceN1Id: state.params['spaceN1Id'], lineId: state.params['lineId']),
   ),
   GoRoute(
-    path: '/products/:lineId',
+    path: '/products/line/:lineId',
     builder: (context, state) =>
         ListProductsPage(spaceN1Id: null, lineId: state.params['lineId']),
+  ),
+  GoRoute(
+    path: '/products/groups/:spaceN1Id/:groupId',
+    builder: (context, state) => ListProductsPage(
+        spaceN1Id: state.params['spaceN1Id'], groupId: state.params['groupId']),
+  ),
+  GoRoute(
+    path: '/products/groups/:groupId',
+    builder: (context, state) =>
+        ListProductsPage(spaceN1Id: null, groupId: state.params['groupId']),
   ),
   GoRoute(
     path: '/product/:productId',
@@ -47,6 +58,16 @@ final routes = GoRouter(routes: [
         ListLinesProductPage(materialName: state.params['materialName']),
   ),
   GoRoute(
+    path: '/groups/:spaceN1Id',
+    builder: (context, state) =>
+        ListGroupsProductPage(spaceN1Id: state.params['spaceN1Id']),
+  ),
+  GoRoute(
+    path: '/groups/material/:materialName',
+    builder: (context, state) =>
+        ListGroupsProductPage(materialName: state.params['materialName']),
+  ),
+  GoRoute(
     path: '/spaces/:spaceId',
     builder: (context, state) =>
         ListSpacesPage(spaceId: state.params['spaceId']),
@@ -56,8 +77,9 @@ final routes = GoRouter(routes: [
     builder: (context, state) => const TechSearchPage(),
   ),
   GoRoute(
-    path: '/all-spaces',
-    builder: (context, state) => const AllSpacesPage(),
+    path: '/all-spaces/:surfaceId',
+    builder: (context, state) =>
+        AllSpacesPage(surfaceId: state.params["surfaceId"]),
   ),
   GoRoute(
     path: '/favorites',

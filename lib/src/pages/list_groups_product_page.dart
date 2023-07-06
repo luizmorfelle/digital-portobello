@@ -1,3 +1,5 @@
+import 'package:digital_portobello/src/controllers/groups_controller.dart';
+import 'package:digital_portobello/src/models/group_product_model.dart';
 import 'package:digital_portobello/src/utils/constants.dart';
 import 'package:digital_portobello/src/controllers/banners_controller.dart';
 import 'package:digital_portobello/src/controllers/products_controller.dart';
@@ -18,28 +20,26 @@ import '../widgets/custom_dropdown_button.dart';
 import '../widgets/grid_items.dart';
 import 'base_page.dart';
 
-class ListLinesProductPage extends StatefulWidget {
-  const ListLinesProductPage(
-      {Key? key, this.spaceN1Id, this.materialName, this.futureLines})
+class ListGroupsProductPage extends StatefulWidget {
+  const ListGroupsProductPage({Key? key, this.spaceN1Id, this.materialName})
       : super(key: key);
   final String? spaceN1Id;
   final String? materialName;
-  final Future<List<LineProductModel>>? futureLines;
 
   @override
-  State<ListLinesProductPage> createState() => _ListLinesProductPageState();
+  State<ListGroupsProductPage> createState() => _ListGroupsProductPageState();
 }
 
-class _ListLinesProductPageState extends State<ListLinesProductPage> {
-  Future<List<LineProductModel>> futureLinesProduct = Future(() => []);
+class _ListGroupsProductPageState extends State<ListGroupsProductPage> {
+  Future<List<GroupProductModel>> futureGroupsProduct = Future(() => []);
   SpaceN1Model? actualSpaceN1;
   SpaceModel? previousSpace;
-  List<DropDownModel> sortList = [
+  final List<DropDownModel> sortList = [
     DropDownModel('0', 'A - Z'),
     DropDownModel('1', 'Z - A'),
   ];
-  List<LineProductModel>? linesProduct;
-  List<LineProductModel>? fullLinesProduct;
+  List<GroupProductModel>? groupsProducts;
+  List<GroupProductModel>? fullGroupsProduct;
   List<DropDownModel> listMaterials = [];
   List<DropDownModel> listColors = [];
   DropDownModel? selectedSort;
@@ -66,16 +66,14 @@ class _ListLinesProductPageState extends State<ListLinesProductPage> {
     }
   }
 
-  Future<void> fetchLines(BuildContext context) async {
-    futureLinesProduct = widget.futureLines != null
-        ? widget.futureLines!
-        : widget.spaceN1Id == null
-            ? fetchProductsLinesByMaterial(widget.materialName, context)
-            : fetchProductsLinesBySpace(int.parse(widget.spaceN1Id!), context);
+  Future<void> fetchGroups(BuildContext context) async {
+    futureGroupsProduct = widget.spaceN1Id == null
+        ? fetchProductsGroupsByMaterial(widget.materialName, context)
+        : fetchProductsGroupsBySpace(int.parse(widget.spaceN1Id!), context);
 
-    futureLinesProduct.then((lines) {
-      linesProduct = lines;
-      fullLinesProduct = lines;
+    futureGroupsProduct.then((lines) {
+      groupsProducts = lines;
+      fullGroupsProduct = lines;
 
       listColors = lines
           .expand((element) => element.colors!)
@@ -99,27 +97,27 @@ class _ListLinesProductPageState extends State<ListLinesProductPage> {
     });
   }
 
-  void filterLines() {
-    List<LineProductModel> newList = fullLinesProduct
+  void filterGroups() {
+    List<GroupProductModel> newList = fullGroupsProduct
             ?.where((it) => it.nome!.contains(controller.text))
             .toList() ??
         [];
 
     setState(() {
-      linesProduct = newList;
+      groupsProducts = newList;
     });
   }
 
-  void sortLines(int value) {
+  void sortGroups(int value) {
     if (value == 0) {
       setState(() {
-        linesProduct?.sort(
+        groupsProducts?.sort(
           (a, b) => a.nome!.compareTo(b.nome!),
         );
       });
     } else {
       setState(() {
-        linesProduct?.sort(
+        groupsProducts?.sort(
           (a, b) => a.nome!.compareTo(b.nome!) * -1,
         );
       });
@@ -137,7 +135,7 @@ class _ListLinesProductPageState extends State<ListLinesProductPage> {
           : null,
       futureObject: Future.wait(
         [
-          fetchLines(context),
+          fetchGroups(context),
         ],
       ),
       itemsBreadCrumb: previousSpace == null || actualSpaceN1 == null
@@ -163,19 +161,21 @@ class _ListLinesProductPageState extends State<ListLinesProductPage> {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10.0),
-            child: Row(
+            child: Flex(
+              direction: Axis.horizontal,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
-                  width: 900,
+                Expanded(
+                  flex: 1,
                   child: CustomTextField(
                     controller: controller,
                     suggestions: const [],
                     onChanged: (value) {
-                      filterLines();
+                      filterGroups();
                     },
                   ),
                 ),
+                SizedBox(width: 10),
                 Wrap(
                   spacing: 35,
                   children: [
@@ -186,7 +186,7 @@ class _ListLinesProductPageState extends State<ListLinesProductPage> {
                         setState(
                           () {
                             selectedSort = value;
-                            sortLines(int.parse(value!.id));
+                            sortGroups(int.parse(value!.id));
                           },
                         );
                       },
@@ -196,7 +196,7 @@ class _ListLinesProductPageState extends State<ListLinesProductPage> {
               ],
             ),
           ),
-          GridItems(futureItems: futureLinesProduct)
+          GridItems(futureItems: futureGroupsProduct)
         ],
       ),
     );

@@ -14,122 +14,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       toolbarHeight: preferredSize.height,
       backgroundColor: Colors.white,
-      iconTheme: const IconThemeData(color: Colors.black, size: 50),
-      leading: IconButton(
-          icon: const Icon(Icons.menu),
+      centerTitle: true,
+      actions: [
+        IconButton(
+          iconSize: preferredSize.height / 2,
           hoverColor: Colors.white,
-          onPressed: () => Scaffold.of(context).openDrawer()),
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          SizedBox(
-            width: 200,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                IconButton(
-                    iconSize: preferredSize.height / 2,
-                    hoverColor: Colors.white,
-                    tooltip: 'Home',
-                    icon: const Icon(Icons.house),
-                    onPressed: () {
-                      context.push('/');
-                    }),
-                IconButton(
-                    iconSize: preferredSize.height / 2,
-                    hoverColor: Colors.white,
-                    tooltip: 'Idiomas',
-                    icon: const Icon(Icons.language),
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: Text("Escolha o idioma"),
-                              content: SizedBox(
-                                height: 200,
-                                width: 300,
-                                child: ListView(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 8.0),
-                                      child: ListTile(
-                                        leading: CountryFlag.fromCountryCode(
-                                          'BR',
-                                          height: 48,
-                                          width: 62,
-                                          borderRadius: 8,
-                                        ),
-                                        title: const Text('Português'),
-                                        onTap: () {
-                                          Provider.of<LanguageProvider>(context,
-                                                  listen: false)
-                                              .setLanguage('pt');
-                                          context.pop();
-                                        },
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 8.0),
-                                      child: ListTile(
-                                        leading: CountryFlag.fromCountryCode(
-                                          'US',
-                                          height: 48,
-                                          width: 62,
-                                          borderRadius: 8,
-                                        ),
-                                        title: const Text('Inglês'),
-                                        onTap: () {
-                                          Provider.of<LanguageProvider>(context,
-                                                  listen: false)
-                                              .setLanguage('en');
-                                          context.pop();
-                                        },
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 8.0),
-                                      child: ListTile(
-                                        leading: CountryFlag.fromCountryCode(
-                                          'ES',
-                                          height: 48,
-                                          width: 62,
-                                          borderRadius: 8,
-                                        ),
-                                        title: const Text('Espanhol'),
-                                        onTap: () {
-                                          Provider.of<LanguageProvider>(context,
-                                                  listen: false)
-                                              .setLanguage('es');
-
-                                          context.pop();
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          });
-                    })
-              ],
-            ),
-          ),
-          GestureDetector(
-            onTap: () => context.push('/'),
-            child: Image(
-                fit: BoxFit.contain,
-                height: preferredSize.height * 2,
-                image: const AssetImage(
-                    'assets/images/PORTOBELLO_LOGO_PRETO.png')),
-          ),
-          badges.Badge(
-            position: badges.BadgePosition.topEnd(top: 5, end: 5),
+          tooltip: 'Favoritos',
+          icon: badges.Badge(
+            position: badges.BadgePosition.topEnd(top: 0, end: -5),
             showBadge: true,
             ignorePointer: false,
             onTap: () {},
@@ -142,14 +34,124 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     color: Colors.white,
                   ),
             ),
-            child: IconButton(
+            child: const Icon(Icons.favorite),
+          ),
+          onPressed: () => context.push('/favorites'),
+        ),
+      ],
+      iconTheme: const IconThemeData(color: Colors.black, size: 50),
+      leadingWidth: 250,
+      leading: Padding(
+        padding: const EdgeInsets.only(left: 6.0),
+        child: Row(
+          children: [
+            IconButton(
+                icon: const Icon(Icons.menu),
+                hoverColor: Colors.white,
+                onPressed: () => Scaffold.of(context).openDrawer()),
+            IconButton(
                 iconSize: preferredSize.height / 2,
                 hoverColor: Colors.white,
-                tooltip: 'Favoritos',
-                icon: const Icon(Icons.favorite),
-                onPressed: () => context.push('/favorites')),
-          ),
-        ],
+                tooltip: 'Home',
+                icon: const Icon(Icons.house),
+                onPressed: () {
+                  context.push('/');
+                }),
+            IconButton(
+                iconSize: preferredSize.height / 2,
+                hoverColor: Colors.white,
+                tooltip: 'Idiomas',
+                icon: const Icon(Icons.language),
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text("Escolha o idioma"),
+                          content: SizedBox(
+                            height: 200,
+                            width: 300,
+                            child: ListView(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 8.0),
+                                  child: ListTile(
+                                    leading: CountryFlag.fromCountryCode(
+                                      'BR',
+                                      height: 48,
+                                      width: 62,
+                                      borderRadius: 8,
+                                    ),
+                                    title: const Text('Português'),
+                                    onTap: () {
+                                      Provider.of<LanguageProvider>(context,
+                                              listen: false)
+                                          .setLanguage('pt');
+                                      context.pop();
+                                    },
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 8.0),
+                                  child: ListTile(
+                                    leading: CountryFlag.fromCountryCode(
+                                      'US',
+                                      height: 48,
+                                      width: 62,
+                                      borderRadius: 8,
+                                    ),
+                                    title: const Text('Inglês'),
+                                    onTap: () {
+                                      Provider.of<LanguageProvider>(context,
+                                              listen: false)
+                                          .setLanguage('en');
+                                      context.pop();
+                                    },
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 8.0),
+                                  child: ListTile(
+                                    leading: CountryFlag.fromCountryCode(
+                                      'ES',
+                                      height: 48,
+                                      width: 62,
+                                      borderRadius: 8,
+                                    ),
+                                    title: const Text('Espanhol'),
+                                    onTap: () {
+                                      Provider.of<LanguageProvider>(context,
+                                              listen: false)
+                                          .setLanguage('es');
+
+                                      context.pop();
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      });
+                })
+          ],
+        ),
+      ),
+      title: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: GestureDetector(
+          onTap: () => context.push('/'),
+          child: Image(
+              fit: BoxFit.contain,
+              height: preferredSize.height * 2,
+              image:
+                  const AssetImage('assets/images/PORTOBELLO_LOGO_PRETO.png')),
+        ),
       ),
     );
   }

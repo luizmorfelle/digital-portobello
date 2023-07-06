@@ -13,7 +13,9 @@ class SliderHeader extends StatefulWidget {
 
 class _SliderHeaderState extends State<SliderHeader> {
   CarouselController buttonCarouselController = CarouselController();
-  int pageIndex = 1;
+  int pageIndex = 0;
+  double heightBanner = 500;
+  bool autoPlay = true;
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<BannerModel>>(
@@ -23,7 +25,7 @@ class _SliderHeaderState extends State<SliderHeader> {
           return snapshot.data!.isEmpty
               ? Container()
               : SizedBox(
-                  height: 300,
+                  height: heightBanner,
                   child: Stack(
                     fit: StackFit.expand,
                     children: [
@@ -35,10 +37,10 @@ class _SliderHeaderState extends State<SliderHeader> {
                                 pageIndex = index;
                               });
                             },
-                            height: 300.0,
+                            height: heightBanner,
                             initialPage: 1,
                             viewportFraction: 1,
-                            autoPlay: true,
+                            autoPlay: autoPlay,
                             enableInfiniteScroll: snapshot.data!.length > 1,
                             enlargeCenterPage: true),
                         items: snapshot.data?.map((image) {
@@ -50,14 +52,18 @@ class _SliderHeaderState extends State<SliderHeader> {
                                   'assets/images/banners/${image.image}',
                                   errorBuilder: (context, error, stackTrace) {
                                     return Image.network(
-                                      '${image.image}',
-                                      width: 300,
-                                      height: 300,
+                                      'https://media.portobello.com.br/${image.image}',
+                                      width: heightBanner,
+                                      height: heightBanner,
                                       fit: BoxFit.cover,
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                        return Placeholder();
+                                      },
                                     );
                                   },
                                   fit: BoxFit.cover,
-                                  height: 300,
+                                  height: heightBanner,
                                 ),
                               );
                             },
@@ -116,7 +122,11 @@ class _SliderHeaderState extends State<SliderHeader> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    setState(() {
+                                      autoPlay = true;
+                                    });
+                                  },
                                   child: const Icon(
                                     Icons.play_arrow,
                                     color: Colors.white,
@@ -156,7 +166,11 @@ class _SliderHeaderState extends State<SliderHeader> {
                                       .toList(),
                                 ),
                                 InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    setState(() {
+                                      autoPlay = false;
+                                    });
+                                  },
                                   child: const Icon(
                                     Icons.stop,
                                     color: Colors.white,
@@ -180,8 +194,8 @@ class _SliderHeaderState extends State<SliderHeader> {
             skeleton: SkeletonAvatar(
               style: SkeletonAvatarStyle(
                 width: double.infinity,
-                minHeight: 300,
-                maxHeight: 301,
+                minHeight: heightBanner,
+                maxHeight: heightBanner + 1,
               ),
             ),
             child: Container());

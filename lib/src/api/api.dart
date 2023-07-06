@@ -35,6 +35,7 @@ class ApiFactory {
   Future<Response> get(
       {String url = "", Map<String, dynamic>? queryParameters}) async {
     try {
+      print(url);
       final response = await dio.get(url, queryParameters: queryParameters);
 
       if (response.statusCode == 400 || response.statusCode == 401) {
@@ -53,6 +54,7 @@ class ApiFactory {
       Map<String, dynamic>? body,
       Map<String, dynamic>? queryParameters}) async {
     try {
+      print(url);
       final response = await dio.post(url,
           data: json.encode(body), queryParameters: queryParameters);
       if (response.statusCode != 200) {

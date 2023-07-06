@@ -1,3 +1,4 @@
+import 'package:digital_portobello/src/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -31,18 +32,20 @@ class CardItem extends StatelessWidget {
                       ),
                       cardItem.imagem ?? "",
                       width: double.infinity,
-                      fit: BoxFit.fill,
+                      height: CARD_ITEM_SIZE,
+                      fit: cardItem.isFull ? BoxFit.fill : BoxFit.contain,
                     )
                   : const Placeholder(),
             ),
             SizedBox(
-              height: 60,
+              height: TEXT_SPACE_SIZE,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     tl(cardItem.nome ?? "", context),
+                    maxLines: 3,
                     style: Theme.of(context).textTheme.headlineMedium,
                   ),
                   if (cardItem.description != null)

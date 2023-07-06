@@ -53,7 +53,7 @@ class ProductTable extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: Text(
               tl(mapJson.value.toString(), context),
-              style: Theme.of(context).textTheme.titleMedium,
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
           )),
         ],

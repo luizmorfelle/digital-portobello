@@ -33,17 +33,13 @@ class _SliderItemsState extends State<SliderItems> {
               initialPage: 2,
               onPageChanged: (index, reason) {
                 setState(() {
-                  if (index == 1 || index == widget.itens.length - 2) {
-                    buttonCarouselController.jumpToPage(pageIndex);
-                    return;
-                  }
                   pageIndex = index;
                 });
               },
               animateToClosest: false,
               viewportFraction:
                   (1 / (MediaQuery.of(context).size.width / CARD_ITEM_SIZE)),
-              enableInfiniteScroll: false),
+              enableInfiniteScroll: true),
           items: widget.itens.map((item) {
             return Builder(
               builder: (BuildContext context) {

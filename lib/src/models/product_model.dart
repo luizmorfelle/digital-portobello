@@ -328,6 +328,7 @@ class ProductModel extends CardItemModel {
     this.briefing,
     required this.simulador,
   }) : super(
+            isFull: false,
             path: 'product/$id',
             imagem: "assets/images$zoomImage",
             nome: '$descProduto $descFormatoNominal $caracteristicaAcabamento');
@@ -515,7 +516,7 @@ class ProductModel extends CardItemModel {
     data['thickness'] = espessura;
     data['setting_joint'] = juntaDeAssentamento;
     data['reproduction'] = material;
-    data['Cor Rejunte'] = rejunte;
+    data['Color Body'] = colorBody;
 
     return data;
   }

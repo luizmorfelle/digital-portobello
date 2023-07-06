@@ -4,6 +4,7 @@ import 'package:digital_portobello/src/models/breadcrumb_item_model.dart';
 import 'package:digital_portobello/src/models/product_model.dart';
 import 'package:digital_portobello/src/pages/base_page.dart';
 import 'package:digital_portobello/src/providers/favorite_provider.dart';
+import 'package:digital_portobello/src/utils/target.dart';
 import 'package:digital_portobello/src/utils/translate.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -56,6 +57,10 @@ class _ProductPageState extends State<ProductPage> {
 
   @override
   Widget build(BuildContext context) {
+    String urlQrCode = product == null || actualSpaceN1 == null
+        ? ""
+        : 'https://digital.portobello.com.br/?roomvoStartVisualizer=true&sku=${product!.codProduto}${product!.sufixo}&product_type=${actualSpaceN1?.superficiesID == 1 ? 'floor' : 'wall'}';
+
     return BasePage(
       title: tl('product_detail', context).toUpperCase(),
       futureBanners: product == null && actualSpaceN1 == null
@@ -112,11 +117,11 @@ class _ProductPageState extends State<ProductPage> {
                             width: double.infinity,
                             child: ElevatedButton.icon(
                                 onPressed: () {
-                                  actualSpaceN1!.spaceModel = previousSpace;
+                                  actualSpaceN1?.spaceModel = previousSpace;
                                   Provider.of<FavoriteProvider>(context,
                                           listen: false)
                                       .addFavoriteProduct(
-                                          product!, actualSpaceN1!);
+                                          product!, actualSpaceN1);
                                   context.push('/favorites');
                                 },
                                 icon: const Icon(Icons.favorite),
@@ -125,45 +130,19 @@ class _ProductPageState extends State<ProductPage> {
                           const SizedBox(
                             height: 10,
                           ),
-                          SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton.icon(
-                                onPressed: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        String url =
-                                            'https://digital.portobello.com.br/?roomvoStartVisualizer=true&sku=${product!.codProduto}${product!.sufixo}&product_type=${actualSpaceN1?.superficiesID == 1 ? 'floor' : 'wall'}';
-
-                                        return AlertDialog(
-                                          title:
-                                              Text(tl('recieve_list', context)),
-                                          content: InkWell(
-                                            onTap: () async =>
-                                                await launchUrl(Uri.parse(url)),
-                                            child: SizedBox(
-                                              height: 400,
-                                              width: 400,
-                                              child: QrImageView(
-                                                data: url,
-                                                version: QrVersions.auto,
-                                              ),
-                                            ),
-                                          ),
-                                          actions: [
-                                            ElevatedButton(
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: Text(tl('close', context)),
-                                            ),
-                                          ],
-                                        );
-                                      });
-                                },
-                                icon: const Icon(Icons.qr_code),
-                                label: Text(tl('simulate_here', context))),
-                          ),
+                          if (product?.simulador == 'S')
+                            SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton.icon(
+                                  onPressed: () {
+                                    isWeb()
+                                        ? launchUrl(Uri.parse(urlQrCode))
+                                        : showDialogProductFavorite(
+                                            context, urlQrCode);
+                                  },
+                                  icon: const Icon(Icons.qr_code),
+                                  label: Text(tl('simulate_here', context))),
+                            ),
                         ],
                       ),
                     ),
@@ -179,22 +158,28 @@ class _ProductPageState extends State<ProductPage> {
                               style: Theme.of(context).textTheme.titleLarge,
                             ),
                             Text(product!.descProduto!,
-                                style: Theme.of(context).textTheme.titleMedium),
+                                style: Theme.of(context).textTheme.bodyLarge),
                             const SizedBox(
                               height: 40,
                             ),
                             Text(tl('material', context),
-                                style: Theme.of(context).textTheme.titleLarge),
+                                style: Theme.of(context).textTheme.titleMedium),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Flex(
                                 direction: Axis.horizontal,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: product!.uso!
                                     .split(' ')
                                     .map((uso) => Flexible(
                                           child: Container(
-                                            constraints: BoxConstraints(
-                                                maxHeight: 150, maxWidth: 150),
+                                            constraints: const BoxConstraints(
+                                              minHeight: 110,
+                                              maxHeight: 111,
+                                              maxWidth: 111,
+                                              minWidth: 110,
+                                            ),
                                             child: Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),
@@ -203,12 +188,32 @@ class _ProductPageState extends State<ProductPage> {
                                                   Flexible(
                                                     child: Image.asset(
                                                       'assets/icons/$uso.png',
+                                                      height: 100,
                                                     ),
                                                   ),
-                                                  Text(tl(uso, context),
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .titleLarge),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text(tl(uso, context),
+                                                          style:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .titleMedium),
+                                                      SizedBox(
+                                                        width: 5,
+                                                      ),
+                                                      Tooltip(
+                                                        message: 'Informação',
+                                                        child: Icon(
+                                                          Icons.info,
+                                                          size: 20,
+                                                          color: Colors.black,
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
                                                 ],
                                               ),
                                             ),
@@ -258,7 +263,7 @@ class _ProductPageState extends State<ProductPage> {
                                                 context),
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .titleMedium),
+                                                .bodyLarge),
                                       ),
                                       FittedBox(
                                         child: Text(
@@ -271,7 +276,7 @@ class _ProductPageState extends State<ProductPage> {
                                                 context),
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .titleLarge),
+                                                .titleMedium),
                                       ),
                                     ],
                                   ),
@@ -279,7 +284,24 @@ class _ProductPageState extends State<ProductPage> {
                               })
                         ],
                       ),
-                    )
+                    ),
+                    if (product != null && product?.simulador == 'S')
+                      Expanded(
+                          flex: 2,
+                          child: Column(
+                            children: [
+                              Text(tl('simulate_here', context),
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium),
+                              Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: QrImageView(
+                                  data: urlQrCode,
+                                  version: QrVersions.auto,
+                                ),
+                              ),
+                            ],
+                          )),
                   ],
                 ),
                 const SizedBox(
@@ -289,5 +311,34 @@ class _ProductPageState extends State<ProductPage> {
               ],
             ),
     );
+  }
+
+  void showDialogProductFavorite(BuildContext context, String urlQrCode) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(tl('recieve_list', context)),
+            content: InkWell(
+              onTap: () async => await launchUrl(Uri.parse(urlQrCode)),
+              child: SizedBox(
+                height: 400,
+                width: 400,
+                child: QrImageView(
+                  data: urlQrCode,
+                  version: QrVersions.auto,
+                ),
+              ),
+            ),
+            actions: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text(tl('close', context)),
+              ),
+            ],
+          );
+        });
   }
 }

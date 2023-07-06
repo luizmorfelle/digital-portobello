@@ -25,7 +25,7 @@ class BaseTechPage extends StatelessWidget {
           Container(
             decoration: BoxDecoration(color: Colors.grey[300]),
             child: Padding(
-              padding: const EdgeInsets.all(12.0),
+              padding: const EdgeInsets.all(20.0),
               child: Row(
                 children: [
                   Column(

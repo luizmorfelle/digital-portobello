@@ -22,8 +22,11 @@ class GridItems extends StatelessWidget {
               : GridView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount:
+                        MediaQuery.of(context).size.width ~/ CARD_ITEM_SIZE,
+                    mainAxisExtent: CARD_ITEM_SIZE + TEXT_SPACE_SIZE,
+                    // childAspectRatio: 4 / 3,
                     crossAxisSpacing: 20.0,
                     mainAxisSpacing: 20.0,
                   ),
