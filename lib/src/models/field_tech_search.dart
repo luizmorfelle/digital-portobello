@@ -19,6 +19,7 @@ class FieldTechSearch {
       this.type = "checkbox",
       this.fieldApi,
       this.operatorApi,
+      this.description,
       this.indexField,
       this.indexValuesApi});
 }

@@ -161,7 +161,6 @@ class ProductModel extends CardItemModel {
   String? zoomImage;
   int enableforrevenda;
   String? briefing;
-  String? simulador;
   bool checked = false;
 
   ProductModel({
@@ -326,7 +325,7 @@ class ProductModel extends CardItemModel {
     required this.zoomImage,
     required this.enableforrevenda,
     this.briefing,
-    required this.simulador,
+    super.simulador,
   }) : super(
             isFull: false,
             path: 'product/$id',
@@ -524,7 +523,7 @@ class ProductModel extends CardItemModel {
   Map<String, dynamic> toJsonTableProduct() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['Absorção de água'] = absorcaoDagua.toString();
-    data['Coeficiente de atrito molhado'] = atritoMolhadoAstm;
+    data['Coeficiente de atrito molhado'] = atritoMolhadoIso;
     data['Indicação de Uso'] = uso;
     data['Resistência à Manchas'] = resultadoMinimoLimpeza;
     data['Resistência ao ataque químico de BAIXA concentração'] =

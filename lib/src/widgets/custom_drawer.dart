@@ -1,11 +1,10 @@
-import 'package:digital_portobello/src/models/dropdown_model.dart';
 import 'package:digital_portobello/src/utils/translate.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../utils/constants.dart';
 import '../providers/sales_channel_provider.dart';
+import '../utils/constants.dart';
 import 'custom_dropdown_button.dart';
 
 class CustomDrawer extends StatefulWidget {
@@ -82,7 +81,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text('Canal de Venda'),
+                      Text(tl('Canal de Venda', context)),
                       CustomDropdownButton(
                         items: salesChannels,
                         value: Provider.of<SalesChannelProvider>(context)

@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 const baseURL = 'https://api-portobello.sensedia.com/digital-portobello/';
 const clientID = '53eea8e8-7630-4cf8-96f4-1d97f8e8db91';
@@ -12,7 +11,7 @@ ApiFactory? instace;
 String? accessToken;
 
 final Dio dio = Dio(BaseOptions(
-    baseUrl: baseURL!,
+    baseUrl: baseURL,
     validateStatus: (_) => true,
     headers: {
       "client_id": clientID,
@@ -35,7 +34,6 @@ class ApiFactory {
   Future<Response> get(
       {String url = "", Map<String, dynamic>? queryParameters}) async {
     try {
-      print(url);
       final response = await dio.get(url, queryParameters: queryParameters);
 
       if (response.statusCode == 400 || response.statusCode == 401) {
@@ -54,7 +52,6 @@ class ApiFactory {
       Map<String, dynamic>? body,
       Map<String, dynamic>? queryParameters}) async {
     try {
-      print(url);
       final response = await dio.post(url,
           data: json.encode(body), queryParameters: queryParameters);
       if (response.statusCode != 200) {

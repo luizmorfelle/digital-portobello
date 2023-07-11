@@ -112,14 +112,14 @@ const Map<String, String> es = {
   'water_absorption': 'Absorcíon de agua',
   'wet_friction_coef': 'Coeficiente de fricción húmedo',
   'where_buy': 'DÓNDE COMPRAR',
-  'you_are_comparing': 'USTED ESTÁ COMPARANDO {0, number} PRODUCTOS',
+  'you_are_comparing': 'USTED ESTÁ COMPARANDO %i PRODUCTOS',
   'yous_favorites': 'Usted marcó como favorito(s) x producto(s)',
   'select_your_ambient': 'Seleccione su ambiente',
   'product_not_found':
       'No se encontraron resultados para las especificaciones filtradas. Por favor rehaga su búsqueda.',
-  'residential': 'Residencial',
+  'residential': 'RESIDENCIAL',
   'commercial': 'Comercial',
-  'facade': 'Fachada',
+  'facade': 'REVESTIMIENTO PARED INTERIOR Y FACHADA',
   'hotel': 'Hotelería',
   'industrial': 'Industrial',
   'urban_work': 'Obra Urbana',
@@ -909,7 +909,7 @@ const Map<String, String> es = {
   'Sim': 'Sí',
   'Não': 'No',
   'Informações Técnicas': 'Informaciones técnicas',
-  'Comercial Leve': 'comercial ligero',
+  'Comercial Leve': 'EDIFÍCIOS COMERCIALES (LÍGEROS)',
   'simulate': 'SIMULE AQUÍ',
   'simulate_here': 'Simule Aquí',
   'select_all': 'SELECCIONAR TODO',
@@ -956,6 +956,24 @@ const Map<String, String> es = {
   'PRETO': 'NEGRO',
   'TERRA': 'TIERRA',
   'VERDE': 'VERDE',
+  'Revenda': 'Revendedores',
+  'Portobello Shop': 'Portobello Shop',
+  'Engenharia': 'Ingeniería',
+  'Exportação': 'Exportación',
+  'Todos': 'Todos',
+  'coefi_text':
+      'Cuanto mayor sea el valor del coeficiente de fricción en húmedo, menos resbaladiza será la superficie de la pieza.',
+  'abs_text':
+      'Cuanto menor sea la absorción de agua, mayor será la resistencia mecánica de la pieza.',
+  'res_text': 'Cuanto mayor sea, más fácil será limpiarlo.',
+  'res_alta_text':
+      'Los productos HA resisten más que los productos HB, que a su vez resisten más que los productos HC.',
+  'res_baixa_text':
+      'Los productos LA resisten más que los productos LB, que a su vez resisten más que los productos LC.',
+  'res_limp_text':
+      'Los productos A resisten más que los productos B, que a su vez resisten más que los productos C.',
+  'max_exp_text':
+      'Cuanto mayor sea este valor, más se expandirá el revestimiento en presencia de agua.',
   'Revestimento Interno': 'REVESTIMIENTO PARED INTERIOR',
   'Industrial e Urbano': 'INDUSTRIAL Y URBANO',
   'Comercial Pesado': 'EDIFÍCIOS COMERCIALES (PESADOS)',

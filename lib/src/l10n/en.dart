@@ -107,7 +107,7 @@ const Map<String, String> en = {
   'water_absorption': 'Water absorption',
   'wet_friction_coef': 'Wet Friction Coeficient',
   'where_buy': 'WHERE TO BUY',
-  'you_are_comparing': 'YOU ARE COMPARING {0, number} PRODUCTS',
+  'you_are_comparing': 'YOU ARE COMPARING %i PRODUCTS',
   'your_favorites': 'You added ',
   'your_favorites_2': 'product(s) to your wishlist',
   'export_list': 'Download list',
@@ -872,10 +872,10 @@ const Map<String, String> en = {
   'Piso': 'Floor',
   'Parede': 'Wall',
   'Comercial': 'Commercial',
-  'Fachada': 'Facades',
+  'Fachada': 'COATING FOR INTERNAL WALLS AND FACADES',
   'Hotelaria': 'Hospitality',
   'Obra Urbana': 'Urban Work',
-  'Residencial': 'Residential',
+  'Residencial': 'RESIDENTIAL',
   'Saúde': 'Health',
   'Circulação (uso privado)': 'Circulation (private use)',
   'Circulação área externa (uso comum)':
@@ -898,7 +898,7 @@ const Map<String, String> en = {
   'Sim': 'Yes',
   'Não': 'No',
   'Informações Técnicas': 'Technical information',
-  'Comercial Leve': 'light commercial',
+  'Comercial Leve': 'COMMERCIAL BUILDINGS (LIGHT)',
   'simulate': 'SIMULATE HERE',
   'simulate_here': 'Simulate Here',
   'select_all': 'SELECT ALL',
@@ -945,6 +945,24 @@ const Map<String, String> en = {
   'PRETO': 'BLACK',
   'TERRA': 'TERRA',
   'VERDE': 'GREEN',
+  'Revenda': 'Multi-brands',
+  'Portobello Shop': 'Portobello Shop',
+  'Engenharia': 'Engineering',
+  'Exportação': 'Export',
+  'Todos': 'All',
+  'coefi_text':
+      'The higher the value of the wet friction coefficient, the less slippery the surface of the part.',
+  'abs_text':
+      'The lower the water absorption, the higher the mechanical strength of the part.',
+  'res_text': 'The higher the number, the easier it is to clean.',
+  'res_alta_text':
+      'Product HA resist more than product HB, which in turn resists more than products HC.',
+  'res_baixa_text':
+      'Product LA resist more than product LB, which in turn resists more than products LC.',
+  'res_limp_text':
+      'Product A resist more than product B, which in turn resist more than products C.',
+  'max_exp_text':
+      'The higher this value, the more the coating will expand in the presence of water.',
   'Revestimento Interno': 'COATING FOR INTERNAL WALLS',
   'Industrial e Urbano': 'INDUSTRIAL AND URBAN',
   'Comercial Pesado': 'COMMERCIAL BUILDINGS (HEAVY)',

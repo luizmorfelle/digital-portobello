@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../providers/language_provider.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer.dart';
 
@@ -49,6 +51,13 @@ class BaseTechPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: child,
           ),
+          Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: Container(
+              child: Image.asset(
+                  'assets/images/banners_footer/${Provider.of<LanguageProvider>(context, listen: false).language.languageCode}.png'),
+            ),
+          )
         ]),
       ),
     );

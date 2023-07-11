@@ -27,6 +27,7 @@ class _MainAppState extends State<MainApp> {
         theme: ThemeData(
           brightness: Brightness.light,
           primaryColor: Colors.white,
+          scaffoldBackgroundColor: Colors.white,
           colorScheme: ColorScheme.fromSwatch().copyWith(
             primary: Colors.black,
             secondary: Colors.black, // Your accent color

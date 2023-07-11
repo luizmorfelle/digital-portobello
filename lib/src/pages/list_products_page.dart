@@ -1,5 +1,6 @@
 import 'package:digital_portobello/src/controllers/banners_controller.dart';
 import 'package:digital_portobello/src/controllers/products_controller.dart';
+import 'package:digital_portobello/src/models/field_tech_search.dart';
 import 'package:digital_portobello/src/models/product_model.dart';
 import 'package:digital_portobello/src/utils/generate_breadcrumbs.dart';
 import 'package:flutter/material.dart';
@@ -12,11 +13,17 @@ import '../widgets/grid_items.dart';
 import 'base_page.dart';
 
 class ListProductsPage extends StatefulWidget {
-  const ListProductsPage({Key? key, this.spaceN1Id, this.lineId, this.groupId})
+  const ListProductsPage(
+      {Key? key,
+      this.spaceN1Id,
+      this.lineId,
+      this.groupId,
+      this.fieldsTechSearch})
       : super(key: key);
   final String? spaceN1Id;
   final String? lineId;
   final String? groupId;
+  final List<FieldTechSearch>? fieldsTechSearch;
   @override
   State<ListProductsPage> createState() => _ListProductsPageState();
 }
@@ -49,10 +56,18 @@ class _ListProductsPageState extends State<ListProductsPage> {
           : fetchProductsByLineAndSpace(
               widget.lineId, widget.spaceN1Id, context);
     } else {
-      futureProducts = widget.spaceN1Id == null
-          ? fetchProductsByGroup(widget.groupId, context)
-          : fetchProductsByGroupAndSpace(
-              widget.groupId, widget.spaceN1Id, context);
+      if (widget.fieldsTechSearch != null) {
+        futureProducts = widget.spaceN1Id == null
+            ? fetchProductsByGroupFilters(
+                widget.groupId, widget.fieldsTechSearch, context)
+            : fetchProductsByGroupAndSpaceFilters(widget.groupId,
+                widget.spaceN1Id, widget.fieldsTechSearch, context);
+      } else {
+        futureProducts = widget.spaceN1Id == null
+            ? fetchProductsByGroup(widget.groupId, context)
+            : fetchProductsByGroupAndSpace(
+                widget.groupId, widget.spaceN1Id, context);
+      }
     }
     futureProducts.then((value) {
       products = value;

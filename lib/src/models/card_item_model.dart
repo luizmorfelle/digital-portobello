@@ -4,7 +4,9 @@ class CardItemModel extends DropDownModel {
   String? path;
   String? imagem;
   String? nome;
+  String? tooltip;
   String? description;
+  String simulador = "N";
   bool isFull = true;
 
   CardItemModel({
@@ -13,6 +15,8 @@ class CardItemModel extends DropDownModel {
     required this.imagem,
     required this.nome,
     this.isFull = true,
+    this.simulador = "N",
+    this.tooltip,
     this.description,
   }) : super(id.toString(), nome!);
 }

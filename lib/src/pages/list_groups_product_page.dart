@@ -1,30 +1,35 @@
-import 'package:digital_portobello/src/controllers/groups_controller.dart';
-import 'package:digital_portobello/src/models/group_product_model.dart';
-import 'package:digital_portobello/src/utils/constants.dart';
 import 'package:digital_portobello/src/controllers/banners_controller.dart';
-import 'package:digital_portobello/src/controllers/products_controller.dart';
+import 'package:digital_portobello/src/controllers/groups_controller.dart';
 import 'package:digital_portobello/src/models/color_model.dart';
 import 'package:digital_portobello/src/models/dropdown_model.dart';
+import 'package:digital_portobello/src/models/field_tech_search.dart';
+import 'package:digital_portobello/src/models/group_product_model.dart';
 import 'package:digital_portobello/src/models/material_model.dart';
 import 'package:digital_portobello/src/models/space_n1_model.dart';
+import 'package:digital_portobello/src/utils/constants.dart';
 import 'package:digital_portobello/src/utils/translate.dart';
 import 'package:digital_portobello/src/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
+import 'package:multi_select_flutter/util/multi_select_item.dart';
+import 'package:multi_select_flutter/util/multi_select_list_type.dart';
+import 'package:skeletons/skeletons.dart';
 
-import '../controllers/lines_controller.dart';
 import '../controllers/spaces_controller.dart';
 import '../models/breadcrumb_item_model.dart';
-import '../models/product_line_model.dart';
 import '../models/space_model.dart';
+import '../widgets/card_item.dart';
 import '../widgets/custom_dropdown_button.dart';
 import '../widgets/grid_items.dart';
 import 'base_page.dart';
 
 class ListGroupsProductPage extends StatefulWidget {
-  const ListGroupsProductPage({Key? key, this.spaceN1Id, this.materialName})
+  const ListGroupsProductPage(
+      {Key? key, this.spaceN1Id, this.materialName, this.fieldsTechSearch})
       : super(key: key);
   final String? spaceN1Id;
   final String? materialName;
+  final List<FieldTechSearch>? fieldsTechSearch;
 
   @override
   State<ListGroupsProductPage> createState() => _ListGroupsProductPageState();
@@ -67,9 +72,11 @@ class _ListGroupsProductPageState extends State<ListGroupsProductPage> {
   }
 
   Future<void> fetchGroups(BuildContext context) async {
-    futureGroupsProduct = widget.spaceN1Id == null
-        ? fetchProductsGroupsByMaterial(widget.materialName, context)
-        : fetchProductsGroupsBySpace(int.parse(widget.spaceN1Id!), context);
+    futureGroupsProduct = widget.fieldsTechSearch != null
+        ? fetchProductsGroupsByFilter(widget.fieldsTechSearch!, context)
+        : widget.spaceN1Id == null
+            ? fetchProductsGroupsByMaterial(widget.materialName, context)
+            : fetchProductsGroupsBySpace(int.parse(widget.spaceN1Id!), context);
 
     futureGroupsProduct.then((lines) {
       groupsProducts = lines;
@@ -179,6 +186,37 @@ class _ListGroupsProductPageState extends State<ListGroupsProductPage> {
                 Wrap(
                   spacing: 35,
                   children: [
+                    // MultiSelectDialogField(
+                    //   listType: MultiSelectListType.CHIP,
+                    //   dialogHeight: 300,
+                    //   items: listMaterials
+                    //       .map((e) => MultiSelectItem(e, e.value))
+                    //       .toList(),
+                    //   title: Text("Animals"),
+                    //   selectedColor: Colors.black,
+                    //   decoration: BoxDecoration(
+                    //     borderRadius: BorderRadius.circular(7),
+                    //     border: Border.all(
+                    //       color: Colors.black26,
+                    //     ),
+                    //     color: Colors.white,
+                    //   ),
+                    //   buttonIcon: Icon(
+                    //     Icons.arrow_drop_down_sharp,
+                    //     color: Colors.black,
+                    //   ),
+                    //   buttonText: Text(
+                    //     "Favorite Animals",
+                    //     style: const TextStyle(
+                    //       fontSize: 18,
+                    //       fontWeight: FontWeight.bold,
+                    //       color: Colors.black,
+                    //     ),
+                    //   ),
+                    //   onConfirm: (results) {
+                    //     //_selectedAnimals = results;
+                    //   },
+                    // ),
                     CustomDropdownButton(
                       items: sortList,
                       value: selectedSort!,
@@ -196,7 +234,54 @@ class _ListGroupsProductPageState extends State<ListGroupsProductPage> {
               ],
             ),
           ),
-          GridItems(futureItems: futureGroupsProduct)
+          FutureBuilder(
+            future: futureGroupsProduct,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final items = snapshot.data!;
+                return items.isEmpty
+                    ? Text(tl('product_not_found', context))
+                    : GridView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: MediaQuery.of(context).size.width ~/
+                              CARD_ITEM_SIZE,
+                          mainAxisExtent: CARD_ITEM_SIZE + TEXT_SPACE_SIZE,
+                          // childAspectRatio: 4 / 3,
+                          crossAxisSpacing: 20.0,
+                          mainAxisSpacing: 20.0,
+                        ),
+                        itemCount: items.length,
+                        itemBuilder: (_, index) {
+                          return CardItem(
+                            cardItem: items[index],
+                            fieldTechSearch: widget.fieldsTechSearch,
+                          );
+                        });
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: Text('${snapshot.error} - ${snapshot.stackTrace}'),
+                );
+              } else {
+                return Skeleton(
+                    isLoading: true,
+                    skeleton: Row(
+                      children: List.filled(
+                          MediaQuery.of(context).size.width ~/ CARD_ITEM_SIZE,
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8.0),
+                            child: SkeletonAvatar(
+                              style: SkeletonAvatarStyle(
+                                  height: CARD_ITEM_SIZE,
+                                  width: CARD_ITEM_SIZE),
+                            ),
+                          )),
+                    ),
+                    child: Container());
+              }
+            },
+          )
         ],
       ),
     );

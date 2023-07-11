@@ -52,6 +52,7 @@ dependencies:
   pdf: ^3.10.1
   pdf_render: ^1.4.0
   tuple: ^2.0.2
+  virtual_keyboard_multi_language: ^1.0.3
 
 # flutter_localizations:
 #   sdk: flutter
@@ -88,6 +89,7 @@ flutter:
     - assets/images/spaces/
     - assets/images/spacesN1/
     - assets/images/products/
+    - assets/images/banners_footer/
     - assets/icons/
     - assets/.env
     - assets/id.txt

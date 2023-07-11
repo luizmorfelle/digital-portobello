@@ -12,6 +12,7 @@ class GroupProductModel extends CardItemModel {
       String? description,
       this.colors,
       this.materials,
+      super.simulador,
       int? spaceN1Id})
       : super(
             id: id,
@@ -29,6 +30,7 @@ class GroupProductModel extends CardItemModel {
       imagem: json['ZoomImage'].toString().split(',')[0],
       nome: json['Grupo'],
       description: json['Descricao'],
+      simulador: json['Simulador'],
       colors: json['Cor'].toString().split(','),
       materials: json['Material'].toString().split(','),
     );
@@ -45,6 +47,7 @@ class GroupProductModel extends CardItemModel {
     data['Descricao'] = description;
     data['Cor'] = colors;
     data['Material'] = materials;
+    data['Simulador'] = simulador;
 
     return data;
   }

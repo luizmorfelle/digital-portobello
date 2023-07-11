@@ -1,7 +1,9 @@
 import 'package:digital_portobello/src/models/banner_model.dart';
 import 'package:digital_portobello/src/models/breadcrumb_item_model.dart';
+import 'package:digital_portobello/src/providers/language_provider.dart';
 import 'package:digital_portobello/src/widgets/custom_back_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_breadcrumb.dart';
@@ -60,7 +62,7 @@ class BasePage extends StatelessWidget {
                             items: itemsBreadCrumb,
                           ),
                         ),
-                      child
+                      child,
                     ],
                   ),
                 );
@@ -70,6 +72,13 @@ class BasePage extends StatelessWidget {
               return const Center(child: CircularProgressIndicator());
             },
           ),
+          Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: Container(
+              child: Image.asset(
+                  'assets/images/banners_footer/${Provider.of<LanguageProvider>(context, listen: false).language.languageCode}.png'),
+            ),
+          )
         ]),
       ),
     );

@@ -1,7 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:digital_portobello/src/models/banner_model.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:skeletons/skeletons.dart';
+
+import '../pages/carousel_full_screen_page.dart';
 
 class SliderHeader extends StatefulWidget {
   const SliderHeader({super.key, required this.images});
@@ -38,7 +41,7 @@ class _SliderHeaderState extends State<SliderHeader> {
                               });
                             },
                             height: heightBanner,
-                            initialPage: 1,
+                            initialPage: 0,
                             viewportFraction: 1,
                             autoPlay: autoPlay,
                             enableInfiniteScroll: snapshot.data!.length > 1,
@@ -46,24 +49,36 @@ class _SliderHeaderState extends State<SliderHeader> {
                         items: snapshot.data?.map((image) {
                           return Builder(
                             builder: (BuildContext context) {
-                              return Container(
-                                width: MediaQuery.of(context).size.width,
-                                child: Image.asset(
-                                  'assets/images/banners/${image.image}',
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Image.network(
-                                      'https://media.portobello.com.br/${image.image}',
-                                      width: heightBanner,
-                                      height: heightBanner,
-                                      fit: BoxFit.cover,
-                                      errorBuilder:
-                                          (context, error, stackTrace) {
-                                        return Placeholder();
-                                      },
-                                    );
-                                  },
-                                  fit: BoxFit.cover,
-                                  height: heightBanner,
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            CarouselFullScreenPage(
+                                                images: snapshot.data ?? [],
+                                                actualIndex: pageIndex),
+                                      ));
+                                },
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Image.asset(
+                                    'assets/images/banners/${image.image}',
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Image.network(
+                                        'https://media.portobello.com.br/${image.image}',
+                                        width: heightBanner,
+                                        height: heightBanner,
+                                        fit: BoxFit.cover,
+                                        errorBuilder:
+                                            (context, error, stackTrace) {
+                                          return Placeholder();
+                                        },
+                                      );
+                                    },
+                                    fit: BoxFit.cover,
+                                    height: heightBanner,
+                                  ),
                                 ),
                               );
                             },

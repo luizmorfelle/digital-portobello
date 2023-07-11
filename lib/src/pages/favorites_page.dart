@@ -312,14 +312,9 @@ class _FavoritesPageState extends State<FavoritesPage> {
                             Padding(
                               padding: const EdgeInsets.all(16.0),
                               child: ElevatedButton.icon(
-                                onPressed: products.keys
-                                            .where((element) => element.checked)
-                                            .length <
-                                        2
-                                    ? null
-                                    : () {
-                                        context.push('/compare');
-                                      },
+                                onPressed: () {
+                                  context.push('/compare');
+                                },
                                 icon: const Icon(Icons.compare_arrows),
                                 label: Text(tl('compare', context)),
                               ),

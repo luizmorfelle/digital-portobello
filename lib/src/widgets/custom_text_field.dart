@@ -2,9 +2,7 @@ import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:digital_portobello/src/controllers/products_controller.dart';
 import 'package:digital_portobello/src/models/product_model.dart';
 import 'package:digital_portobello/src/utils/translate.dart';
-import 'package:digital_portobello/src/utils/uppercase_text_formatter.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class CustomTextField extends StatefulWidget {
   final TextEditingController? controller;

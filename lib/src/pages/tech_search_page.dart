@@ -1,6 +1,4 @@
-import 'dart:math';
-
-import 'package:digital_portobello/src/models/field_tech_search.dart';
+import 'package:digital_portobello/src/pages/list_groups_product_page.dart';
 import 'package:digital_portobello/src/pages/list_lines_product_page.dart';
 import 'package:digital_portobello/src/widgets/custom_back_button.dart';
 import 'package:flutter/material.dart';
@@ -58,20 +56,21 @@ class TechSearchPageState extends State<TechSearchPage> {
                                   SizedBox(
                                     width: 10,
                                   ),
-                                  Tooltip(
-                                    message: 'Informação',
-                                    child: Icon(
-                                      Icons.info,
-                                      size: 20,
-                                      color: Colors.black,
-                                    ),
-                                  )
+                                  if (field.description != null)
+                                    Tooltip(
+                                      message: tl(field.description!, context),
+                                      child: Icon(
+                                        Icons.info,
+                                        size: 20,
+                                        color: Colors.black,
+                                      ),
+                                    )
                                 ],
                               ),
                               Text(
                                 field.itens
                                     .where((it) => it.checked)
-                                    .map((e) => e.value)
+                                    .map((e) => e.label)
                                     .toSet()
                                     .join(', '),
                                 style: Theme.of(context).textTheme.bodyLarge,
@@ -218,9 +217,8 @@ class TechSearchPageState extends State<TechSearchPage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ListLinesProductPage(
-                            futureLines: fetchProductsLinesByFilter(
-                                fieldsTechSearch, context)),
+                        builder: (context) => ListGroupsProductPage(
+                            fieldsTechSearch: fieldsTechSearch),
                       ))
                 },
               ),

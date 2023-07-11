@@ -5,6 +5,7 @@ final List<FieldTechSearch> fieldsTechSearch = [
   FieldTechSearch(
     id: 0,
     title: 'Coeficiente de atrito molhado',
+    description: 'coefi_text',
     fieldApi: 'atrito_molhado_iso',
     operatorApi: 'in',
     itens: [
@@ -22,20 +23,21 @@ final List<FieldTechSearch> fieldsTechSearch = [
     id: 1,
     title: 'Local de Uso',
     fieldApi: 'uso',
-    operatorApi: 'in',
+    operatorApi: 'like',
     itens: [
-      ItemFieldTechSearch(value: 'RE', label: 'RE'),
-      ItemFieldTechSearch(value: 'PE', label: 'PE'),
-      ItemFieldTechSearch(value: 'FA', label: 'FA'),
-      ItemFieldTechSearch(value: 'RE', label: 'RE'),
-      ItemFieldTechSearch(value: 'CL', label: 'CL'),
-      ItemFieldTechSearch(value: 'CP', label: 'CP'),
-      ItemFieldTechSearch(value: 'IU', label: 'IU'),
+      ItemFieldTechSearch(value: '%RE%', label: 'RE'),
+      ItemFieldTechSearch(value: '%PE%', label: 'PE'),
+      ItemFieldTechSearch(value: '%FA%', label: 'FA'),
+      ItemFieldTechSearch(value: '%RI%', label: 'RI'),
+      ItemFieldTechSearch(value: '%CL%', label: 'CL'),
+      ItemFieldTechSearch(value: '%CP%', label: 'CP'),
+      ItemFieldTechSearch(value: '%IU%', label: 'IU'),
     ],
   ),
   FieldTechSearch(
     id: 2,
     title: 'Absorção de água',
+    description: 'abs_text',
     fieldApi: 'absorcao_dagua',
     operatorApi: 'in',
     itens: [
@@ -50,6 +52,7 @@ final List<FieldTechSearch> fieldsTechSearch = [
   FieldTechSearch(
     id: 3,
     title: 'Resistência à Manchas',
+    description: 'res_text',
     fieldApi: 'resultado_minimo_limpeza',
     operatorApi: 'in',
     itens: [
@@ -63,6 +66,7 @@ final List<FieldTechSearch> fieldsTechSearch = [
   FieldTechSearch(
     id: 4,
     title: 'Resistência ao ataque químico de ALTA concentração',
+    description: 'res_alta_text',
     fieldApi: 'ataque_qui_alta_conc',
     operatorApi: 'in',
     itens: [
@@ -74,6 +78,7 @@ final List<FieldTechSearch> fieldsTechSearch = [
   FieldTechSearch(
     id: 5,
     title: 'Resistência ao ataque químico de BAIXA concentração',
+    description: 'res_baixa_text',
     fieldApi: 'ataque_qui_baixa_conc',
     operatorApi: 'in',
     itens: [
@@ -85,6 +90,7 @@ final List<FieldTechSearch> fieldsTechSearch = [
   FieldTechSearch(
     id: 6,
     title: 'Resistência a produto de limpeza',
+    description: 'res_limp_text',
     fieldApi: 'resultado_minimo_limpeza',
     operatorApi: 'in',
     itens: [
@@ -96,6 +102,7 @@ final List<FieldTechSearch> fieldsTechSearch = [
   FieldTechSearch(
     id: 7,
     title: 'Expansão por umidade',
+    description: 'max_exp_text',
     fieldApi: 'expansao_por_umidade',
     operatorApi: 'in',
     itens: [

@@ -57,9 +57,11 @@ class _ProductPageState extends State<ProductPage> {
 
   @override
   Widget build(BuildContext context) {
-    String urlQrCode = product == null || actualSpaceN1 == null
+    String urlQrCode = product == null
         ? ""
-        : 'https://digital.portobello.com.br/?roomvoStartVisualizer=true&sku=${product!.codProduto}${product!.sufixo}&product_type=${actualSpaceN1?.superficiesID == 1 ? 'floor' : 'wall'}';
+        : actualSpaceN1 == null
+            ? 'https://digital.portobello.com.br/?roomvoStartVisualizer=true&sku=${product!.codProduto}${product!.sufixo}'
+            : 'https://digital.portobello.com.br/?roomvoStartVisualizer=true&sku=${product!.codProduto}${product!.sufixo}&product_type=${actualSpaceN1?.superficiesID == 1 ? 'floor' : 'wall'}';
 
     return BasePage(
       title: tl('product_detail', context).toUpperCase(),
@@ -205,7 +207,15 @@ class _ProductPageState extends State<ProductPage> {
                                                         width: 5,
                                                       ),
                                                       Tooltip(
-                                                        message: 'Informação',
+                                                        message: tl(
+                                                            allUsages
+                                                                .firstWhere(
+                                                                    (element) =>
+                                                                        element
+                                                                            .id ==
+                                                                        uso)
+                                                                .value,
+                                                            context),
                                                         child: Icon(
                                                           Icons.info,
                                                           size: 20,
@@ -248,19 +258,18 @@ class _ProductPageState extends State<ProductPage> {
                               ),
                               itemCount: product!.toJson().keys.length,
                               itemBuilder: (_, index) {
+                                var label =
+                                    product!.toJson().keys.toList()[index];
+
+                                var value =
+                                    product!.toJson().values.toList()[index];
                                 return SizedBox(
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
                                       FittedBox(
-                                        child: Text(
-                                            tl(
-                                                product!
-                                                    .toJson()
-                                                    .keys
-                                                    .toList()[index],
-                                                context),
+                                        child: Text(tl(label, context),
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyLarge),
@@ -268,11 +277,12 @@ class _ProductPageState extends State<ProductPage> {
                                       FittedBox(
                                         child: Text(
                                             tl(
-                                                product!
-                                                        .toJson()
-                                                        .values
-                                                        .toList()[index] ??
-                                                    "N/A",
+                                                value == "N/A" ||
+                                                        value == null ||
+                                                        value == "" ||
+                                                        value == "null"
+                                                    ? "-"
+                                                    : value,
                                                 context),
                                             style: Theme.of(context)
                                                 .textTheme

@@ -14,7 +14,7 @@ final List<DropDownModel> surfaces = [
 final List<DropDownModel> salesChannels = [
   DropDownModel('REV', 'Revenda', description: 'cv_revenda'),
   DropDownModel('ENG', 'Engenharia', description: 'cv_engenharia'),
-  DropDownModel('PBS', 'PB Shop', description: 'cv_portobello_shop'),
+  DropDownModel('PBS', 'Portobello Shop', description: 'cv_portobello_shop'),
   DropDownModel('EXP', 'Exportação', description: 'cv_exportacao'),
   DropDownModel('TOD', 'Todos', description: ''),
 ];
@@ -26,6 +26,7 @@ final List<DropDownModel> allUsages = [
   DropDownModel('IU', 'Industrial e Urbano'),
   DropDownModel('PE', 'Parede Externa'),
   DropDownModel('RE', 'Residencial'),
+  DropDownModel('RI', 'Revestimento Interno'),
 ];
 
 const double CARD_ITEM_SIZE = 400.0;
