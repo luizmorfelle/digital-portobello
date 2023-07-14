@@ -60,8 +60,8 @@ class _ProductPageState extends State<ProductPage> {
     String urlQrCode = product == null
         ? ""
         : actualSpaceN1 == null
-            ? 'https://digital.portobello.com.br/?roomvoStartVisualizer=true&sku=${product!.codProduto}${product!.sufixo}'
-            : 'https://digital.portobello.com.br/?roomvoStartVisualizer=true&sku=${product!.codProduto}${product!.sufixo}&product_type=${actualSpaceN1?.superficiesID == 1 ? 'floor' : 'wall'}';
+            ? 'https://digital.portobello.com.br/caracteristicas?roomvoStartVisualizer=true&sku=${product!.codProduto}${product!.sufixo}'
+            : 'https://digital.portobello.com.br/caracteristicas?roomvoStartVisualizer=true&sku=${product!.codProduto}${product!.sufixo}&product_type=${actualSpaceN1?.superficiesID == 1 ? 'floor' : 'wall'}';
 
     return BasePage(
       title: tl('product_detail', context).toUpperCase(),
@@ -103,55 +103,67 @@ class _ProductPageState extends State<ProductPage> {
                   children: [
                     Expanded(
                       flex: 2,
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 350,
-                            child: Image.asset(
-                              product!.imagem!,
-                              fit: BoxFit.fill,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 250,
+                              width: 250,
+                              child: Image.asset(
+                                  errorBuilder: (context, error, stackTrace) =>
+                                      Image.network(
+                                        'https://media.portobello.com.br/${product!.imagem?.split('/')[3]}',
+                                        fit: BoxFit.contain,
+                                        errorBuilder:
+                                            (context, error, stackTrace) {
+                                          return Placeholder();
+                                        },
+                                      ),
+                                  product!.imagem ?? "",
+                                  fit: BoxFit.contain),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton.icon(
-                                onPressed: () {
-                                  actualSpaceN1?.spaceModel = previousSpace;
-                                  Provider.of<FavoriteProvider>(context,
-                                          listen: false)
-                                      .addFavoriteProduct(
-                                          product!, actualSpaceN1);
-                                  context.push('/favorites');
-                                },
-                                icon: const Icon(Icons.favorite),
-                                label: Text(tl('want_to_receive', context))),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          if (product?.simulador == 'S')
+                            const SizedBox(
+                              height: 10,
+                            ),
                             SizedBox(
                               width: double.infinity,
                               child: ElevatedButton.icon(
                                   onPressed: () {
-                                    isWeb()
-                                        ? launchUrl(Uri.parse(urlQrCode))
-                                        : showDialogProductFavorite(
-                                            context, urlQrCode);
+                                    actualSpaceN1?.spaceModel = previousSpace;
+                                    Provider.of<FavoriteProvider>(context,
+                                            listen: false)
+                                        .addFavoriteProduct(
+                                            product!, actualSpaceN1);
+                                    context.push('/favorites');
                                   },
-                                  icon: const Icon(Icons.qr_code),
-                                  label: Text(tl('simulate_here', context))),
+                                  icon: const Icon(Icons.favorite),
+                                  label: Text(tl('want_to_receive', context))),
                             ),
-                        ],
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            if (product?.simulador == 'S')
+                              SizedBox(
+                                width: double.infinity,
+                                child: ElevatedButton.icon(
+                                    onPressed: () {
+                                      isWeb()
+                                          ? launchUrl(Uri.parse(urlQrCode))
+                                          : showDialogProductFavorite(
+                                              context, urlQrCode);
+                                    },
+                                    icon: const Icon(Icons.qr_code),
+                                    label: Text(tl('simulate_here', context))),
+                              ),
+                          ],
+                        ),
                       ),
                     ),
                     Expanded(
                       flex: 2,
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -179,8 +191,8 @@ class _ProductPageState extends State<ProductPage> {
                                             constraints: const BoxConstraints(
                                               minHeight: 110,
                                               maxHeight: 111,
-                                              maxWidth: 111,
-                                              minWidth: 110,
+                                              maxWidth: 131,
+                                              minWidth: 130,
                                             ),
                                             child: Padding(
                                               padding:
@@ -193,36 +205,41 @@ class _ProductPageState extends State<ProductPage> {
                                                       height: 100,
                                                     ),
                                                   ),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(tl(uso, context),
-                                                          style:
-                                                              Theme.of(context)
+                                                  Flexible(
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        FittedBox(
+                                                          child: Text(
+                                                              tl(uso, context),
+                                                              style: Theme.of(
+                                                                      context)
                                                                   .textTheme
                                                                   .titleMedium),
-                                                      SizedBox(
-                                                        width: 5,
-                                                      ),
-                                                      Tooltip(
-                                                        message: tl(
-                                                            allUsages
-                                                                .firstWhere(
-                                                                    (element) =>
-                                                                        element
-                                                                            .id ==
-                                                                        uso)
-                                                                .value,
-                                                            context),
-                                                        child: Icon(
-                                                          Icons.info,
-                                                          size: 20,
-                                                          color: Colors.black,
                                                         ),
-                                                      )
-                                                    ],
+                                                        SizedBox(
+                                                          width: 5,
+                                                        ),
+                                                        Tooltip(
+                                                          message: tl(
+                                                              allUsages
+                                                                  .firstWhere(
+                                                                      (element) =>
+                                                                          element
+                                                                              .id ==
+                                                                          uso)
+                                                                  .value,
+                                                              context),
+                                                          child: Icon(
+                                                            Icons.info,
+                                                            size: 12,
+                                                            color: Colors.black,
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
                                                   ),
                                                 ],
                                               ),

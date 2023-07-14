@@ -169,23 +169,37 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                                 child: Align(
                                                   alignment: Alignment.center,
                                                   child: Image.asset(
-                                                    'assets/images${productMap.key.zoomImage!}',
+                                                    productMap.key.imagem ?? "",
+                                                    errorBuilder: (context,
+                                                            error,
+                                                            stackTrace) =>
+                                                        Image.network(
+                                                      'https://media.portobello.com.br/${productMap.key.imagem?.split('/')[3]}',
+                                                      fit: BoxFit.cover,
+                                                      errorBuilder: (context,
+                                                          error, stackTrace) {
+                                                        return Placeholder();
+                                                      },
+                                                    ),
                                                     fit: BoxFit.contain,
                                                   ),
                                                 ),
                                               ),
                                               Positioned.fill(
                                                   child: Align(
-                                                alignment: Alignment.topRight,
-                                                child: Checkbox(
-                                                    value:
-                                                        productMap.key.checked,
-                                                    onChanged: (e) {
-                                                      setState(() {
-                                                        productMap.key.checked =
-                                                            e!;
-                                                      });
-                                                    }),
+                                                alignment: Alignment.topLeft,
+                                                child: Transform.scale(
+                                                  scale: 1.5,
+                                                  child: Checkbox(
+                                                      value: productMap
+                                                          .key.checked,
+                                                      onChanged: (e) {
+                                                        setState(() {
+                                                          productMap
+                                                              .key.checked = e!;
+                                                        });
+                                                      }),
+                                                ),
                                               ))
                                             ],
                                           ),
@@ -252,6 +266,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                                     .keys
                                                     .length,
                                                 itemBuilder: (_, index) {
+                                                  var value = productMap.key
+                                                      .toJson()
+                                                      .values
+                                                      .toList()[index];
                                                   return SizedBox(
                                                     child: Column(
                                                       crossAxisAlignment:
@@ -272,12 +290,15 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                                                 .bodyLarge),
                                                         Text(
                                                             tl(
-                                                                productMap.key
-                                                                            .toJson()
-                                                                            .values
-                                                                            .toList()[
-                                                                        index] ??
-                                                                    "-",
+                                                                value == "N/A" ||
+                                                                        value ==
+                                                                            null ||
+                                                                        value ==
+                                                                            "" ||
+                                                                        value ==
+                                                                            "null"
+                                                                    ? "-"
+                                                                    : value,
                                                                 context),
                                                             style: Theme.of(
                                                                     context)

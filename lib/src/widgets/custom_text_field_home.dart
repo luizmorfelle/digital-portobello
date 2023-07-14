@@ -1,49 +1,27 @@
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:digital_portobello/src/controllers/products_controller.dart';
 import 'package:digital_portobello/src/models/product_model.dart';
+import 'package:digital_portobello/src/utils/target.dart';
 import 'package:digital_portobello/src/utils/translate.dart';
+import 'package:digital_portobello/src/widgets/custom_text_field_modal.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:virtual_keyboard_multi_language/virtual_keyboard_multi_language.dart';
 
-class CustomTextField extends StatefulWidget {
-  final TextEditingController? controller;
-  final Function(String value)? onChanged;
-  final Function(String value)? onSubmitted;
-  const CustomTextField(
-      {super.key,
-      this.onChanged,
-      this.controller,
-      this.suggestions,
-      this.onSubmitted});
+class CustomTextFieldHome extends StatefulWidget {
+  const CustomTextFieldHome({
+    super.key,
+  });
 
-  final List<String>? suggestions;
   @override
-  State<CustomTextField> createState() => _CustomTextFieldState();
+  State<CustomTextFieldHome> createState() => _CustomTextFieldHomeState();
 }
 
-class _CustomTextFieldState extends State<CustomTextField> {
+class _CustomTextFieldHomeState extends State<CustomTextFieldHome> {
   List<String>? suggestions;
   List<ProductModel>? products;
   final GlobalKey<AutoCompleteTextFieldState<String>> key =
       GlobalKey<AutoCompleteTextFieldState<String>>();
-
-  @override
-  void initState() {
-    super.initState();
-    if (widget.suggestions == null) {
-      // fetchProducts().then((value) {
-      //   setState(() {
-      //     suggestions = value
-      //         .map((e) =>
-      //             '${e.id} - ${e.codProduto}${e.sufixo} - ${e.linha} - ${e.descProduto} - ${e.descFormatoNominal} - ${e.acabamentoDeBorda}')
-      //         .toList();
-      //   });
-      // });
-    } else {
-      setState(() {
-        suggestions = widget.suggestions!;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,27 +36,32 @@ class _CustomTextFieldState extends State<CustomTextField> {
               'field': 'desc_produto',
               'value': "%${textEditingValue.text}%",
               'operator': 'like',
+              'joinOperator': 'or'
             },
-            // {
-            //   'field': 'cod_produto',
-            //   'value': "%${textEditingValue.text}%",
-            //   'operator': 'like',
-            // },
-            // {
-            //   'field': 'linha',
-            //   'value': "%${textEditingValue.text}%",
-            //   'operator': 'like',
-            // },
-            // {
-            //   'field': 'desc_formato_nominal',
-            //   'value': "%${textEditingValue.text}%",
-            //   'operator': 'like',
-            // },
-            // {
-            //   'field': 'acabamento_de_borda',
-            //   'value': "%${textEditingValue.text}%",
-            //   'operator': 'like',
-            // },
+            {
+              'field': 'cod_produto',
+              'value': "%${textEditingValue.text}%",
+              'operator': 'like',
+              'joinOperator': 'or'
+            },
+            {
+              'field': 'linha',
+              'value': "%${textEditingValue.text}%",
+              'operator': 'like',
+              'joinOperator': 'or'
+            },
+            {
+              'field': 'desc_formato_nominal',
+              'value': "%${textEditingValue.text}%",
+              'operator': 'like',
+              'joinOperator': 'or'
+            },
+            {
+              'field': 'acabamento_de_borda',
+              'value': "%${textEditingValue.text}%",
+              'operator': 'like',
+              'joinOperator': 'and'
+            },
           ]).then((value) => matches = value);
           // matches.addAll(suggestions!);
           setState(() {
@@ -88,13 +71,48 @@ class _CustomTextFieldState extends State<CustomTextField> {
         }
       },
       onSelected: (String selection) {
-        widget.onSubmitted!(selection);
+        context.push('/product/${selection.split('-')[0].trim()}');
       },
       fieldViewBuilder: (BuildContext context,
           TextEditingController textEditingController,
           FocusNode focusNode,
           VoidCallback onFieldSubmitted) {
         return TextField(
+          onTap: () {
+            showModalBottomSheet(
+              isScrollControlled: true,
+              constraints: BoxConstraints.expand(),
+              backgroundColor: Colors.transparent,
+              context: context,
+              builder: (context) {
+                TextEditingController controller = TextEditingController();
+                return Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(color: Colors.white),
+                          child: VirtualKeyboard(
+                              height: 450,
+                              textController: controller,
+                              alwaysCaps: true,
+                              type: VirtualKeyboardType.Alphanumeric),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        CustomTextFieldModal(
+                            controller: controller,
+                            // onSubmitted: ,
+                            focusNode: focusNode),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            );
+          },
           style: const TextStyle(color: Colors.white, fontSize: 20),
           decoration: InputDecoration(
               border: const OutlineInputBorder(
@@ -109,7 +127,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
               filled: true,
               fillColor: Colors.grey,
               suffixIcon: GestureDetector(
-                onTap: () {},
                 child: const Icon(
                   Icons.search,
                   color: Colors.white,
@@ -119,7 +136,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
               hintText: tl('search', context)),
           controller: textEditingController,
           focusNode: focusNode,
-          onSubmitted: (String value) {},
         );
       },
       optionsViewBuilder: (BuildContext context,
@@ -145,9 +161,19 @@ class _CustomTextFieldState extends State<CustomTextField> {
                           child: Row(
                             children: [
                               Image.asset(
-                                'assets/images${product.zoomImage}',
+                                '${product.imagem}',
                                 height: 50,
                                 width: 50,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    Image.network(
+                                  'https://media.portobello.com.br/${product.imagem?.split('/')[3]}',
+                                  width: 50,
+                                  height: 50,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Placeholder();
+                                  },
+                                ),
                                 fit: BoxFit.cover,
                               ),
                               SizedBox(width: 10),

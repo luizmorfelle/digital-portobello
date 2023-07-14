@@ -78,7 +78,6 @@ Future<List<ProductModel>> fetchProducts(
 
 Future<List<ProductModel>> fetchProductsByGroupAndSpace(
     String? line, String? space, BuildContext context) async {
-  print('line: $line, space: $space');
   final response = await api.get(
       url: '/products/groups/$line/$space',
       queryParameters: {

@@ -51,8 +51,12 @@ dependencies:
   skeletons: ^0.0.3
   pdf: ^3.10.1
   pdf_render: ^1.4.0
+  advance_pdf_viewer: ^2.0.0
   tuple: ^2.0.2
+  window_manager: ^0.2.7
   virtual_keyboard_multi_language: ^1.0.3
+  pdf_thumbnail: ^0.1.5+1
+  thumbnailer: ^2.2.0
 
 # flutter_localizations:
 #   sdk: flutter
@@ -91,8 +95,7 @@ flutter:
     - assets/images/products/
     - assets/images/banners_footer/
     - assets/icons/
-    - assets/.env
-    - assets/id.txt
+    - assets/
   
 
   # An image asset can refer to one or more resolution-specific "variants", see

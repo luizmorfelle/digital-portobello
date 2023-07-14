@@ -37,7 +37,10 @@ const Map<String, String> en = {
   'know_our_products': 'GET TO KNOW OUR PRODUCTS',
   'la_products_are':
       'LA products are more resistant and LC are less resistant. The specified product must have a value greater or equal to the one indicated here.',
-  'language': 'LANGUAGES',
+  'language': 'Choose your language',
+  'portugues': "Portuguese",
+  'ingles': 'English',
+  'espanhol': 'Spanish',
   'larger_it_is':
       'The larger it is, the more the coating swells in the presence of water. The specified product must have a value less than or equal to the one indicated here.',
   'lines': 'Lines',
@@ -125,7 +128,7 @@ const Map<String, String> en = {
   'health': 'Health',
   'floor': 'Floor',
   'wall': 'Wall',
-  'place_of_use': 'PLACE OF USE',
+  'place_of_use': 'Place of use',
   'internal_coating': 'Internal Coating',
   'external_wall': 'External Wall',
   'heavy_commercial': 'Heavy Commercial',

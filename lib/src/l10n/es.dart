@@ -43,7 +43,10 @@ const Map<String, String> es = {
   'know_our_products': 'CONOZCA NUESTROS PRODUCTOS',
   'la_products_are':
       'Productos LA son más resistentes y LC son poco resistentes. EL producto especificado debe poseer valor mayor o igual al aquí indicado.',
-  'language': 'IDIOMA',
+  'language': 'Seleccione su idioma',
+  'portugues': "Portugués",
+  'ingles': 'Inglés',
+  'espanhol': 'Español',
   'larger_it_is':
       'Cuanto mayor sea, el revestimiento dilata más en la presencia de agua. El producto especificado debe poseer valor menor o igual al aquí indicado.',
   'lines': 'Línea de producto ',
@@ -126,7 +129,7 @@ const Map<String, String> es = {
   'health': 'Salud',
   'floor': 'Piso',
   'wall': 'Parede',
-  'place_of_use': 'LUGAR DE USO',
+  'place_of_use': 'Lugar de uso',
   'internal_coating': 'Revestimiento Interno',
   'external_wall': 'Pared Exterior',
   'heavy_commercial': 'Comercial Pesado',

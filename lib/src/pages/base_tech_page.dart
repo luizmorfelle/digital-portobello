@@ -23,42 +23,45 @@ class BaseTechPage extends StatelessWidget {
       appBar: const CustomAppBar(),
       drawer: const CustomDrawer(),
       body: SingleChildScrollView(
-        child: Column(children: [
-          Container(
-            decoration: BoxDecoration(color: Colors.grey[300]),
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Row(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(children: [
+              Container(
+                decoration: BoxDecoration(color: Colors.grey[300]),
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Row(
                     children: [
-                      Text(
-                        title,
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      Text(
-                        subTitle,
-                        style: Theme.of(context).textTheme.headlineMedium,
-                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            title,
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          Text(
+                            subTitle,
+                            style: Theme.of(context).textTheme.headlineMedium,
+                          ),
+                        ],
+                      )
                     ],
-                  )
-                ],
+                  ),
+                ),
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            child: child,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 20),
-            child: Container(
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                child: child,
+              ),
+            ]),
+            Container(
               child: Image.asset(
                   'assets/images/banners_footer/${Provider.of<LanguageProvider>(context, listen: false).language.languageCode}.png'),
-            ),
-          )
-        ]),
+            )
+          ],
+        ),
       ),
     );
   }

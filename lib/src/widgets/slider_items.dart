@@ -29,7 +29,7 @@ class _SliderItemsState extends State<SliderItems> {
         CarouselSlider(
           carouselController: buttonCarouselController,
           options: CarouselOptions(
-              height: CARD_ITEM_SIZE,
+              height: CARD_ITEM_SIZE + TEXT_SPACE_SIZE + 20,
               initialPage: 2,
               onPageChanged: (index, reason) {
                 setState(() {
@@ -43,7 +43,10 @@ class _SliderItemsState extends State<SliderItems> {
           items: widget.itens.map((item) {
             return Builder(
               builder: (BuildContext context) {
-                return CardItem(cardItem: item);
+                return Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: CardItem(cardItem: item),
+                );
               },
             );
           }).toList(),

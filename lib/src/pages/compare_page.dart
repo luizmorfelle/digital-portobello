@@ -26,9 +26,6 @@ class _ComparePageState extends State<ComparePage> {
   Widget build(BuildContext context) {
     products = Provider.of<FavoriteProvider>(context).getFavoriteProducts;
 
-    for (var item in products.keys) {
-      print(item.toJson());
-    }
     return Scaffold(
       appBar: const CustomAppBar(),
       drawer: const CustomDrawer(),
@@ -64,92 +61,109 @@ class _ComparePageState extends State<ComparePage> {
                 children: const [CustomBackButton()],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                itemCount: products.length,
-                itemBuilder: (context, index) {
-                  var produto = products.keys.elementAt(index);
+            SizedBox(
+              height: 1500,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  itemCount: products.length,
+                  itemBuilder: (context, index) {
+                    var produto = products.keys.elementAt(index);
 
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: SizedBox(
-                      width: 400,
-                      height: 800,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20.0),
-                        child: Container(
-                          decoration: BoxDecoration(color: Colors.grey[200]),
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(20.0),
-                                  child: SizedBox(
-                                    // height: 100,
-                                    child: Image.asset(
-                                      'assets/images${produto.zoomImage!}',
-                                      fit: BoxFit.contain,
+                    return Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Container(
+                        width: 400,
+                        decoration: BoxDecoration(color: Colors.grey[200]),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: SizedBox(
+                                  // height: 100,
+                                  child: Image.asset(
+                                    errorBuilder:
+                                        (context, error, stackTrace) =>
+                                            Image.network(
+                                      'https://media.portobello.com.br/${produto.imagem?.split('/')[3]}',
+                                      width: 200,
+                                      height: 200,
+                                      fit: BoxFit.cover,
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                        return Placeholder();
+                                      },
                                     ),
+                                    produto.imagem ?? "",
+                                    width: 200,
+                                    height: 200,
+                                    fit: BoxFit.contain,
                                   ),
                                 ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      "${produto.linha!} - ${produto.descProduto}",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleLarge,
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Expanded(
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "${produto.linha} - ${produto.descProduto}",
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: produto.toJson().entries.map((e) {
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 12.0),
                                     child: Column(
-                                  children: produto.toJson().entries.map((e) {
-                                    return Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "${e.key}: ",
+                                          "${tl(e.key, context)}: ",
                                           style: Theme.of(context)
                                               .textTheme
-                                              .bodyMedium,
+                                              .bodyLarge,
                                         ),
                                         Text(
-                                          "${e.value}",
+                                          tl(e.value ?? "-", context),
                                           style: Theme.of(context)
                                               .textTheme
-                                              .bodyMedium,
+                                              .titleLarge,
                                         ),
                                       ],
-                                    );
-                                  }).toList(),
-                                )),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                ElevatedButton.icon(
-                                    onPressed: () {
-                                      Provider.of<FavoriteProvider>(context,
-                                              listen: false)
-                                          .removeFavoriteProduct(produto);
-                                    },
-                                    icon: const Icon(Icons.delete),
-                                    label: Text(tl('delete', context)))
-                              ],
-                            ),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              ElevatedButton.icon(
+                                  onPressed: () {
+                                    Provider.of<FavoriteProvider>(context,
+                                            listen: false)
+                                        .removeFavoriteProduct(produto);
+                                  },
+                                  icon: const Icon(Icons.delete),
+                                  label: Text(tl('delete', context)))
+                            ],
                           ),
                         ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
             ),
           ],

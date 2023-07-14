@@ -2,6 +2,7 @@ import 'package:badges/badges.dart' as badges;
 import 'package:country_flags/country_flags.dart';
 import 'package:digital_portobello/src/providers/favorite_provider.dart';
 import 'package:digital_portobello/src/providers/language_provider.dart';
+import 'package:digital_portobello/src/utils/translate.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -67,7 +68,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Text("Escolha o idioma"),
+                          insetPadding: EdgeInsets.only(bottom: 300),
+                          title: Text(tl('language', context)),
                           content: SizedBox(
                             height: 200,
                             width: 300,
@@ -85,7 +87,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                                       width: 62,
                                       borderRadius: 8,
                                     ),
-                                    title: const Text('Português'),
+                                    title: Text(tl('portugues', context)),
                                     onTap: () {
                                       Provider.of<LanguageProvider>(context,
                                               listen: false)
@@ -104,7 +106,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                                       width: 62,
                                       borderRadius: 8,
                                     ),
-                                    title: const Text('Inglês'),
+                                    title: Text(tl('ingles', context)),
                                     onTap: () {
                                       Provider.of<LanguageProvider>(context,
                                               listen: false)
@@ -123,7 +125,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                                       width: 62,
                                       borderRadius: 8,
                                     ),
-                                    title: const Text('Espanhol'),
+                                    title: Text(tl('espanhol', context)),
                                     onTap: () {
                                       Provider.of<LanguageProvider>(context,
                                               listen: false)

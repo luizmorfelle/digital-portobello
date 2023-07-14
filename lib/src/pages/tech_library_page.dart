@@ -1,7 +1,6 @@
 import 'package:digital_portobello/src/models/tech_library_tab.dart';
 import 'package:digital_portobello/src/widgets/custom_back_button.dart';
 import 'package:flutter/material.dart';
-import 'package:pdf_render/pdf_render_widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../controllers/tech_library_controller.dart';
@@ -42,7 +41,7 @@ class TechLibraryPageState extends State<TechLibraryPage> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return SizedBox(
-                  height: 500,
+                  height: 1000,
                   child: DefaultTabController(
                     length: snapshot.data!.length,
                     child: Scaffold(
@@ -65,71 +64,94 @@ class TechLibraryPageState extends State<TechLibraryPage> {
                       ),
                       body: TabBarView(
                         children: snapshot.data!
-                            .map((e) => GridView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 4,
-                                  crossAxisSpacing: 20.0,
-                                  mainAxisSpacing: 20.0,
-                                ),
-                                itemCount: e.files?.length ?? 0,
-                                itemBuilder: (_, index) {
-                                  return Card(
-                                    child: Column(
-                                      children: [
-                                        e.files?[index].tipo == 'pdf'
-                                            ? Expanded(
-                                                child: InkWell(
-                                                  onTap: () {
-                                                    launchUrl(Uri.parse(
-                                                        e.files![index].url!));
-                                                  },
-                                                  child: PdfDocumentLoader.openFile(
-                                                      'https://educapes.capes.gov.br/bitstream/capes/432730/2/Livro%20%20Introduc%C3%A3o%20a%20Computac%C3%A3o.pdf',
-                                                      pageNumber: 1,
-                                                      pageBuilder: (context,
-                                                              textureBuilder,
-                                                              pageSize) =>
-                                                          textureBuilder()),
-                                                ),
-                                              )
-                                            : InkWell(
-                                                onTap: () {
-                                                  launchUrl(Uri.parse(
-                                                      e.files![index].url!));
-                                                },
-                                                child: Stack(
-                                                  children: [
-                                                    Image.network(getThumbnail(
-                                                        e.files![index].url!)),
-                                                    Positioned.fill(
-                                                      child: Center(
-                                                        child: Icon(
-                                                          Icons.play_circle,
-                                                          color: Colors.white,
-                                                          size: 50,
+                            .map((e) => Flexible(
+                                  child: GridView.builder(
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 4,
+                                        crossAxisSpacing: 20.0,
+                                        mainAxisSpacing: 20.0,
+                                      ),
+                                      itemCount: e.files?.length ?? 0,
+                                      itemBuilder: (_, index) {
+                                        return Container(
+                                          child: Card(
+                                            child: Column(
+                                              children: [
+                                                e.files?[index].tipo == 'pdf'
+                                                    ? Expanded(
+                                                        child: SizedBox.expand(
+                                                          child: InkWell(
+                                                            onTap: () {
+                                                              launchUrl(
+                                                                  Uri.parse(e
+                                                                      .files![
+                                                                          index]
+                                                                      .url!));
+                                                            },
+                                                            child: Expanded(
+                                                              child: Container(
+                                                                decoration: BoxDecoration(
+                                                                    color: Colors
+                                                                            .grey[
+                                                                        300]),
+                                                                child: Icon(
+                                                                    Icons
+                                                                        .picture_as_pdf,
+                                                                    size: 40,
+                                                                    color: Colors
+                                                                        .black),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      )
+                                                    : InkWell(
+                                                        onTap: () {
+                                                          launchUrl(Uri.parse(e
+                                                              .files![index]
+                                                              .url!));
+                                                        },
+                                                        child: Stack(
+                                                          children: [
+                                                            Image.network(
+                                                                getThumbnail(e
+                                                                    .files![
+                                                                        index]
+                                                                    .url!)),
+                                                            Positioned.fill(
+                                                              child: Center(
+                                                                child: Icon(
+                                                                  Icons
+                                                                      .play_circle,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  size: 50,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
                                                       ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 8.0),
-                                          child: Text(
-                                            '${e.files![index].title}',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleLarge,
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(vertical: 8.0),
+                                                  child: Text(
+                                                    '${e.files![index].title}',
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleLarge,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
                                           ),
-                                        )
-                                      ],
-                                    ),
-                                  );
-                                }))
+                                        );
+                                      }),
+                                ))
                             .toList(),
                       ),
                     ),

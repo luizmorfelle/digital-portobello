@@ -329,8 +329,9 @@ class ProductModel extends CardItemModel {
   }) : super(
             isFull: false,
             path: 'product/$id',
-            imagem: "assets/images$zoomImage",
-            nome: '$descProduto $descFormatoNominal $caracteristicaAcabamento');
+            imagem: "assets/images/products/$zoomImage",
+            nome:
+                '$descProduto $descFormatoNominal $caracteristicaAcabamento $acabamentoDeBorda');
 
   static ProductModel fromJson(Map<String, dynamic> json) {
     return ProductModel(
@@ -528,6 +529,7 @@ class ProductModel extends CardItemModel {
     data['Resistência à Manchas'] = resultadoMinimoLimpeza;
     data['Resistência ao ataque químico de BAIXA concentração'] =
         ataqueQuiBaixaConc;
+    data['min_staining_high'] = ataqueQuiAltaConc;
     data['Expansão por umidade'] = expansaoPorUmidade;
     return data;
   }

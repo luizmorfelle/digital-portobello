@@ -21,7 +21,7 @@ final List<FieldTechSearch> fieldsTechSearch = [
   ),
   FieldTechSearch(
     id: 1,
-    title: 'Local de Uso',
+    title: 'place_of_use',
     fieldApi: 'uso',
     operatorApi: 'like',
     itens: [
@@ -65,7 +65,7 @@ final List<FieldTechSearch> fieldsTechSearch = [
   ),
   FieldTechSearch(
     id: 4,
-    title: 'Resistência ao ataque químico de ALTA concentração',
+    title: 'min_staining_high',
     description: 'res_alta_text',
     fieldApi: 'ataque_qui_alta_conc',
     operatorApi: 'in',
@@ -77,7 +77,7 @@ final List<FieldTechSearch> fieldsTechSearch = [
   ),
   FieldTechSearch(
     id: 5,
-    title: 'Resistência ao ataque químico de BAIXA concentração',
+    title: 'min_staining_low',
     description: 'res_baixa_text',
     fieldApi: 'ataque_qui_baixa_conc',
     operatorApi: 'in',
@@ -87,18 +87,18 @@ final List<FieldTechSearch> fieldsTechSearch = [
       ItemFieldTechSearch(value: 'LC', label: 'LC'),
     ],
   ),
-  FieldTechSearch(
-    id: 6,
-    title: 'Resistência a produto de limpeza',
-    description: 'res_limp_text',
-    fieldApi: 'resultado_minimo_limpeza',
-    operatorApi: 'in',
-    itens: [
-      ItemFieldTechSearch(value: '5', label: '5'),
-      ItemFieldTechSearch(value: '3', label: '3'),
-      ItemFieldTechSearch(value: '4', label: '4'),
-    ],
-  ),
+  // FieldTechSearch(
+  //   id: 6,
+  //   title: 'Resistência a produto de limpeza',
+  //   description: 'res_limp_text',
+  //   fieldApi: 'resultado_minimo_limpeza',
+  //   operatorApi: 'in',
+  //   itens: [
+  //     ItemFieldTechSearch(value: '5', label: '5'),
+  //     ItemFieldTechSearch(value: '3', label: '3'),
+  //     ItemFieldTechSearch(value: '4', label: '4'),
+  //   ],
+  // ),
   FieldTechSearch(
     id: 7,
     title: 'Expansão por umidade',
@@ -115,7 +115,7 @@ final List<FieldTechSearch> fieldsTechSearch = [
   ),
   FieldTechSearch(
     id: 8,
-    title: 'Tipologia Comercial',
+    title: 'cormecial_tipology',
     fieldApi: 'tipologia_comercial',
     operatorApi: 'in',
     itens: [
@@ -159,7 +159,7 @@ final List<FieldTechSearch> fieldsTechSearch = [
   ),
   FieldTechSearch(
     id: 9,
-    title: 'Características de acabamento',
+    title: 'finishing_characteristics',
     fieldApi: 'caracteristica_acabamento',
     operatorApi: 'in',
     itens: [
@@ -176,7 +176,7 @@ final List<FieldTechSearch> fieldsTechSearch = [
   ),
   FieldTechSearch(
     id: 10,
-    title: 'Acabamento de borda',
+    title: 'edge_finish',
     fieldApi: 'acabamento_de_borda',
     operatorApi: 'in',
     itens: [

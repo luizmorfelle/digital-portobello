@@ -37,30 +37,31 @@ class CardItem extends StatelessWidget {
                   ));
             }
           },
-          child: Padding(
-            padding: const EdgeInsets.all(10),
+          child: SizedBox(
+            height: CARD_ITEM_SIZE + TEXT_SPACE_SIZE - 20,
             child: Flex(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               direction: Axis.vertical,
               children: [
-                Expanded(
-                  child: cardItem.imagem != null
-                      ? Image.asset(
-                          errorBuilder: (context, error, stackTrace) =>
-                              const Center(
-                            child: Icon(
-                              Icons.error,
-                              color: Colors.red,
-                            ),
-                          ),
-                          cardItem.imagem ?? "",
-                          width: double.infinity,
-                          height: CARD_ITEM_SIZE,
-                          fit: cardItem.isFull ? BoxFit.fill : BoxFit.contain,
-                        )
-                      : const Placeholder(),
-                ),
+                cardItem.imagem != null
+                    ? Image.asset(
+                        errorBuilder: (context, error, stackTrace) =>
+                            Image.network(
+                          'https://media.portobello.com.br/${cardItem.imagem?.split('/')[3]}',
+                          width: CARD_ITEM_SIZE - 20,
+                          height: CARD_ITEM_SIZE - 20,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Placeholder();
+                          },
+                        ),
+                        cardItem.imagem ?? "",
+                        width: CARD_ITEM_SIZE - 20,
+                        height: CARD_ITEM_SIZE - 20,
+                        fit: cardItem.isFull ? BoxFit.fill : BoxFit.contain,
+                      )
+                    : const Placeholder(),
                 SizedBox(
                   height: TEXT_SPACE_SIZE,
                   child: Column(

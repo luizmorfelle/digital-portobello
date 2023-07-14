@@ -1,12 +1,11 @@
-import 'package:digital_portobello/src/utils/constants.dart';
 import 'package:digital_portobello/src/controllers/banners_controller.dart';
-import 'package:digital_portobello/src/controllers/products_controller.dart';
 import 'package:digital_portobello/src/models/color_model.dart';
 import 'package:digital_portobello/src/models/dropdown_model.dart';
 import 'package:digital_portobello/src/models/material_model.dart';
 import 'package:digital_portobello/src/models/space_n1_model.dart';
+import 'package:digital_portobello/src/utils/constants.dart';
 import 'package:digital_portobello/src/utils/translate.dart';
-import 'package:digital_portobello/src/widgets/custom_text_field.dart';
+import 'package:digital_portobello/src/widgets/custom_text_field_products.dart';
 import 'package:flutter/material.dart';
 
 import '../controllers/lines_controller.dart';
@@ -168,7 +167,7 @@ class _ListLinesProductPageState extends State<ListLinesProductPage> {
               children: [
                 SizedBox(
                   width: 900,
-                  child: CustomTextField(
+                  child: CustomTextFieldProducts(
                     controller: controller,
                     suggestions: const [],
                     onChanged: (value) {

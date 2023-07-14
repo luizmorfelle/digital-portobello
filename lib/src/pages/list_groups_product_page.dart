@@ -8,11 +8,8 @@ import 'package:digital_portobello/src/models/material_model.dart';
 import 'package:digital_portobello/src/models/space_n1_model.dart';
 import 'package:digital_portobello/src/utils/constants.dart';
 import 'package:digital_portobello/src/utils/translate.dart';
-import 'package:digital_portobello/src/widgets/custom_text_field.dart';
+import 'package:digital_portobello/src/widgets/custom_text_field_products.dart';
 import 'package:flutter/material.dart';
-import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
-import 'package:multi_select_flutter/util/multi_select_item.dart';
-import 'package:multi_select_flutter/util/multi_select_list_type.dart';
 import 'package:skeletons/skeletons.dart';
 
 import '../controllers/spaces_controller.dart';
@@ -20,7 +17,6 @@ import '../models/breadcrumb_item_model.dart';
 import '../models/space_model.dart';
 import '../widgets/card_item.dart';
 import '../widgets/custom_dropdown_button.dart';
-import '../widgets/grid_items.dart';
 import 'base_page.dart';
 
 class ListGroupsProductPage extends StatefulWidget {
@@ -174,7 +170,7 @@ class _ListGroupsProductPageState extends State<ListGroupsProductPage> {
               children: [
                 Expanded(
                   flex: 1,
-                  child: CustomTextField(
+                  child: CustomTextFieldProducts(
                     controller: controller,
                     suggestions: const [],
                     onChanged: (value) {
@@ -269,8 +265,9 @@ class _ListGroupsProductPageState extends State<ListGroupsProductPage> {
                     skeleton: Row(
                       children: List.filled(
                           MediaQuery.of(context).size.width ~/ CARD_ITEM_SIZE,
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
                             child: SkeletonAvatar(
                               style: SkeletonAvatarStyle(
                                   height: CARD_ITEM_SIZE,

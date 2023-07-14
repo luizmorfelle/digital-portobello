@@ -1,7 +1,8 @@
 import 'package:digital_portobello/src/models/field_tech_search.dart';
 
-getFilterTechSearch(List<FieldTechSearch>? fields) {
+Map<String, dynamic> getFilterTechSearch(List<FieldTechSearch>? fields) {
   Map<String, dynamic> body = <String, dynamic>{};
+
   if (fields == null) return body;
 
   body['filters'] = fields
@@ -28,4 +29,5 @@ getFilterTechSearch(List<FieldTechSearch>? fields) {
     }
     return dataItem;
   }).toList();
+  return body;
 }

@@ -1,10 +1,8 @@
 import 'package:digital_portobello/src/pages/list_groups_product_page.dart';
-import 'package:digital_portobello/src/pages/list_lines_product_page.dart';
 import 'package:digital_portobello/src/widgets/custom_back_button.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 
-import '../controllers/lines_controller.dart';
 import '../utils/fields_tech_search.dart';
 import '../utils/translate.dart';
 import 'base_tech_page.dart';
@@ -27,7 +25,10 @@ class TechSearchPageState extends State<TechSearchPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(tl('select_filters', context)),
+              Text(
+                tl('select_filters', context),
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
               const CustomBackButton()
             ],
           ),
@@ -43,39 +44,45 @@ class TechSearchPageState extends State<TechSearchPage> {
                     canTapOnHeader: true,
                     headerBuilder: (context, isExpanded) => Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(tl(field.title, context),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineMedium),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  if (field.description != null)
-                                    Tooltip(
-                                      message: tl(field.description!, context),
-                                      child: Icon(
-                                        Icons.info,
-                                        size: 20,
-                                        color: Colors.black,
-                                      ),
-                                    )
-                                ],
-                              ),
-                              Text(
-                                field.itens
-                                    .where((it) => it.checked)
-                                    .map((e) => e.label)
-                                    .toSet()
-                                    .join(', '),
-                                style: Theme.of(context).textTheme.bodyLarge,
-                              )
-                            ],
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(tl(field.title, context),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineMedium),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    if (field.description != null)
+                                      Tooltip(
+                                        message:
+                                            tl(field.description!, context),
+                                        triggerMode: TooltipTriggerMode.tap,
+                                        child: const Icon(
+                                          Icons.info,
+                                          size: 20,
+                                          color: Colors.black,
+                                        ),
+                                      )
+                                  ],
+                                ),
+                                Text(
+                                  field.itens
+                                      .where((it) => it.checked)
+                                      .map((e) => e.label)
+                                      .toSet()
+                                      .join(', '),
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                )
+                              ],
+                            ),
                           ),
                         ),
                     body: Padding(

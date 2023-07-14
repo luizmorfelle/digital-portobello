@@ -40,7 +40,10 @@ const Map<String, String> pt = {
   'know_our_products': 'CONHEÇA NOSSOS PRODUTOS',
   'la_products_are':
       'Produtos LA são mais resistentes e LC são pouco resistentes. O produto especificado deve possuir valor maior ou igual ao aqui indicado.',
-  'language': 'IDIOMA',
+  'language': 'Escolha o idioma',
+  'portugues': "Português",
+  'ingles': 'Inglês',
+  'espanhol': 'Espanhol',
   'larger_it_is':
       'Quanto maior, mais o revestimento dilata na presença de água. O produto especificado deve possuir valor menor ou igual ao aqui indicado.',
   'lines': 'LINHA DO PRODUTO',
@@ -128,7 +131,7 @@ const Map<String, String> pt = {
   'health': 'Saúde',
   'floor': 'Piso',
   'wall': 'Parede',
-  'place_of_use': 'LOCAL DE USO',
+  'place_of_use': 'Local de uso',
   'internal_coating': '	Revestimento interno',
   'external_wall': 'Parede Externa',
   'heavy_commercial': 'Comercial pesado',
@@ -826,7 +829,7 @@ const Map<String, String> pt = {
   'Absorção de água': 'Absorção de água',
   'Coeficiente de atrito molhado': 'Coeficiente de atrito molhado',
   'Indicação de Uso': 'Indicação de Uso',
-  'Resistência à Manchas': 'Resistência à Manchas',
+  'Resistência à Manchas': 'Resistência à manchas',
   'Resistência ao ataque químico de BAIXA concentração':
       'Resistência ao ataque químico de BAIXA concentração',
   'Expansão por umidade': 'Expansão por umidade',

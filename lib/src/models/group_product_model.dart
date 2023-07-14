@@ -20,7 +20,7 @@ class GroupProductModel extends CardItemModel {
             path: spaceN1Id == null
                 ? 'products/groups/$id'
                 : 'products/groups/$spaceN1Id/$id',
-            imagem: 'assets/images$imagem',
+            imagem: 'assets/images/products/$imagem',
             nome: nome,
             description: description);
 

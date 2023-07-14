@@ -85,6 +85,35 @@ class _SliderHeaderState extends State<SliderHeader> {
                           );
                         }).toList(),
                       ),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        CarouselFullScreenPage(
+                                            images: snapshot.data ?? [],
+                                            actualIndex: pageIndex),
+                                  ));
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  border:
+                                      Border.all(color: Colors.black, width: 2),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(8)),
+                                  color: Colors.white),
+                              child: Icon(Icons.fullscreen,
+                                  color: Colors.black, size: 50),
+                            ),
+                          ),
+                        ),
+                      ),
                       if (snapshot.data!.length > 1)
                         Align(
                           alignment: Alignment.centerRight,

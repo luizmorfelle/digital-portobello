@@ -1,4 +1,5 @@
 import 'package:digital_portobello/src/models/dropdown_model.dart';
+import 'package:flutter/cupertino.dart';
 
 final List<DropDownModel> usages = [
   DropDownModel('1', 'Residencial'),
@@ -29,5 +30,5 @@ final List<DropDownModel> allUsages = [
   DropDownModel('RI', 'Revestimento Interno'),
 ];
 
-const double CARD_ITEM_SIZE = 400.0;
-const double TEXT_SPACE_SIZE = 80.0;
+double CARD_ITEM_SIZE = 350;
+double TEXT_SPACE_SIZE = 80.0;

@@ -32,54 +32,57 @@ class BasePage extends StatelessWidget {
       appBar: const CustomAppBar(),
       drawer: const CustomDrawer(),
       body: SingleChildScrollView(
-        child: Column(children: [
-          SliderHeader(images: futureBanners),
-          FutureBuilder(
-            future: futureObject,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(children: [
+              SliderHeader(images: futureBanners),
+              FutureBuilder(
+                future: futureObject,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 20),
+                      child: Column(
                         children: [
-                          Flexible(
-                            child: Text(
-                              title,
-                              style: Theme.of(context).textTheme.headlineLarge,
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              FittedBox(
+                                child: Text(
+                                  title,
+                                  style:
+                                      Theme.of(context).textTheme.headlineLarge,
+                                ),
+                              ),
+                              const Flexible(child: CustomBackButton()),
+                            ],
                           ),
-                          const Flexible(child: CustomBackButton()),
+                          if (itemsBreadCrumb.isNotEmpty)
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              child: CustomBreadCrumb(
+                                items: itemsBreadCrumb,
+                              ),
+                            ),
+                          child,
                         ],
                       ),
-                      if (itemsBreadCrumb.isNotEmpty)
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: CustomBreadCrumb(
-                            items: itemsBreadCrumb,
-                          ),
-                        ),
-                      child,
-                    ],
-                  ),
-                );
-              } else if (snapshot.hasError) {
-                return Text("${snapshot.error} - ${snapshot.stackTrace}");
-              }
-              return const Center(child: CircularProgressIndicator());
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 20),
-            child: Container(
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text("${snapshot.error} - ${snapshot.stackTrace}");
+                  }
+                  return const Center(child: CircularProgressIndicator());
+                },
+              ),
+            ]),
+            Container(
               child: Image.asset(
                   'assets/images/banners_footer/${Provider.of<LanguageProvider>(context, listen: false).language.languageCode}.png'),
-            ),
-          )
-        ]),
+            )
+          ],
+        ),
       ),
     );
   }

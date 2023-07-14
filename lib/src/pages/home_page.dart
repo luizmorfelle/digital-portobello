@@ -18,7 +18,7 @@ import '../utils/constants.dart';
 import '../utils/translate.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer.dart';
-import '../widgets/custom_text_field.dart';
+import '../widgets/custom_text_field_home.dart';
 import '../widgets/see_all_spaces_button.dart';
 import '../widgets/slider_header.dart';
 import '../widgets/slider_items.dart';
@@ -67,10 +67,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10.0),
-                    child: CustomTextField(
-                      onSubmitted: (value) => context
-                          .push('/product/${value.split('-')[0].trim()}'),
-                    ),
+                    child: CustomTextFieldHome(),
                   ),
                   Row(
                     children: [
@@ -80,9 +77,11 @@ class _HomePageState extends State<HomePage> {
                         crossAxisAlignment: WrapCrossAlignment.center,
                         clipBehavior: Clip.antiAlias,
                         children: [
-                          Text(
-                            tl('choose_environment', context).toUpperCase(),
-                            style: Theme.of(context).textTheme.headlineLarge,
+                          FittedBox(
+                            child: Text(
+                              tl('choose_environment', context).toUpperCase(),
+                              style: Theme.of(context).textTheme.headlineLarge,
+                            ),
                           ),
                           CustomDropdownButton(
                             items: usages,
@@ -146,11 +145,11 @@ class _HomePageState extends State<HomePage> {
                             children: List.filled(
                                 MediaQuery.of(context).size.width ~/
                                     CARD_ITEM_SIZE,
-                                const Expanded(
+                                Expanded(
                                   flex: 1,
                                   child: Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 8.0),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0),
                                     child: SkeletonAvatar(
                                       style: SkeletonAvatarStyle(
                                           height: CARD_ITEM_SIZE,
@@ -179,11 +178,11 @@ class _HomePageState extends State<HomePage> {
                             children: List.filled(
                                 MediaQuery.of(context).size.width ~/
                                     CARD_ITEM_SIZE,
-                                const Expanded(
+                                Expanded(
                                   flex: 1,
                                   child: Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 8.0),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0),
                                     child: SkeletonAvatar(
                                       style: SkeletonAvatarStyle(
                                           height: CARD_ITEM_SIZE,

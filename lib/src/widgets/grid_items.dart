@@ -27,12 +27,14 @@ class GridItems extends StatelessWidget {
                         MediaQuery.of(context).size.width ~/ CARD_ITEM_SIZE,
                     mainAxisExtent: CARD_ITEM_SIZE + TEXT_SPACE_SIZE,
                     // childAspectRatio: 4 / 3,
-                    crossAxisSpacing: 20.0,
-                    mainAxisSpacing: 20.0,
+                    crossAxisSpacing: 15.0,
+                    mainAxisSpacing: 15.0,
                   ),
                   itemCount: items.length,
                   itemBuilder: (_, index) {
-                    return CardItem(cardItem: items[index]);
+                    return CardItem(
+                      cardItem: items[index],
+                    );
                   });
         } else if (snapshot.hasError) {
           return Center(
@@ -44,8 +46,8 @@ class GridItems extends StatelessWidget {
               skeleton: Row(
                 children: List.filled(
                     MediaQuery.of(context).size.width ~/ CARD_ITEM_SIZE,
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8.0),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: SkeletonAvatar(
                         style: SkeletonAvatarStyle(
                             height: CARD_ITEM_SIZE, width: CARD_ITEM_SIZE),
