@@ -60,8 +60,8 @@ class _ProductPageState extends State<ProductPage> {
     String urlQrCode = product == null
         ? ""
         : actualSpaceN1 == null
-            ? 'https://digital.portobello.com.br/caracteristicas?roomvoStartVisualizer=true&sku=${product!.codProduto}${product!.sufixo}'
-            : 'https://digital.portobello.com.br/caracteristicas?roomvoStartVisualizer=true&sku=${product!.codProduto}${product!.sufixo}&product_type=${actualSpaceN1?.superficiesID == 1 ? 'floor' : 'wall'}';
+            ? 'https://digital.portobello.com.br/?roomvoStartVisualizer=true&sku=${product!.codProduto}${product!.sufixo}'
+            : 'https://digital.portobello.com.br/?roomvoStartVisualizer=true&sku=${product!.codProduto}${product!.sufixo}&product_type=${actualSpaceN1?.superficiesID == 1 ? 'floor' : 'wall'}';
 
     return BasePage(
       title: tl('product_detail', context).toUpperCase(),

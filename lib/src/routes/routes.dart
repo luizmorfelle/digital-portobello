@@ -19,58 +19,60 @@ final routes = GoRouter(routes: [
   GoRoute(
     path: '/products/line/:spaceN1Id/:lineId',
     builder: (context, state) => ListProductsPage(
-        spaceN1Id: state.params['spaceN1Id'], lineId: state.params['lineId']),
+        spaceN1Id: state.pathParameters['spaceN1Id'],
+        lineId: state.pathParameters['lineId']),
   ),
   GoRoute(
     path: '/products/line/:lineId',
-    builder: (context, state) =>
-        ListProductsPage(spaceN1Id: null, lineId: state.params['lineId']),
+    builder: (context, state) => ListProductsPage(
+        spaceN1Id: null, lineId: state.pathParameters['lineId']),
   ),
   GoRoute(
     path: '/products/groups/:spaceN1Id/:groupId',
     builder: (context, state) => ListProductsPage(
-        spaceN1Id: state.params['spaceN1Id'], groupId: state.params['groupId']),
+        spaceN1Id: state.pathParameters['spaceN1Id'],
+        groupId: state.pathParameters['groupId']),
   ),
   GoRoute(
     path: '/products/groups/:groupId',
-    builder: (context, state) =>
-        ListProductsPage(spaceN1Id: null, groupId: state.params['groupId']),
+    builder: (context, state) => ListProductsPage(
+        spaceN1Id: null, groupId: state.pathParameters['groupId']),
   ),
   GoRoute(
     path: '/product/:productId',
     builder: (context, state) =>
-        ProductPage(productId: state.params['productId']),
+        ProductPage(productId: state.pathParameters['productId']),
   ),
   GoRoute(
     path: '/product/:productId/:spaceN1Id',
     builder: (context, state) => ProductPage(
-        productId: state.params['productId'],
-        spaceN1Id: state.params['spaceN1Id']),
+        productId: state.pathParameters['productId'],
+        spaceN1Id: state.pathParameters['spaceN1Id']),
   ),
   GoRoute(
     path: '/lines/:spaceN1Id',
     builder: (context, state) =>
-        ListLinesProductPage(spaceN1Id: state.params['spaceN1Id']),
+        ListLinesProductPage(spaceN1Id: state.pathParameters['spaceN1Id']),
   ),
   GoRoute(
     path: '/lines/material/:materialName',
-    builder: (context, state) =>
-        ListLinesProductPage(materialName: state.params['materialName']),
+    builder: (context, state) => ListLinesProductPage(
+        materialName: state.pathParameters['materialName']),
   ),
   GoRoute(
     path: '/groups/:spaceN1Id',
     builder: (context, state) =>
-        ListGroupsProductPage(spaceN1Id: state.params['spaceN1Id']),
+        ListGroupsProductPage(spaceN1Id: state.pathParameters['spaceN1Id']),
   ),
   GoRoute(
     path: '/groups/material/:materialName',
-    builder: (context, state) =>
-        ListGroupsProductPage(materialName: state.params['materialName']),
+    builder: (context, state) => ListGroupsProductPage(
+        materialName: state.pathParameters['materialName']),
   ),
   GoRoute(
     path: '/spaces/:spaceId',
     builder: (context, state) =>
-        ListSpacesPage(spaceId: state.params['spaceId']),
+        ListSpacesPage(spaceId: state.pathParameters['spaceId']),
   ),
   GoRoute(
     path: '/tech-search',
@@ -79,7 +81,7 @@ final routes = GoRouter(routes: [
   GoRoute(
     path: '/all-spaces/:surfaceId',
     builder: (context, state) =>
-        AllSpacesPage(surfaceId: state.params["surfaceId"]),
+        AllSpacesPage(surfaceId: state.pathParameters["surfaceId"]),
   ),
   GoRoute(
     path: '/favorites',
