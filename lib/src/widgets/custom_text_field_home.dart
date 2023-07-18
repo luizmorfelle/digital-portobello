@@ -1,7 +1,6 @@
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:digital_portobello/src/controllers/products_controller.dart';
 import 'package:digital_portobello/src/models/product_model.dart';
-import 'package:digital_portobello/src/utils/target.dart';
 import 'package:digital_portobello/src/utils/translate.dart';
 import 'package:digital_portobello/src/widgets/custom_text_field_modal.dart';
 import 'package:flutter/material.dart';
@@ -81,7 +80,7 @@ class _CustomTextFieldHomeState extends State<CustomTextFieldHome> {
           onTap: () {
             showModalBottomSheet(
               isScrollControlled: true,
-              constraints: BoxConstraints.expand(),
+              constraints: const BoxConstraints.expand(),
               backgroundColor: Colors.transparent,
               context: context,
               builder: (context) {
@@ -92,14 +91,14 @@ class _CustomTextFieldHomeState extends State<CustomTextFieldHome> {
                     child: Column(
                       children: [
                         Container(
-                          decoration: BoxDecoration(color: Colors.white),
+                          decoration: const BoxDecoration(color: Colors.white),
                           child: VirtualKeyboard(
                               height: 450,
                               textController: controller,
                               alwaysCaps: true,
                               type: VirtualKeyboardType.Alphanumeric),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         CustomTextFieldModal(
@@ -171,12 +170,12 @@ class _CustomTextFieldHomeState extends State<CustomTextFieldHome> {
                                   height: 50,
                                   fit: BoxFit.cover,
                                   errorBuilder: (context, error, stackTrace) {
-                                    return Placeholder();
+                                    return const Placeholder();
                                   },
                                 ),
                                 fit: BoxFit.cover,
                               ),
-                              SizedBox(width: 10),
+                              const SizedBox(width: 10),
                               Text(
                                   '${product.codProduto}${product.sufixo} - ${product.linha} - ${product.descProduto} - ${product.descFormatoNominal} - ${product.acabamentoDeBorda}'),
                             ],

@@ -140,7 +140,7 @@ class _CustomTextFieldModalState extends State<CustomTextFieldModal> {
                                 width: 50,
                                 fit: BoxFit.cover,
                               ),
-                              SizedBox(width: 10),
+                              const SizedBox(width: 10),
                               Text(
                                   '${product.codProduto}${product.sufixo} - ${product.linha} - ${product.descProduto} - ${product.descFormatoNominal} - ${product.acabamentoDeBorda}'),
                             ],

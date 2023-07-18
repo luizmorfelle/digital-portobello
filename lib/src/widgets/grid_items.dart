@@ -24,8 +24,8 @@ class GridItems extends StatelessWidget {
                   shrinkWrap: true,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount:
-                        MediaQuery.of(context).size.width ~/ CARD_ITEM_SIZE,
-                    mainAxisExtent: CARD_ITEM_SIZE + TEXT_SPACE_SIZE,
+                        MediaQuery.of(context).size.width ~/ cardItemSize,
+                    mainAxisExtent: cardItemSize + textSpaceSize,
                     // childAspectRatio: 4 / 3,
                     crossAxisSpacing: 15.0,
                     mainAxisSpacing: 15.0,
@@ -45,12 +45,12 @@ class GridItems extends StatelessWidget {
               isLoading: true,
               skeleton: Row(
                 children: List.filled(
-                    MediaQuery.of(context).size.width ~/ CARD_ITEM_SIZE,
+                    MediaQuery.of(context).size.width ~/ cardItemSize,
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: SkeletonAvatar(
                         style: SkeletonAvatarStyle(
-                            height: CARD_ITEM_SIZE, width: CARD_ITEM_SIZE),
+                            height: cardItemSize, width: cardItemSize),
                       ),
                     )),
               ),

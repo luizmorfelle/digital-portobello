@@ -28,10 +28,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
             ListView(
               shrinkWrap: true,
               children: [
-                DrawerHeader(
+                const DrawerHeader(
                     child: Flex(
                   direction: Axis.vertical,
-                  children: const [
+                  children: [
                     Expanded(
                       child: Image(
                           fit: BoxFit.contain,
@@ -100,7 +100,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
             ),
             Column(
               children: [
-                Divider(),
+                const Divider(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(

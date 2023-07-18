@@ -178,7 +178,7 @@ class _ListGroupsProductPageState extends State<ListGroupsProductPage> {
                     },
                   ),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Wrap(
                   spacing: 35,
                   children: [
@@ -241,9 +241,9 @@ class _ListGroupsProductPageState extends State<ListGroupsProductPage> {
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: MediaQuery.of(context).size.width ~/
-                              CARD_ITEM_SIZE,
-                          mainAxisExtent: CARD_ITEM_SIZE + TEXT_SPACE_SIZE,
+                          crossAxisCount:
+                              MediaQuery.of(context).size.width ~/ cardItemSize,
+                          mainAxisExtent: cardItemSize + textSpaceSize,
                           // childAspectRatio: 4 / 3,
                           crossAxisSpacing: 20.0,
                           mainAxisSpacing: 20.0,
@@ -264,14 +264,13 @@ class _ListGroupsProductPageState extends State<ListGroupsProductPage> {
                     isLoading: true,
                     skeleton: Row(
                       children: List.filled(
-                          MediaQuery.of(context).size.width ~/ CARD_ITEM_SIZE,
+                          MediaQuery.of(context).size.width ~/ cardItemSize,
                           Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 8.0),
                             child: SkeletonAvatar(
                               style: SkeletonAvatarStyle(
-                                  height: CARD_ITEM_SIZE,
-                                  width: CARD_ITEM_SIZE),
+                                  height: cardItemSize, width: cardItemSize),
                             ),
                           )),
                     ),

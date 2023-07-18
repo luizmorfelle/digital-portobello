@@ -65,8 +65,8 @@ class _HomePageState extends State<HomePage> {
                 spacing: 10,
                 runSpacing: 10,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
                     child: CustomTextFieldHome(),
                   ),
                   Row(
@@ -144,7 +144,7 @@ class _HomePageState extends State<HomePage> {
                             direction: Axis.horizontal,
                             children: List.filled(
                                 MediaQuery.of(context).size.width ~/
-                                    CARD_ITEM_SIZE,
+                                    cardItemSize,
                                 Expanded(
                                   flex: 1,
                                   child: Padding(
@@ -152,8 +152,8 @@ class _HomePageState extends State<HomePage> {
                                         horizontal: 8.0),
                                     child: SkeletonAvatar(
                                       style: SkeletonAvatarStyle(
-                                          height: CARD_ITEM_SIZE,
-                                          width: CARD_ITEM_SIZE),
+                                          height: cardItemSize,
+                                          width: cardItemSize),
                                     ),
                                   ),
                                 )),
@@ -177,7 +177,7 @@ class _HomePageState extends State<HomePage> {
                             direction: Axis.horizontal,
                             children: List.filled(
                                 MediaQuery.of(context).size.width ~/
-                                    CARD_ITEM_SIZE,
+                                    cardItemSize,
                                 Expanded(
                                   flex: 1,
                                   child: Padding(
@@ -185,8 +185,8 @@ class _HomePageState extends State<HomePage> {
                                         horizontal: 8.0),
                                     child: SkeletonAvatar(
                                       style: SkeletonAvatarStyle(
-                                          height: CARD_ITEM_SIZE,
-                                          width: CARD_ITEM_SIZE),
+                                          height: cardItemSize,
+                                          width: cardItemSize),
                                     ),
                                   ),
                                 )),
@@ -198,10 +198,8 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            Container(
-              child: Image.asset(
-                  'assets/images/banners_footer/${Provider.of<LanguageProvider>(context, listen: false).language.languageCode}.png'),
-            )
+            Image.asset(
+                'assets/images/banners_footer/${Provider.of<LanguageProvider>(context, listen: false).language.languageCode}.png')
           ],
         ),
       ),

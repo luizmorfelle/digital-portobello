@@ -42,8 +42,8 @@ class ApiFactory {
       }
       return response;
     } on DioException catch (e) {
-      print('[Dio Helper - GET] Connection Exception => ' + e.message!);
-      throw e;
+      print('[Dio Helper - GET] Connection Exception => ${e.message!}');
+      rethrow;
     }
   }
 
@@ -60,7 +60,7 @@ class ApiFactory {
       }
       return response;
     } on DioException catch (e) {
-      print('[Dio Helper - GET] Connection Exception => ' + e.message!);
+      print('[Dio Helper - GET] Connection Exception => ${e.message!}');
       rethrow;
     }
   }

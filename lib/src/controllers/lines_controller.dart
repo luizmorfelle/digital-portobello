@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:digital_portobello/src/api/api.dart';
 import 'package:digital_portobello/src/models/field_tech_search.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../models/product_line_model.dart';

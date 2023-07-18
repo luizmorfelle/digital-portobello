@@ -29,7 +29,7 @@ class TechLibraryPageState extends State<TechLibraryPage> {
       subTitle: tl('tech_lib', context).split(' ')[1],
       child: Column(
         children: [
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [CustomBackButton()],
           ),
@@ -50,8 +50,8 @@ class TechLibraryPageState extends State<TechLibraryPage> {
                         title: TabBar(
                           padding: EdgeInsets.zero,
                           indicatorColor: Colors.black,
-                          labelStyle:
-                              TextStyle(color: Colors.white, fontSize: 18),
+                          labelStyle: const TextStyle(
+                              color: Colors.white, fontSize: 18),
                           labelColor: Colors.white,
                           unselectedLabelColor: Colors.grey,
                           // unselectedLabelStyle: TextStyle(color: Colors.red),
@@ -64,94 +64,80 @@ class TechLibraryPageState extends State<TechLibraryPage> {
                       ),
                       body: TabBarView(
                         children: snapshot.data!
-                            .map((e) => Flexible(
-                                  child: GridView.builder(
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      shrinkWrap: true,
-                                      gridDelegate:
-                                          const SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 4,
-                                        crossAxisSpacing: 20.0,
-                                        mainAxisSpacing: 20.0,
-                                      ),
-                                      itemCount: e.files?.length ?? 0,
-                                      itemBuilder: (_, index) {
-                                        return Container(
-                                          child: Card(
-                                            child: Column(
-                                              children: [
-                                                e.files?[index].tipo == 'pdf'
-                                                    ? Expanded(
-                                                        child: SizedBox.expand(
-                                                          child: InkWell(
-                                                            onTap: () {
-                                                              launchUrl(
-                                                                  Uri.parse(e
-                                                                      .files![
-                                                                          index]
-                                                                      .url!));
-                                                            },
-                                                            child: Expanded(
-                                                              child: Container(
-                                                                decoration: BoxDecoration(
-                                                                    color: Colors
-                                                                            .grey[
-                                                                        300]),
-                                                                child: Icon(
-                                                                    Icons
-                                                                        .picture_as_pdf,
-                                                                    size: 40,
-                                                                    color: Colors
-                                                                        .black),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      )
-                                                    : InkWell(
-                                                        onTap: () {
-                                                          launchUrl(Uri.parse(e
-                                                              .files![index]
-                                                              .url!));
-                                                        },
-                                                        child: Stack(
-                                                          children: [
-                                                            Image.network(
-                                                                getThumbnail(e
-                                                                    .files![
-                                                                        index]
-                                                                    .url!)),
-                                                            Positioned.fill(
-                                                              child: Center(
-                                                                child: Icon(
-                                                                  Icons
-                                                                      .play_circle,
-                                                                  color: Colors
-                                                                      .white,
-                                                                  size: 50,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
+                            .map((e) => GridView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 4,
+                                  crossAxisSpacing: 20.0,
+                                  mainAxisSpacing: 20.0,
+                                ),
+                                itemCount: e.files?.length ?? 0,
+                                itemBuilder: (_, index) {
+                                  return Card(
+                                    child: Column(
+                                      children: [
+                                        e.files?[index].tipo == 'pdf'
+                                            ? Expanded(
+                                                child: SizedBox.expand(
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      launchUrl(Uri.parse(e
+                                                          .files![index].url!));
+                                                    },
+                                                    child: Expanded(
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                                color: Colors
+                                                                    .grey[300]),
+                                                        child: const Icon(
+                                                            Icons
+                                                                .picture_as_pdf,
+                                                            size: 40,
+                                                            color:
+                                                                Colors.black),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                            : InkWell(
+                                                onTap: () {
+                                                  launchUrl(Uri.parse(
+                                                      e.files![index].url!));
+                                                },
+                                                child: Stack(
+                                                  children: [
+                                                    Image.network(getThumbnail(
+                                                        e.files![index].url!)),
+                                                    const Positioned.fill(
+                                                      child: Center(
+                                                        child: Icon(
+                                                          Icons.play_circle,
+                                                          color: Colors.white,
+                                                          size: 50,
                                                         ),
                                                       ),
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(vertical: 8.0),
-                                                  child: Text(
-                                                    '${e.files![index].title}',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .titleLarge,
-                                                  ),
-                                                )
-                                              ],
-                                            ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 8.0),
+                                          child: Text(
+                                            '${e.files![index].title}',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleLarge,
                                           ),
-                                        );
-                                      }),
-                                ))
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                }))
                             .toList(),
                       ),
                     ),

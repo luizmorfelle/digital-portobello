@@ -29,7 +29,7 @@ class _SliderItemsState extends State<SliderItems> {
         CarouselSlider(
           carouselController: buttonCarouselController,
           options: CarouselOptions(
-              height: CARD_ITEM_SIZE + TEXT_SPACE_SIZE + 20,
+              height: cardItemSize + textSpaceSize + 20,
               initialPage: 2,
               onPageChanged: (index, reason) {
                 setState(() {
@@ -38,7 +38,7 @@ class _SliderItemsState extends State<SliderItems> {
               },
               animateToClosest: false,
               viewportFraction:
-                  (1 / (MediaQuery.of(context).size.width / CARD_ITEM_SIZE)),
+                  (1 / (MediaQuery.of(context).size.width / cardItemSize)),
               enableInfiniteScroll: true),
           items: widget.itens.map((item) {
             return Builder(
@@ -52,7 +52,7 @@ class _SliderItemsState extends State<SliderItems> {
           }).toList(),
         ),
         SizedBox(
-          height: CARD_ITEM_SIZE,
+          height: cardItemSize,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,

@@ -21,7 +21,7 @@ class CustomBackButton extends StatelessWidget {
       icon: const Icon(Icons.arrow_back, color: Colors.black, size: 30),
       label: Text(
         tl('back', context),
-        style: TextStyle(color: Colors.black, fontSize: 20),
+        style: const TextStyle(color: Colors.black, fontSize: 20),
       ),
       onPressed: () => context.pop(),
     );

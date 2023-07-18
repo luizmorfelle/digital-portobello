@@ -77,10 +77,8 @@ class BasePage extends StatelessWidget {
                 },
               ),
             ]),
-            Container(
-              child: Image.asset(
-                  'assets/images/banners_footer/${Provider.of<LanguageProvider>(context, listen: false).language.languageCode}.png'),
-            )
+            Image.asset(
+                'assets/images/banners_footer/${Provider.of<LanguageProvider>(context, listen: false).language.languageCode}.png')
           ],
         ),
       ),

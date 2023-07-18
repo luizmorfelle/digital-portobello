@@ -38,7 +38,7 @@ class CardItem extends StatelessWidget {
             }
           },
           child: SizedBox(
-            height: CARD_ITEM_SIZE + TEXT_SPACE_SIZE - 20,
+            height: cardItemSize + textSpaceSize - 20,
             child: Flex(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -49,21 +49,21 @@ class CardItem extends StatelessWidget {
                         errorBuilder: (context, error, stackTrace) =>
                             Image.network(
                           'https://media.portobello.com.br/${cardItem.imagem?.split('/')[3]}',
-                          width: CARD_ITEM_SIZE - 20,
-                          height: CARD_ITEM_SIZE - 20,
+                          width: cardItemSize - 20,
+                          height: cardItemSize - 20,
                           fit: BoxFit.cover,
                           errorBuilder: (context, error, stackTrace) {
-                            return Placeholder();
+                            return const Placeholder();
                           },
                         ),
                         cardItem.imagem ?? "",
-                        width: CARD_ITEM_SIZE - 20,
-                        height: CARD_ITEM_SIZE - 20,
+                        width: cardItemSize - 20,
+                        height: cardItemSize - 20,
                         fit: cardItem.isFull ? BoxFit.fill : BoxFit.contain,
                       )
                     : const Placeholder(),
                 SizedBox(
-                  height: TEXT_SPACE_SIZE,
+                  height: textSpaceSize,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -93,9 +93,7 @@ class CardItem extends StatelessWidget {
             ),
           ),
         ),
-        if (cardItem.simulador != null &&
-            cardItem.simulador!.isNotEmpty &&
-            cardItem.simulador == "S")
+        if (cardItem.simulador.isNotEmpty && cardItem.simulador == "S")
           Positioned(
             top: 20,
             right: 20,
@@ -105,7 +103,8 @@ class CardItem extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: Colors.black.withOpacity(0.9),
               ),
-              child: Icon(Icons.remove_red_eye, size: 35, color: Colors.white),
+              child: const Icon(Icons.remove_red_eye,
+                  size: 35, color: Colors.white),
             ),
           ),
       ],

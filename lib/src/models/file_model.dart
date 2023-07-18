@@ -24,13 +24,13 @@ class FileModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['ID'] = this.id;
-    data['AbaID'] = this.abaId;
-    data['Title'] = this.title;
-    data['Description'] = this.description;
-    data['Url'] = this.url;
-    data['Tipo'] = this.tipo;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['ID'] = id;
+    data['AbaID'] = abaId;
+    data['Title'] = title;
+    data['Description'] = description;
+    data['Url'] = url;
+    data['Tipo'] = tipo;
     return data;
   }
 }

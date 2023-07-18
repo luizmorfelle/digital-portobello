@@ -3,7 +3,6 @@ import 'package:digital_portobello/src/controllers/products_controller.dart';
 import 'package:digital_portobello/src/models/product_model.dart';
 import 'package:digital_portobello/src/utils/translate.dart';
 import 'package:flutter/material.dart';
-import 'package:virtual_keyboard_multi_language/virtual_keyboard_multi_language.dart';
 
 class CustomTextFieldProducts extends StatefulWidget {
   final TextEditingController? controller;
@@ -151,7 +150,7 @@ class _CustomTextFieldProductsState extends State<CustomTextFieldProducts> {
                                 width: 50,
                                 fit: BoxFit.cover,
                               ),
-                              SizedBox(width: 10),
+                              const SizedBox(width: 10),
                               Text(
                                   '${product.codProduto}${product.sufixo} - ${product.linha} - ${product.descProduto} - ${product.descFormatoNominal} - ${product.acabamentoDeBorda}'),
                             ],

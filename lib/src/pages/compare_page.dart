@@ -54,11 +54,11 @@ class _ComparePageState extends State<ComparePage> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
+            const Padding(
+              padding: EdgeInsets.all(16.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
-                children: const [CustomBackButton()],
+                children: [CustomBackButton()],
               ),
             ),
             SizedBox(
@@ -67,7 +67,7 @@ class _ComparePageState extends State<ComparePage> {
                 padding: const EdgeInsets.all(16.0),
                 child: ListView.builder(
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   itemCount: products.length,
                   itemBuilder: (context, index) {
@@ -96,7 +96,7 @@ class _ComparePageState extends State<ComparePage> {
                                       fit: BoxFit.cover,
                                       errorBuilder:
                                           (context, error, stackTrace) {
-                                        return Placeholder();
+                                        return const Placeholder();
                                       },
                                     ),
                                     produto.imagem ?? "",

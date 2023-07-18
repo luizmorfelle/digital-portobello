@@ -68,7 +68,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          insetPadding: EdgeInsets.only(bottom: 300),
+                          insetPadding: const EdgeInsets.only(bottom: 300),
                           title: Text(tl('language', context)),
                           content: SizedBox(
                             height: 200,

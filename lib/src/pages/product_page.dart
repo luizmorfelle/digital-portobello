@@ -117,7 +117,7 @@ class _ProductPageState extends State<ProductPage> {
                                         fit: BoxFit.contain,
                                         errorBuilder:
                                             (context, error, stackTrace) {
-                                          return Placeholder();
+                                          return const Placeholder();
                                         },
                                       ),
                                   product!.imagem ?? "",
@@ -219,7 +219,7 @@ class _ProductPageState extends State<ProductPage> {
                                                                   .textTheme
                                                                   .titleMedium),
                                                         ),
-                                                        SizedBox(
+                                                        const SizedBox(
                                                           width: 5,
                                                         ),
                                                         Tooltip(
@@ -232,7 +232,7 @@ class _ProductPageState extends State<ProductPage> {
                                                                           uso)
                                                                   .value,
                                                               context),
-                                                          child: Icon(
+                                                          child: const Icon(
                                                             Icons.info,
                                                             size: 12,
                                                             color: Colors.black,

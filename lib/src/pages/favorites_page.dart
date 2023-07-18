@@ -2,6 +2,7 @@ import 'package:digital_portobello/src/models/breadcrumb_item_model.dart';
 import 'package:digital_portobello/src/models/product_model.dart';
 import 'package:digital_portobello/src/models/space_n1_model.dart';
 import 'package:digital_portobello/src/providers/favorite_provider.dart';
+import 'package:digital_portobello/src/utils/target.dart';
 import 'package:digital_portobello/src/widgets/custom_app_bar.dart';
 import 'package:digital_portobello/src/widgets/custom_back_button.dart';
 import 'package:digital_portobello/src/widgets/custom_breadcrumb.dart';
@@ -63,30 +64,34 @@ class _FavoritesPageState extends State<FavoritesPage> {
                   ),
                   ElevatedButton.icon(
                     onPressed: () {
+                      String url = '';
+
+                      products.forEach((product, space) {
+                        if (url.isNotEmpty) url += ',';
+
+                        url += space != null
+                            ? 'product=${product.codProduto}${product.sufixo}-${space.id}-${surfaces.firstWhere((it) => it.id == space.superficiesID.toString()).value}_${space.title}_${space.spaceModel!.title}'
+                            : 'product${product.codProduto}${product.sufixo}';
+                      });
+                      if (isWeb()) {
+                        launchUrl(Uri.parse(
+                            "https://lb-pbg-app-408389648.us-east-1.elb.amazonaws.com/pdf?$url"));
+                        return;
+                      }
                       showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            String url = '';
-                            products.forEach((product, space) {
-                              url += space != null
-                                  ? '${product.codProduto}${product.sufixo}-${space.id}-${surfaces.firstWhere((it) => it.id == space.superficiesID.toString()).value}_${space.title}_${space.spaceModel!.title},'
-                                  : '${product.codProduto}${product.sufixo}';
-                            });
                             return AlertDialog(
                               title: Text(tl('recieve_list', context)),
                               content: InkWell(
-                                onTap: () async => await launchUrl(Uri(
-                                    scheme: 'https',
-                                    host:
-                                        'lb-pbg-app-408389648.us-east-1.elb.amazonaws.com',
-                                    path: '/pdf',
-                                    queryParameters: {'product': url})),
+                                onTap: () async => await launchUrl(Uri.parse(
+                                    "https://lb-pbg-app-408389648.us-east-1.elb.amazonaws.com/pdf?$url")),
                                 child: SizedBox(
                                   height: 400,
                                   width: 400,
                                   child: QrImageView(
                                     data:
-                                        'https://lb-pbg-app-408389648.us-east-1.elb.amazonaws.com/pdf?product=$url',
+                                        'https://lb-pbg-app-408389648.us-east-1.elb.amazonaws.com/pdf?$url',
                                     version: QrVersions.auto,
                                   ),
                                 ),
@@ -117,11 +122,11 @@ class _FavoritesPageState extends State<FavoritesPage> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
+          const Padding(
+            padding: EdgeInsets.all(16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
-              children: const [CustomBackButton()],
+              children: [CustomBackButton()],
             ),
           ),
           products.isEmpty
@@ -178,7 +183,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                                       fit: BoxFit.cover,
                                                       errorBuilder: (context,
                                                           error, stackTrace) {
-                                                        return Placeholder();
+                                                        return const Placeholder();
                                                       },
                                                     ),
                                                     fit: BoxFit.contain,

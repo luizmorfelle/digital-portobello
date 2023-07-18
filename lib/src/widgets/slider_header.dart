@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:digital_portobello/src/models/banner_model.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:skeletons/skeletons.dart';
 
 import '../pages/carousel_full_screen_page.dart';
@@ -60,7 +59,7 @@ class _SliderHeaderState extends State<SliderHeader> {
                                                 actualIndex: pageIndex),
                                       ));
                                 },
-                                child: Container(
+                                child: SizedBox(
                                   width: MediaQuery.of(context).size.width,
                                   child: Image.asset(
                                     'assets/images/banners/${image.image}',
@@ -72,7 +71,7 @@ class _SliderHeaderState extends State<SliderHeader> {
                                         fit: BoxFit.cover,
                                         errorBuilder:
                                             (context, error, stackTrace) {
-                                          return Placeholder();
+                                          return const Placeholder();
                                         },
                                       );
                                     },
@@ -105,10 +104,10 @@ class _SliderHeaderState extends State<SliderHeader> {
                                   shape: BoxShape.rectangle,
                                   border:
                                       Border.all(color: Colors.black, width: 2),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(8)),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(8)),
                                   color: Colors.white),
-                              child: Icon(Icons.fullscreen,
+                              child: const Icon(Icons.fullscreen,
                                   color: Colors.black, size: 50),
                             ),
                           ),
