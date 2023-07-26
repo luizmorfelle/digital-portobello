@@ -1,3 +1,4 @@
+import 'package:digital_portobello/src/models/banner_model.dart';
 import 'package:digital_portobello/src/utils/constants.dart';
 import 'package:digital_portobello/src/controllers/banners_controller.dart';
 import 'package:digital_portobello/src/controllers/spaces_controller.dart';
@@ -7,7 +8,7 @@ import 'package:digital_portobello/src/models/space_n1_home_model.dart';
 import 'package:digital_portobello/src/pages/base_page.dart';
 import 'package:digital_portobello/src/utils/translate.dart';
 import 'package:digital_portobello/src/widgets/grid_items.dart';
-import 'package:digital_portobello/src/widgets/see_all_spaces_button.dart';
+import 'package:digital_portobello/src/widgets/buttons/see_all_spaces_button.dart';
 import 'package:flutter/material.dart';
 
 class ListSpacesPage extends StatefulWidget {
@@ -22,13 +23,16 @@ class ListSpacesPage extends StatefulWidget {
 class _ListSpacesPageState extends State<ListSpacesPage> {
   late Future<List<SpaceN1HomeModel>> futureSpaces;
   late Future<SpaceHomeModel> futureActualSpace;
+  late Future<List<BannerModel>> futureBanners;
   SpaceHomeModel? actualSpace;
 
   @override
   void initState() {
     super.initState();
+
     futureSpaces = fetchSpacesN1Home(widget.spaceId);
     futureActualSpace = fetchSpaceHome(int.parse(widget.spaceId!));
+    futureBanners = fetchBannersSurface(spaceId: widget.spaceId);
     futureActualSpace.then((value) {
       setState(() {
         actualSpace = value;
@@ -40,9 +44,7 @@ class _ListSpacesPageState extends State<ListSpacesPage> {
   Widget build(BuildContext context) {
     return BasePage(
       title: tl('select_your_ambient', context).toUpperCase(),
-      futureBanners: actualSpace == null
-          ? null
-          : fetchBannersSurface(spaceId: widget.spaceId),
+      futureBanners: futureBanners,
       futureObject: futureActualSpace,
       itemsBreadCrumb: actualSpace == null
           ? []

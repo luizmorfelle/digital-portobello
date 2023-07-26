@@ -1,3 +1,4 @@
+import 'package:digital_portobello/src/utils/size.dart';
 import 'package:digital_portobello/src/utils/translate.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -6,6 +7,8 @@ import 'package:provider/provider.dart';
 import '../providers/sales_channel_provider.dart';
 import '../utils/constants.dart';
 import 'custom_dropdown_button.dart';
+import 'dialogs/dialog_laguage.dart';
+import 'list_tile_drawer.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({
@@ -41,38 +44,37 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     Text('Digital Portobello')
                   ],
                 )),
-                ListTile(
-                  contentPadding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                  leading: const Icon(Icons.search),
-                  title: Text(
-                    tl('advanced_search', context),
-                    style: Theme.of(context).textTheme.headlineSmall,
+                if (isSmall(context))
+                  ListTileDrawer(
+                    title: 'home',
+                    action: () => context.push('/'),
+                    iconData: Icons.home,
                   ),
-                  iconColor: Colors.black,
-                  onTap: () => context.push('/tech-search'),
+                if (isSmall(context))
+                  ListTileDrawer(
+                    title: 'lang',
+                    action: () => showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return const DialogLanguage();
+                      },
+                    ),
+                    iconData: Icons.language,
+                  ),
+                ListTileDrawer(
+                  title: 'advanced_search',
+                  action: () => context.push('/tech-search'),
+                  iconData: Icons.search,
                 ),
-                ListTile(
-                  contentPadding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                  leading: const Icon(Icons.content_paste_search_rounded),
-                  title: Text(
-                    tl('tech_search', context),
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                  iconColor: Colors.black,
-                  onTap: () => context.push('/all-spaces/1'),
-                ),
-                ListTile(
-                  contentPadding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                  leading: const Icon(Icons.menu_book_sharp),
-                  title: Text(
-                    tl('tech_lib', context),
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                  iconColor: Colors.black,
-                  onTap: () => context.push('/tech-library'),
+                // ListTileDrawer(
+                //   title: 'tech_search',
+                //   action: () => context.push('/all-spaces/1'),
+                //   iconData: Icons.content_paste_search_rounded,
+                // ),
+                ListTileDrawer(
+                  title: 'tech_lib',
+                  action: () => context.push('/tech-library'),
+                  iconData: Icons.menu_book_sharp,
                 ),
                 ListTile(
                   contentPadding:

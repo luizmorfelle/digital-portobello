@@ -1,5 +1,6 @@
 import 'package:digital_portobello/src/controllers/banners_controller.dart';
 import 'package:digital_portobello/src/controllers/groups_controller.dart';
+import 'package:digital_portobello/src/models/banner_model.dart';
 import 'package:digital_portobello/src/models/color_model.dart';
 import 'package:digital_portobello/src/models/dropdown_model.dart';
 import 'package:digital_portobello/src/models/field_tech_search.dart';
@@ -10,11 +11,13 @@ import 'package:digital_portobello/src/utils/constants.dart';
 import 'package:digital_portobello/src/utils/translate.dart';
 import 'package:digital_portobello/src/widgets/custom_text_field_products.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:skeletons/skeletons.dart';
 
 import '../controllers/spaces_controller.dart';
 import '../models/breadcrumb_item_model.dart';
 import '../models/space_model.dart';
+import '../providers/sales_channel_provider.dart';
 import '../widgets/card_item.dart';
 import '../widgets/custom_dropdown_button.dart';
 import 'base_page.dart';
@@ -32,9 +35,14 @@ class ListGroupsProductPage extends StatefulWidget {
 }
 
 class _ListGroupsProductPageState extends State<ListGroupsProductPage> {
-  Future<List<GroupProductModel>> futureGroupsProduct = Future(() => []);
+  Future<List<GroupProductModel>> futureGroupsProduct = Future.wait([]);
+  Future<List<BannerModel>> futureBanner = Future(() => []);
+  late Future<SpaceN1Model> futureActualSpaceN1;
+  late Future<SpaceModel> futurePreviousSpace;
+
   SpaceN1Model? actualSpaceN1;
   SpaceModel? previousSpace;
+
   final List<DropDownModel> sortList = [
     DropDownModel('0', 'A - Z'),
     DropDownModel('1', 'Z - A'),
@@ -51,13 +59,21 @@ class _ListGroupsProductPageState extends State<ListGroupsProductPage> {
   @override
   void initState() {
     super.initState();
-    setState(() {
-      selectedSort = sortList.first;
-    });
 
     if (widget.spaceN1Id != null) {
-      fetchSpaceN1(int.parse(widget.spaceN1Id!)).then((actual) {
-        fetchSpace(actual.ambientesID).then((previous) {
+      futureActualSpaceN1 = fetchSpaceN1(int.parse(widget.spaceN1Id!));
+      futureBanner = widget.spaceN1Id != null
+          ? fetchBannersSurface(
+              spaceN1Id: widget.spaceN1Id ?? "",
+            )
+          : widget.materialName != null
+              ? fetchBannersSurface(material: widget.materialName ?? "")
+              : Future(() => []);
+
+      futureActualSpaceN1.then((actual) {
+        futurePreviousSpace = fetchSpace(actual.ambientesID);
+
+        futurePreviousSpace.then((previous) {
           setState(() {
             actualSpaceN1 = actual;
             previousSpace = previous;
@@ -65,39 +81,49 @@ class _ListGroupsProductPageState extends State<ListGroupsProductPage> {
         });
       });
     }
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      futureGroupsProduct = fetchGroups(
+          Provider.of<SalesChannelProvider>(context, listen: false)
+              .getSaleChannel
+              .id);
+      futureGroupsProduct.then((lines) {
+        setState(() {
+          listColors = lines
+              .expand((element) => element.colors!)
+              .toSet()
+              .map((e) => ColorModel(id: e.hashCode, nome: e.toUpperCase()))
+              .toList();
+          listColors.sort(
+            (a, b) => a.value.compareTo(b.value),
+          );
+
+          listMaterials = lines
+              .expand((element) => element.materials!)
+              .toSet()
+              .map((e) => MaterialModel(id: e.hashCode, nome: e.toUpperCase()))
+              .toList();
+          listMaterials.sort(
+            (a, b) => a.value.compareTo(b.value),
+          );
+          selectedMaterials!.addAll(listMaterials);
+          selectedColors!.addAll(listColors);
+          groupsProducts = lines;
+          fullGroupsProduct = lines;
+        });
+      });
+    });
+
+    setState(() {
+      selectedSort = sortList.first;
+    });
   }
 
-  Future<void> fetchGroups(BuildContext context) async {
-    futureGroupsProduct = widget.fieldsTechSearch != null
-        ? fetchProductsGroupsByFilter(widget.fieldsTechSearch!, context)
+  Future<List<GroupProductModel>> fetchGroups(String cv) async {
+    return widget.fieldsTechSearch != null
+        ? fetchProductsGroupsByFilter(widget.fieldsTechSearch!, cv)
         : widget.spaceN1Id == null
-            ? fetchProductsGroupsByMaterial(widget.materialName, context)
-            : fetchProductsGroupsBySpace(int.parse(widget.spaceN1Id!), context);
-
-    futureGroupsProduct.then((lines) {
-      groupsProducts = lines;
-      fullGroupsProduct = lines;
-
-      listColors = lines
-          .expand((element) => element.colors!)
-          .toSet()
-          .map((e) => ColorModel(id: e.hashCode, nome: e.toUpperCase()))
-          .toList();
-      listColors.sort(
-        (a, b) => a.value.compareTo(b.value),
-      );
-
-      listMaterials = lines
-          .expand((element) => element.materials!)
-          .toSet()
-          .map((e) => MaterialModel(id: e.hashCode, nome: e.toUpperCase()))
-          .toList();
-      listMaterials.sort(
-        (a, b) => a.value.compareTo(b.value),
-      );
-      selectedMaterials!.addAll(listMaterials);
-      selectedColors!.addAll(listColors);
-    });
+            ? fetchProductsGroupsByMaterial(widget.materialName, cv)
+            : fetchProductsGroupsBySpace(int.parse(widget.spaceN1Id!), cv);
   }
 
   void filterGroups() {
@@ -131,16 +157,8 @@ class _ListGroupsProductPageState extends State<ListGroupsProductPage> {
   Widget build(BuildContext context) {
     return BasePage(
       title: tl('Escolha o produto desejado', context).toUpperCase(),
-      futureBanners: actualSpaceN1 != null || widget.materialName != null
-          ? fetchBannersSurface(
-              spaceN1Id: actualSpaceN1?.id.toString() ?? "",
-              material: widget.materialName ?? "")
-          : null,
-      futureObject: Future.wait(
-        [
-          fetchGroups(context),
-        ],
-      ),
+      futureBanners: futureBanner,
+      futureObject: futureGroupsProduct,
       itemsBreadCrumb: previousSpace == null || actualSpaceN1 == null
           ? []
           : [

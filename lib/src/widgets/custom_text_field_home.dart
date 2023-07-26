@@ -1,11 +1,15 @@
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:digital_portobello/src/controllers/products_controller.dart';
 import 'package:digital_portobello/src/models/product_model.dart';
+import 'package:digital_portobello/src/pages/list_products_page_old.dart';
+import 'package:digital_portobello/src/utils/target.dart';
 import 'package:digital_portobello/src/utils/translate.dart';
 import 'package:digital_portobello/src/widgets/custom_text_field_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:virtual_keyboard_multi_language/virtual_keyboard_multi_language.dart';
+
+import '../pages/list_products_page.dart';
 
 class CustomTextFieldHome extends StatefulWidget {
   const CustomTextFieldHome({
@@ -77,7 +81,22 @@ class _CustomTextFieldHomeState extends State<CustomTextFieldHome> {
           FocusNode focusNode,
           VoidCallback onFieldSubmitted) {
         return TextField(
+          onSubmitted: (value) {
+            if (value == '') {
+              return;
+            }
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ListProductsPage(
+                    products: products,
+                  ),
+                ));
+          },
           onTap: () {
+            if (isWeb()) {
+              return;
+            }
             showModalBottomSheet(
               isScrollControlled: true,
               constraints: const BoxConstraints.expand(),
@@ -125,10 +144,25 @@ class _CustomTextFieldHomeState extends State<CustomTextFieldHome> {
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               filled: true,
               fillColor: Colors.grey,
-              suffixIcon: GestureDetector(
-                child: const Icon(
-                  Icons.search,
-                  color: Colors.white,
+              suffixIcon: MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  onTap: () {
+                    if (textEditingController.text == '') {
+                      return;
+                    }
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ListProductsPage(
+                            products: products,
+                          ),
+                        ));
+                  },
+                  child: const Icon(
+                    Icons.search,
+                    color: Colors.white,
+                  ),
                 ),
               ),
               hintStyle: const TextStyle(color: Colors.white, fontSize: 20),

@@ -43,16 +43,18 @@ class GridItems extends StatelessWidget {
         } else {
           return Skeleton(
               isLoading: true,
-              skeleton: Row(
-                children: List.filled(
-                    MediaQuery.of(context).size.width ~/ cardItemSize,
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: SkeletonAvatar(
-                        style: SkeletonAvatarStyle(
-                            height: cardItemSize, width: cardItemSize),
-                      ),
-                    )),
+              skeleton: Flexible(
+                child: Row(
+                  children: List.filled(
+                      MediaQuery.of(context).size.width ~/ cardItemSize,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: SkeletonAvatar(
+                          style: SkeletonAvatarStyle(
+                              height: cardItemSize, width: cardItemSize - 16),
+                        ),
+                      )),
+                ),
               ),
               child: Container());
         }

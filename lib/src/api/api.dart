@@ -10,21 +10,28 @@ const authToken =
 ApiFactory? instace;
 String? accessToken;
 
-final Dio dio = Dio(BaseOptions(
+final Dio dio = Dio(
+  BaseOptions(
     baseUrl: baseURL,
     validateStatus: (_) => true,
     headers: {
       "client_id": clientID,
-      "access_token": accessToken,
+      "access_token": accessToken ?? "",
+      "Access-Control-Allow-Origin": "*",
     },
-    contentType: "application/json"));
+    contentType: "application/json",
+  ),
+);
 
 Future<void> refreshToken() async {
+  print('refreshing token');
   Response response = await Dio().post(
     "https://api-portobello.sensedia.com/oauth/access-token",
     data: json.encode({"grant_type": "client_credentials"}),
     options: Options(
-        contentType: "application/json", headers: {"Authorization": authToken}),
+      contentType: "application/json",
+      headers: {"Authorization": authToken},
+    ),
   );
 
   accessToken = response.data["access_token"];
@@ -33,16 +40,25 @@ Future<void> refreshToken() async {
 class ApiFactory {
   Future<Response> get(
       {String url = "", Map<String, dynamic>? queryParameters}) async {
+    print('GET: $baseURL$url');
+
     try {
-      final response = await dio.get(url, queryParameters: queryParameters);
+      final response = await dio.get(
+        url,
+        queryParameters: queryParameters,
+      );
 
       if (response.statusCode == 400 || response.statusCode == 401) {
         refreshToken();
-        get(url: url, queryParameters: queryParameters);
+        get(
+          url: url,
+          queryParameters: queryParameters,
+        );
       }
       return response;
     } on DioException catch (e) {
-      print('[Dio Helper - GET] Connection Exception => ${e.message!}');
+      print(
+          '[Dio Helper - GET] Connection Exception => ${e.message!} - ${e.response} - ${e.requestOptions.headers}');
       rethrow;
     }
   }
@@ -52,11 +68,19 @@ class ApiFactory {
       Map<String, dynamic>? body,
       Map<String, dynamic>? queryParameters}) async {
     try {
-      final response = await dio.post(url,
-          data: json.encode(body), queryParameters: queryParameters);
+      print('POST: $baseURL$url');
+      final response = await dio.post(
+        url,
+        data: json.encode(body),
+        queryParameters: queryParameters,
+      );
       if (response.statusCode != 200) {
         refreshToken();
-        post(url: url, body: body, queryParameters: queryParameters);
+        post(
+          url: url,
+          body: body,
+          queryParameters: queryParameters,
+        );
       }
       return response;
     } on DioException catch (e) {

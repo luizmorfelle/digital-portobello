@@ -1,15 +1,20 @@
 import 'package:digital_portobello/src/controllers/banners_controller.dart';
-import 'package:digital_portobello/src/controllers/products_controller.dart';
 import 'package:digital_portobello/src/models/field_tech_search.dart';
-import 'package:digital_portobello/src/models/product_model.dart';
+import 'package:digital_portobello/src/models/space_n1_model.dart';
+import 'package:digital_portobello/src/utils/constants.dart';
 import 'package:digital_portobello/src/utils/generate_breadcrumbs.dart';
+import 'package:digital_portobello/src/utils/translate.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:skeletons/skeletons.dart';
 
+import '../controllers/products_controller.dart';
 import '../controllers/spaces_controller.dart';
+import '../models/banner_model.dart';
+import '../models/product_model.dart';
 import '../models/space_model.dart';
-import '../models/space_n1_model.dart';
-import '../utils/translate.dart';
-import '../widgets/grid_items.dart';
+import '../providers/sales_channel_provider.dart';
+import '../widgets/card_item.dart';
 import 'base_page.dart';
 
 class ListProductsPage extends StatefulWidget {
@@ -17,29 +22,40 @@ class ListProductsPage extends StatefulWidget {
       {Key? key,
       this.spaceN1Id,
       this.lineId,
+      this.products,
       this.groupId,
       this.fieldsTechSearch})
       : super(key: key);
+  final List<ProductModel>? products;
   final String? spaceN1Id;
   final String? lineId;
   final String? groupId;
   final List<FieldTechSearch>? fieldsTechSearch;
+
   @override
   State<ListProductsPage> createState() => _ListProductsPageState();
 }
 
 class _ListProductsPageState extends State<ListProductsPage> {
-  late Future<List<ProductModel>> futureProducts;
+  Future<List<ProductModel>> futureListProducts = Future.wait([]);
+  Future<List<BannerModel>> futureBanner = Future(() => []);
+  late Future<SpaceN1Model> futureActualSpaceN1;
+  late Future<SpaceModel> futurePreviousSpace;
+
   SpaceN1Model? actualSpaceN1;
   SpaceModel? previousSpace;
-  List<ProductModel> products = [];
+  List<ProductModel>? listProducts;
 
   @override
   void initState() {
     super.initState();
     if (widget.spaceN1Id != null) {
-      fetchSpaceN1(int.parse(widget.spaceN1Id!)).then((actual) {
-        fetchSpace(actual.ambientesID).then((previous) {
+      futureActualSpaceN1 = fetchSpaceN1(int.parse(widget.spaceN1Id!));
+
+      futureActualSpaceN1.then((actual) {
+        futurePreviousSpace = fetchSpace(actual.ambientesID);
+
+        futurePreviousSpace.then((previous) {
           setState(() {
             actualSpaceN1 = actual;
             previousSpace = previous;
@@ -47,50 +63,115 @@ class _ListProductsPageState extends State<ListProductsPage> {
         });
       });
     }
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      futureListProducts = fetchProducts(
+          Provider.of<SalesChannelProvider>(context, listen: false)
+              .getSaleChannel
+              .id);
+      futureListProducts.then((list) {
+        setState(() {
+          listProducts = list;
+        });
+
+        futureBanner = widget.spaceN1Id != null
+            ? fetchBannersSurface(
+                spaceN1Id: widget.spaceN1Id,
+                products:
+                    list.map((e) => '${e.codProduto}${e.sufixo}').join(","))
+            : fetchBannersSurface(
+                products:
+                    list.map((e) => '${e.codProduto}${e.sufixo}').join(","));
+      });
+    });
+
+    setState(() {});
   }
 
-  Future<void> fetchListProducts(BuildContext context) async {
-    if (widget.lineId != null) {
-      futureProducts = widget.spaceN1Id == null
-          ? fetchProductsByLine(widget.lineId, context)
-          : fetchProductsByLineAndSpace(
-              widget.lineId, widget.spaceN1Id, context);
+  Future<List<ProductModel>> fetchProducts(String cv) async {
+    if (widget.products != null) {
+      return Future.value(widget.products);
     } else {
-      if (widget.fieldsTechSearch != null) {
-        futureProducts = widget.spaceN1Id == null
-            ? fetchProductsByGroupFilters(
-                widget.groupId, widget.fieldsTechSearch, context)
-            : fetchProductsByGroupAndSpaceFilters(widget.groupId,
-                widget.spaceN1Id, widget.fieldsTechSearch, context);
+      if (widget.lineId != null) {
+        return widget.spaceN1Id == null
+            ? fetchProductsByLine(widget.lineId, cv)
+            : fetchProductsByLineAndSpace(widget.lineId, widget.spaceN1Id, cv);
       } else {
-        futureProducts = widget.spaceN1Id == null
-            ? fetchProductsByGroup(widget.groupId, context)
-            : fetchProductsByGroupAndSpace(
-                widget.groupId, widget.spaceN1Id, context);
+        if (widget.fieldsTechSearch != null) {
+          return widget.spaceN1Id == null
+              ? fetchProductsByGroupFilters(
+                  widget.groupId, widget.fieldsTechSearch, cv)
+              : fetchProductsByGroupAndSpaceFilters(widget.groupId,
+                  widget.spaceN1Id, widget.fieldsTechSearch, cv);
+        } else {
+          return widget.spaceN1Id == null
+              ? fetchProductsByGroup(widget.groupId, cv)
+              : fetchProductsByGroupAndSpace(
+                  widget.groupId, widget.spaceN1Id, cv);
+        }
       }
     }
-    futureProducts.then((value) {
-      products = value;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     return BasePage(
       title: tl('Escolha o produto desejado', context).toUpperCase(),
-      futureBanners: actualSpaceN1 == null && products.isEmpty
-          ? null
-          : fetchBannersSurface(
-              spaceN1Id: actualSpaceN1?.id.toString() ?? "",
-              products:
-                  products.map((e) => '${e.codProduto}${e.sufixo}').join(",")),
-      futureObject: Future.wait(
-        [
-          fetchListProducts(context),
+      futureBanners: futureBanner,
+      futureObject: futureListProducts,
+      itemsBreadCrumb: generateBreadcrumbs(previousSpace, actualSpaceN1),
+      child: Column(
+        children: [
+          FutureBuilder(
+            future: futureListProducts,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final items = snapshot.data!;
+                return items.isEmpty
+                    ? Text(tl('product_not_found', context))
+                    : GridView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount:
+                              MediaQuery.of(context).size.width ~/ cardItemSize,
+                          mainAxisExtent: cardItemSize + textSpaceSize,
+                          // childAspectRatio: 4 / 3,
+                          crossAxisSpacing: 20.0,
+                          mainAxisSpacing: 20.0,
+                        ),
+                        itemCount: items.length,
+                        itemBuilder: (_, index) {
+                          return CardItem(
+                            cardItem: items[index],
+                            fieldTechSearch: widget.fieldsTechSearch,
+                          );
+                        },
+                      );
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: Text('${snapshot.error} - ${snapshot.stackTrace}'),
+                );
+              } else {
+                return Skeleton(
+                  isLoading: true,
+                  skeleton: Row(
+                    children: List.filled(
+                        MediaQuery.of(context).size.width ~/ cardItemSize,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: SkeletonAvatar(
+                            style: SkeletonAvatarStyle(
+                                height: cardItemSize, width: cardItemSize - 16),
+                          ),
+                        )),
+                  ),
+                  child: Container(),
+                );
+              }
+            },
+          )
         ],
       ),
-      itemsBreadCrumb: generateBreadcrumbs(previousSpace, actualSpaceN1),
-      child: GridItems(futureItems: futureProducts),
     );
   }
 }

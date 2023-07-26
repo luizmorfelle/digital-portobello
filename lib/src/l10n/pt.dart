@@ -41,6 +41,7 @@ const Map<String, String> pt = {
   'la_products_are':
       'Produtos LA são mais resistentes e LC são pouco resistentes. O produto especificado deve possuir valor maior ou igual ao aqui indicado.',
   'language': 'Escolha o idioma',
+  'lang': 'Idioma',
   'portugues': "Português",
   'ingles': 'Inglês',
   'espanhol': 'Espanhol',
@@ -141,7 +142,7 @@ const Map<String, String> pt = {
   'min_res_cleaning_product': 'Mínima resistência a produto de limpeza',
   'cormecial_tipology': 'Tipologia comercial',
   'finishing_characteristics': 'Caracteristicas de acabamento',
-  'edge_finish': 'Acabamento de borda',
+  'edge_finish': 'Acabamento de superfície',
   'others': 'Outros',
   'access_tec_lib': 'Acesse a biblioteca técnica:',
   'access_link_qrcode': 'ACESSE AQUI O LINK PELO QRCODE',

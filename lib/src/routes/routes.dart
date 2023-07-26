@@ -5,6 +5,7 @@ import 'package:digital_portobello/src/pages/home_page.dart';
 import 'package:digital_portobello/src/pages/list_groups_product_page.dart';
 import 'package:digital_portobello/src/pages/list_lines_product_page.dart';
 import 'package:digital_portobello/src/pages/list_products_page.dart';
+import 'package:digital_portobello/src/pages/list_products_page_old.dart';
 import 'package:digital_portobello/src/pages/list_spaces_page.dart';
 import 'package:digital_portobello/src/pages/product_page.dart';
 import 'package:digital_portobello/src/pages/tech_library_page.dart';

@@ -15,7 +15,7 @@ void main() {
   init();
 }
 
-String id = '';
+String id = '100';
 
 Future<void> init() async {
   try {
@@ -28,8 +28,44 @@ Future<void> init() async {
 
   await dotenv.load(fileName: "assets/.env");
   // await WindowManager.instance.setFullScreen(true);
-  id = await rootBundle.loadString('assets/id.txt');
-  await refreshToken();
+  try {
+    id = await rootBundle.loadString('assets/id.txt');
+  } catch (e) {
+    log('Erro ao carregar id.txt');
+  }
+  try {
+    await refreshToken();
+  } catch (e) {
+    log('Erro ao dar refreshToken');
+  }
+
   HttpOverrides.global = MyHttpOverrides();
   runApp(const MainApp());
+  // runApp(MaterialApp(
+  //   home: Scaffold(
+  //     backgroundColor: Colors.white,
+  //     body: Center(
+  //       child: Row(
+  //         mainAxisAlignment: MainAxisAlignment.center,
+  //         children: [
+  //           Text(
+  //             'EM MANUTENÇÃO',
+  //             style: TextStyle(
+  //               fontSize: 45,
+  //               fontWeight: FontWeight.bold,
+  //             ),
+  //           ),
+  //           SizedBox(
+  //             width: 15,
+  //           ),
+  //           Icon(
+  //             Icons.construction,
+  //             color: Colors.black,
+  //             size: 100,
+  //           )
+  //         ],
+  //       ),
+  //     ),
+  //   ),
+  // ));
 }

@@ -10,12 +10,9 @@ import 'package:provider/provider.dart';
 import '../utils/filter_tech_search_utils.dart';
 
 Future<List<ProductModel>> fetchProductsByLineAndSpace(
-    String? line, String? space, BuildContext context) async {
-  final response = await api.get(
-      url: '/products/line/$line/$space',
-      queryParameters: {
-        'cv': Provider.of<SalesChannelProvider>(context).getSaleChannel.id
-      });
+    String? line, String? space, String cv) async {
+  final response = await api
+      .get(url: '/products/line/$line/$space', queryParameters: {'cv': cv});
 
   if (response.statusCode == 200) {
     Iterable iterable = json.decode(response.data);
@@ -32,11 +29,9 @@ Future<List<ProductModel>> fetchProductsByLineAndSpace(
   }
 }
 
-Future<List<ProductModel>> fetchProductsByLine(
-    String? line, BuildContext context) async {
-  final response = await api.get(url: '/products/line/$line', queryParameters: {
-    'cv': Provider.of<SalesChannelProvider>(context).getSaleChannel.id
-  });
+Future<List<ProductModel>> fetchProductsByLine(String? line, String cv) async {
+  final response =
+      await api.get(url: '/products/line/$line', queryParameters: {'cv': cv});
   if (response.statusCode == 200) {
     Iterable iterable = json.decode(response.data);
 
@@ -76,12 +71,9 @@ Future<List<ProductModel>> fetchProducts(
 }
 
 Future<List<ProductModel>> fetchProductsByGroupAndSpace(
-    String? line, String? space, BuildContext context) async {
-  final response = await api.get(
-      url: '/products/groups/$line/$space',
-      queryParameters: {
-        'cv': Provider.of<SalesChannelProvider>(context).getSaleChannel.id
-      });
+    String? line, String? space, String cv) async {
+  final response = await api
+      .get(url: '/products/groups/$line/$space', queryParameters: {'cv': cv});
 
   if (response.statusCode == 200) {
     Iterable iterable = json.decode(response.data);
@@ -99,12 +91,9 @@ Future<List<ProductModel>> fetchProductsByGroupAndSpace(
 }
 
 Future<List<ProductModel>> fetchProductsByGroup(
-    String? group, BuildContext context) async {
-  final response = await api.get(
-      url: '/products/groups/$group',
-      queryParameters: {
-        'cv': Provider.of<SalesChannelProvider>(context).getSaleChannel.id
-      });
+    String? group, String cv) async {
+  final response = await api
+      .get(url: '/products/groups/$group', queryParameters: {'cv': cv});
   if (response.statusCode == 200) {
     Iterable iterable = json.decode(response.data);
 
@@ -119,13 +108,11 @@ Future<List<ProductModel>> fetchProductsByGroup(
 }
 
 Future<List<ProductModel>> fetchProductsByGroupAndSpaceFilters(String? line,
-    String? space, List<FieldTechSearch>? fields, BuildContext context) async {
+    String? space, List<FieldTechSearch>? fields, String cv) async {
   final response = await api.post(
       url: '/products/groups/$line/$space',
       body: getFilterTechSearch(fields),
-      queryParameters: {
-        'cv': Provider.of<SalesChannelProvider>(context).getSaleChannel.id
-      });
+      queryParameters: {'cv': cv});
 
   if (response.statusCode == 200) {
     Iterable iterable = json.decode(response.data);
@@ -143,13 +130,11 @@ Future<List<ProductModel>> fetchProductsByGroupAndSpaceFilters(String? line,
 }
 
 Future<List<ProductModel>> fetchProductsByGroupFilters(
-    String? group, List<FieldTechSearch>? fields, BuildContext context) async {
+    String? group, List<FieldTechSearch>? fields, String cv) async {
   final response = await api.post(
       url: '/products/groups/$group',
       body: getFilterTechSearch(fields),
-      queryParameters: {
-        'cv': Provider.of<SalesChannelProvider>(context).getSaleChannel.id
-      });
+      queryParameters: {'cv': cv});
   if (response.statusCode == 200) {
     Iterable iterable = json.decode(response.data);
 

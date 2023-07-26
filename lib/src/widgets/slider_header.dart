@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:digital_portobello/src/models/banner_model.dart';
+import 'package:digital_portobello/src/utils/size.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletons/skeletons.dart';
 
@@ -65,7 +66,9 @@ class _SliderHeaderState extends State<SliderHeader> {
                                     'assets/images/banners/${image.image}',
                                     errorBuilder: (context, error, stackTrace) {
                                       return Image.network(
-                                        'https://media.portobello.com.br/${image.image}',
+                                        image.image!.startsWith("http")
+                                            ? image.image!
+                                            : 'https://media.portobello.com.br/${image.image}',
                                         width: heightBanner,
                                         height: heightBanner,
                                         fit: BoxFit.cover,
@@ -155,7 +158,7 @@ class _SliderHeaderState extends State<SliderHeader> {
                             ),
                           ),
                         ),
-                      if (snapshot.data!.length > 1)
+                      if (snapshot.data!.length > 1 && !isSmall(context))
                         Align(
                           alignment: Alignment.bottomCenter,
                           child: Padding(

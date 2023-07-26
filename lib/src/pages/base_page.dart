@@ -1,7 +1,9 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:digital_portobello/src/models/banner_model.dart';
 import 'package:digital_portobello/src/models/breadcrumb_item_model.dart';
 import 'package:digital_portobello/src/providers/language_provider.dart';
-import 'package:digital_portobello/src/widgets/custom_back_button.dart';
+import 'package:digital_portobello/src/utils/size.dart';
+import 'package:digital_portobello/src/widgets/buttons/custom_back_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -45,27 +47,44 @@ class BasePage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 20),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              FittedBox(
-                                child: Text(
-                                  title,
-                                  style:
-                                      Theme.of(context).textTheme.headlineLarge,
+                              Flexible(
+                                child: FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  child: AutoSizeText(
+                                    title,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineLarge,
+                                    maxLines: 1,
+                                  ),
                                 ),
                               ),
-                              const Flexible(child: CustomBackButton()),
+                              if (!isSmall(context))
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 16.0),
+                                  child: CustomBackButton(),
+                                ),
                             ],
                           ),
+                          const SizedBox(
+                            height: 10,
+                          ),
                           if (itemsBreadCrumb.isNotEmpty)
-                            Container(
+                            FittedBox(
+                              fit: BoxFit.scaleDown,
                               alignment: Alignment.centerLeft,
                               child: CustomBreadCrumb(
                                 items: itemsBreadCrumb,
                               ),
                             ),
+                          const SizedBox(
+                            height: 10,
+                          ),
                           child,
                         ],
                       ),

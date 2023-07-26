@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:digital_portobello/src/models/banner_model.dart';
+import 'package:digital_portobello/src/utils/size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
@@ -160,39 +161,40 @@ class _CarouselFullScreenPageState extends State<CarouselFullScreenPage> {
                           ),
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: widget.images
-                            .map(
-                              (e) => Material(
-                                color: Colors.transparent,
-                                child: InkWell(
-                                  onTap: () {
-                                    buttonCarouselController.animateToPage(
-                                        widget.images.indexOf(e));
-                                  },
-                                  child: Container(
-                                    margin: const EdgeInsets.symmetric(
-                                        horizontal: 6),
-                                    width: 15,
-                                    height: 15,
-                                    decoration: BoxDecoration(
-                                      color:
-                                          widget.images.indexOf(e) == pageIndex
-                                              ? Colors.black
-                                              : Colors.white,
-                                      shape: BoxShape.circle,
-                                      border: Border.all(
-                                        color: Colors.black,
-                                        width: 1,
+                      if (!isSmall(context))
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: widget.images
+                              .map(
+                                (e) => Material(
+                                  color: Colors.transparent,
+                                  child: InkWell(
+                                    onTap: () {
+                                      buttonCarouselController.animateToPage(
+                                          widget.images.indexOf(e));
+                                    },
+                                    child: Container(
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 6),
+                                      width: 15,
+                                      height: 15,
+                                      decoration: BoxDecoration(
+                                        color: widget.images.indexOf(e) ==
+                                                pageIndex
+                                            ? Colors.black
+                                            : Colors.white,
+                                        shape: BoxShape.circle,
+                                        border: Border.all(
+                                          color: Colors.black,
+                                          width: 1,
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            )
-                            .toList(),
-                      ),
+                              )
+                              .toList(),
+                        ),
                       Material(
                         color: Colors.transparent,
                         child: InkWell(

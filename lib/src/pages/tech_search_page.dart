@@ -1,5 +1,7 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:digital_portobello/src/pages/list_groups_product_page.dart';
-import 'package:digital_portobello/src/widgets/custom_back_button.dart';
+import 'package:digital_portobello/src/utils/size.dart';
+import 'package:digital_portobello/src/widgets/buttons/custom_back_button.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 
@@ -22,14 +24,17 @@ class TechSearchPageState extends State<TechSearchPage> {
       subTitle: tl('advanced_search', context).split(' ')[1],
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Wrap(
+            runAlignment: WrapAlignment.spaceBetween,
             children: [
-              Text(
-                tl('select_filters', context),
-                style: Theme.of(context).textTheme.titleMedium,
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  tl('select_filters', context),
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
               ),
-              const CustomBackButton()
+              if (!isSmall(context)) const CustomBackButton()
             ],
           ),
           const SizedBox(
@@ -43,36 +48,44 @@ class TechSearchPageState extends State<TechSearchPage> {
                     value: field.id,
                     canTapOnHeader: true,
                     headerBuilder: (context, isExpanded) => Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 16.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(tl(field.title, context),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0, vertical: 8),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    constraints: BoxConstraints(
+                                        maxWidth:
+                                            MediaQuery.of(context).size.width /
+                                                1.7),
+                                    child: AutoSizeText(
+                                        tl(field.title, context),
+                                        maxLines: 2,
+                                        maxFontSize: 19,
+                                        minFontSize: 13,
                                         style: Theme.of(context)
                                             .textTheme
                                             .headlineMedium),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    if (field.description != null)
-                                      Tooltip(
-                                        message:
-                                            tl(field.description!, context),
-                                        triggerMode: TooltipTriggerMode.tap,
-                                        child: const Icon(
-                                          Icons.info,
-                                          size: 20,
-                                          color: Colors.black,
-                                        ),
-                                      )
-                                  ],
-                                ),
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  if (field.description != null)
+                                    Tooltip(
+                                      message: tl(field.description!, context),
+                                      triggerMode: TooltipTriggerMode.tap,
+                                      child: const Icon(
+                                        Icons.info,
+                                        size: 20,
+                                        color: Colors.black,
+                                      ),
+                                    )
+                                ],
+                              ),
+                              if (!isSmall(context))
                                 Text(
                                   field.itens
                                       .where((it) => it.checked)
@@ -81,8 +94,7 @@ class TechSearchPageState extends State<TechSearchPage> {
                                       .join(', '),
                                   style: Theme.of(context).textTheme.bodyLarge,
                                 )
-                              ],
-                            ),
+                            ],
                           ),
                         ),
                     body: Padding(

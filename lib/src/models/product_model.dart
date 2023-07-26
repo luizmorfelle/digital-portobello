@@ -529,7 +529,6 @@ class ProductModel extends CardItemModel {
     data['Resistência à Manchas'] = resultadoMinimoLimpeza;
     data['Resistência ao ataque químico de BAIXA concentração'] =
         ataqueQuiBaixaConc;
-    data['min_staining_high'] = ataqueQuiAltaConc;
     data['Expansão por umidade'] = expansaoPorUmidade;
     return data;
   }

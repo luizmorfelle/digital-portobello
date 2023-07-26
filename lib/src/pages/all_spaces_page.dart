@@ -1,7 +1,7 @@
 import 'package:digital_portobello/src/models/usage_model.dart';
 import 'package:digital_portobello/src/pages/base_tech_page.dart';
 import 'package:digital_portobello/src/utils/translate.dart';
-import 'package:digital_portobello/src/widgets/custom_back_button.dart';
+import 'package:digital_portobello/src/widgets/buttons/custom_back_button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -55,8 +55,8 @@ class _AllSpacesPageState extends State<AllSpacesPage> {
               onChange: (value) {
                 setState(() {
                   selectedSurface = value;
-                  futureUsages = Future(() =>
-                      fetchAllSpacesBySurface(int.parse(selectedSurface!.id)));
+                  futureUsages =
+                      fetchAllSpacesBySurface(int.parse(selectedSurface!.id));
                 });
               },
             ),

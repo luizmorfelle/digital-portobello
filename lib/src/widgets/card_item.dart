@@ -1,10 +1,11 @@
 import 'package:digital_portobello/src/models/field_tech_search.dart';
-import 'package:digital_portobello/src/pages/list_products_page.dart';
+import 'package:digital_portobello/src/pages/list_products_page_old.dart';
 import 'package:digital_portobello/src/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../models/card_item_model.dart';
+import '../pages/list_products_page.dart';
 import '../utils/translate.dart';
 
 class CardItem extends StatelessWidget {
@@ -40,7 +41,7 @@ class CardItem extends StatelessWidget {
           child: SizedBox(
             height: cardItemSize + textSpaceSize - 20,
             child: Flex(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               direction: Axis.vertical,
               children: [
