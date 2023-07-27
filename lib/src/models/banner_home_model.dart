@@ -9,21 +9,22 @@ class BannerHomeModel extends BannerModel {
   String? status;
   String? aplicacao;
   String? idsAplicacao;
+  String? idioma;
   int? padrao;
 
-  BannerHomeModel({
-    super.id,
-    super.image,
-    this.titulo,
-    this.texto,
-    this.posicao,
-    required this.ordem,
-    this.dataExpiracao,
-    this.status,
-    this.aplicacao,
-    this.idsAplicacao,
-    this.padrao,
-  });
+  BannerHomeModel(
+      {super.id,
+      super.image,
+      this.titulo,
+      this.texto,
+      this.posicao,
+      required this.ordem,
+      this.dataExpiracao,
+      this.status,
+      this.aplicacao,
+      this.idsAplicacao,
+      this.padrao,
+      this.idioma});
 
   BannerHomeModel.fromJson(Map<String, dynamic> json) {
     id = json['ID'];
@@ -37,6 +38,7 @@ class BannerHomeModel extends BannerModel {
     aplicacao = json['Aplicacao'];
     idsAplicacao = json['IdsAplicacao'];
     padrao = json['Padrao'];
+    idioma = json['Idioma'];
   }
 
   Map<String, dynamic> toJson() {
@@ -52,6 +54,7 @@ class BannerHomeModel extends BannerModel {
     data['Aplicacao'] = aplicacao;
     data['IdsAplicacao'] = idsAplicacao;
     data['Padrao'] = padrao;
+    data['Idioma'] = idioma;
     return data;
   }
 }

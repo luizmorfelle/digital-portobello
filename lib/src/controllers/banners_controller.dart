@@ -15,6 +15,7 @@ Future<List<BannerHomeModel>> fetchBanners() async {
       .where((it) =>
           it.status == 'a' &&
           it.posicao == 'cabeçalho' &&
+          it.idioma == 'pt' &&
           (it.aplicacao == 'T' ||
               (it.aplicacao == 'L' &&
                   it.idsAplicacao!.split(' ').contains(id))))
