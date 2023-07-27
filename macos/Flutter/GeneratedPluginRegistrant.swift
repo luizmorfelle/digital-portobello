@@ -5,7 +5,7 @@
 import FlutterMacOS
 import Foundation
 
-import device_info_plus
+import device_info_plus_macos
 import firebase_core
 import pdfx
 import screen_retriever

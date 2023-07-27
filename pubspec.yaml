@@ -54,7 +54,6 @@ dependencies:
   virtual_keyboard_multi_language: ^1.0.3
   pdf_thumbnail: ^0.1.5+1
   thumbnailer: ^2.2.0
-  pdfx: ^2.4.0
   internet_file: ^1.2.0
   auto_size_text: ^3.0.0
 

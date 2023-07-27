@@ -31,7 +31,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
             ListView(
               shrinkWrap: true,
               children: [
-                const DrawerHeader(
+                DrawerHeader(
                     child: Flex(
                   direction: Axis.vertical,
                   children: [

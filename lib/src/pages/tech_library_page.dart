@@ -34,7 +34,7 @@ class TechLibraryPageState extends State<TechLibraryPage> {
       subTitle: tl('tech_lib', context).split(' ')[1],
       child: Column(
         children: [
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [CustomBackButton()],
           ),
